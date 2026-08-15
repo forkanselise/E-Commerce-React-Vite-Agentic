@@ -6,7 +6,7 @@ namespace NexusBakery.Infrastructure.Persistence.Repositories;
 
 public class MetricsRepository : MongoRepository<SiteMetrics>, IMetricsRepository
 {
-    private const string GlobalMetricsId = "global_metrics";
+    private const string GlobalMetricsId = "000000000000000000000001";
 
     public MetricsRepository(MongoDbContext dbContext) : base(dbContext.SiteMetrics)
     {

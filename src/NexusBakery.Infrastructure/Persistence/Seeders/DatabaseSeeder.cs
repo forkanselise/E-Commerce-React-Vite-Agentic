@@ -530,12 +530,12 @@ public class DatabaseSeeder
 
     private async Task SeedMetricsAsync()
     {
-        var existing = await _context.SiteMetrics.Find(x => x.Id == "global_metrics").FirstOrDefaultAsync();
+        var existing = await _context.SiteMetrics.Find(x => x.Id == "000000000000000000000001").FirstOrDefaultAsync();
         if (existing == null)
         {
             var metrics = new SiteMetrics
             {
-                Id = "global_metrics",
+                Id = "000000000000000000000001",
                 TotalLifetimeVisits = 14280,
                 ActiveLiveUsers = 1,
                 TotalRegisteredUsers = 3,
