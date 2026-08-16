@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nexus Bakery & Tech — Client UI/UX Design & Architecture Showcase</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #090d16;
+      --bg-card: #111827;
+      --bg-card-hover: #1f293d;
+      --accent-amber: #f59e0b;
+      --accent-glow: rgba(245, 158, 11, 0.2);
+      --accent-cyan: #06b6d4;
+      --text-primary: #f9fafb;
+      --text-secondary: #9ca3af;
+      --text-muted: #6b7280;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-accent: rgba(245, 158, 11, 0.3);
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Fixed Top Control Bar */
+    .top-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(9, 13, 22, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 14px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-badge {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--accent-amber);
+      border: 1px solid var(--border-accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      color: #000;
+      border: none;
+      box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(245, 158, 11, 0.5);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-primary);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Container Layout */
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 48px 24px;
+    }
+
+    /* Cover / Executive Summary */
+    .cover-section {
+      background: radial-gradient(circle at 50% 0%, rgba(245, 158, 11, 0.15), transparent 70%), var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 56px 44px;
+      margin-bottom: 48px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cover-section::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 280px;
+      height: 280px;
+      background: radial-gradient(circle, rgba(6, 182, 212, 0.12), transparent 70%);
+      pointer-events: none;
+    }
+
+    .doc-meta {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 18px;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .cover-title {
+      font-size: 2.75rem;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #ffffff 0%, #d1d5db 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .cover-subtitle {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      max-width: 840px;
+      margin-bottom: 32px;
+    }
+
+    .highlight-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .highlight-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-subtle);
+      padding: 20px;
+      border-radius: var(--radius-md);
+    }
+
+    .highlight-card .stat {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--accent-amber);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .highlight-card .label {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    /* Showcase Sections */
+    .section-header {
+      margin-bottom: 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 16px;
+    }
+
+    .section-header h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-header .step-badge {
+      font-size: 0.8rem;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--accent-cyan);
+      background: rgba(6, 182, 212, 0.1);
+      border: 1px solid rgba(6, 182, 212, 0.25);
+      padding: 2px 8px;
+      border-radius: 6px;
+    }
+
+    .showcase-block {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      margin-bottom: 40px;
+      page-break-inside: avoid;
+    }
+
+    .showcase-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 32px;
+      align-items: center;
+    }
+
+    @media (max-width: 900px) {
+      .showcase-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .showcase-preview-frame {
+      background: #000;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
+      position: relative;
+    }
+
+    .preview-header {
+      background: #1a2234;
+      padding: 8px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .dot.red { background: #ef4444; }
+    .dot.yellow { background: #f59e0b; }
+    .dot.green { background: #10b981; }
+
+    .preview-url {
+      font-size: 0.75rem;
+      font-family: 'JetBrains Mono', monospace;
+      color: #94a3b8;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 2px 10px;
+      border-radius: 4px;
+      flex: 1;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .showcase-image {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+
+    .showcase-info h3 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #ffffff;
+    }
+
+    .showcase-info p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+    }
+
+    .feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .feature-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.9rem;
+      color: #e2e8f0;
+    }
+
+    .feature-list li .check-icon {
+      color: var(--accent-amber);
+      font-weight: bold;
+      line-height: 1.4;
+    }
+
+    .tech-tag-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tech-tag {
+      font-size: 0.75rem;
+      font-family: 'JetBrains Mono', monospace;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      color: #cbd5e1;
+    }
+
+    /* Architecture Table */
+    .table-container {
+      overflow-x: auto;
+      margin-top: 16px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    th {
+      text-align: left;
+      padding: 12px 16px;
+      background: rgba(255, 255, 255, 0.04);
+      color: #cbd5e1;
+      font-weight: 600;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    td {
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      color: var(--text-secondary);
+    }
+
+    tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+      color: var(--text-primary);
+    }
+
+    /* Footer */
+    .doc-footer {
+      border-top: 1px solid var(--border-subtle);
+      padding: 40px 0 20px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    /* PRINT / PDF STYLESHEET */
+    @media print {
+      body {
+        background: #ffffff !important;
+        color: #0f172a !important;
+        padding: 0 !important;
+      }
+
+      .top-bar {
+        display: none !important;
+      }
+
+      .container {
+        max-width: 100% !important;
+        padding: 0 !important;
+      }
+
+      .cover-section {
+        background: #f8fafc !important;
+        border: 1px solid #e2e8f0 !important;
+        box-shadow: none !important;
+        color: #0f172a !important;
+        padding: 32px !important;
+        margin-bottom: 24px !important;
+      }
+
+      .cover-title {
+        color: #0f172a !important;
+        -webkit-text-fill-color: #0f172a !important;
+        font-size: 2.2rem !important;
+      }
+
+      .cover-subtitle {
+        color: #475569 !important;
+      }
+
+      .highlight-card {
+        background: #ffffff !important;
+        border: 1px solid #cbd5e1 !important;
+      }
+
+      .highlight-card .stat {
+        color: #d97706 !important;
+      }
+
+      .highlight-card .label {
+        color: #64748b !important;
+      }
+
+      .showcase-block {
+        background: #ffffff !important;
+        border: 1px solid #e2e8f0 !important;
+        padding: 24px !important;
+        margin-bottom: 24px !important;
+        page-break-inside: avoid !important;
+      }
+
+      .showcase-preview-frame {
+        box-shadow: none !important;
+        border: 1px solid #cbd5e1 !important;
+      }
+
+      .preview-header {
+        background: #f1f5f9 !important;
+      }
+
+      .preview-url {
+        background: #e2e8f0 !important;
+        color: #334155 !important;
+      }
+
+      .showcase-info h3 {
+        color: #0f172a !important;
+      }
+
+      .showcase-info p {
+        color: #475569 !important;
+      }
+
+      .feature-list li {
+        color: #1e293b !important;
+      }
+
+      .tech-tag {
+        background: #f1f5f9 !important;
+        border: 1px solid #cbd5e1 !important;
+        color: #334155 !important;
+      }
+
+      th {
+        background: #f1f5f9 !important;
+        color: #0f172a !important;
+        border-bottom: 1px solid #cbd5e1 !important;
+      }
+
+      td {
+        border-bottom: 1px solid #e2e8f0 !important;
+        color: #334155 !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Sticky Navigation & PDF Export Controls -->
+  <header class="top-bar">
+    <div class="brand-title">
+      <span>🍞 Nexus Bakery & Tech</span>
+      <span class="brand-badge">UI/UX Design Deck</span>
+    </div>
+    <div style="display: flex; gap: 12px; align-items: center;">
+      <a href="./interaction_guide.html" class="action-btn btn-secondary">
+        🔄 View Interaction & Data Flows
+      </a>
+      <a href="http://127.0.0.1:5174/" target="_blank" class="action-btn btn-secondary">
+        🌐 Open Live Web App
+      </a>
+      <button onclick="window.print()" class="action-btn btn-primary">
+        🖨️ Export / Print to PDF
+      </button>
+    </div>
+  </header>
+
+  <main class="container">
+    
+    <!-- Executive Deck Cover -->
+    <section class="cover-section">
+      <div class="doc-meta">
+        <span>PROJECT: NEXUS-ECOMMERCE-V1</span>
+        <span>•</span>
+        <span>DATE: 2026-08-16</span>
+        <span>•</span>
+        <span>TARGET: CLIENT REVIEW</span>
+      </div>
+      <h1 class="cover-title">Artisan Bakery, Precision Equipment & Masterclass Platform</h1>
+      <p class="cover-subtitle">
+        A comprehensive design and architectural presentation of the next-generation e-commerce web application featuring real-time SignalR visitor telemetries, AI Concierge hydration formulation copilot, interactive warehouse operations, and a fluid artisan storefront.
+      </p>
+
+      <div class="highlight-grid">
+        <div class="highlight-card">
+          <div class="stat">100%</div>
+          <div class="label">Responsive Modern UI Design</div>
+        </div>
+        <div class="highlight-card">
+          <div class="stat">SignalR</div>
+          <div class="label">Live Visitor & Telemetry Hub</div>
+        </div>
+        <div class="highlight-card">
+          <div class="stat">AI Bot</div>
+          <div class="label">Interactive Baker's Concierge</div>
+        </div>
+        <div class="highlight-card">
+          <div class="stat">IoT / Admin</div>
+          <div class="label">Warehouse & Stock Telemetry</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 1. Hero & Branding Experience -->
+    <section>
+      <div class="section-header">
+        <h2>
+          <span>1. Hero & Brand Experience</span>
+          <span class="step-badge">SCREEN 01</span>
+        </h2>
+        <span style="color: var(--text-muted); font-size: 0.85rem;">Dark Mode Glassmorphic Aesthetic</span>
+      </div>
+
+      <div class="showcase-block">
+        <div class="showcase-grid">
+          <div class="showcase-preview-frame">
+            <div class="preview-header">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+              <span class="preview-url">http://127.0.0.1:5174/ (Landing Hero)</span>
+            </div>
+            <img src="./home_page_top_1786824382747.png" alt="Hero Section" class="showcase-image" />
+          </div>
+
+          <div class="showcase-info">
+            <h3>Cinematic Hero & Live SignalR Pulse</h3>
+            <p>
+              The landing interface greets commercial and artisan bakers with high-contrast typography, live active visitor counters powered by WebSockets, and rapid action shortcuts.
+            </p>
+            <ul class="feature-list">
+              <li><span class="check-icon">✓</span> <strong>Real-time Presence Indicator:</strong> SignalR live visitor badge pulsing with active customer metrics.</li>
+              <li><span class="check-icon">✓</span> <strong>Dual CTAs:</strong> Instant routing to Equipment Catalog and Masterclass booking.</li>
+              <li><span class="check-icon">✓</span> <strong>Trust & Telemetry Ribbon:</strong> 25k+ commercial orders delivered, 99.8% precision rating.</li>
+            </ul>
+            <div class="tech-tag-group">
+              <span class="tech-tag">React 18</span>
+              <span class="tech-tag">SignalR Hub</span>
+              <span class="tech-tag">Glassmorphism</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Store Catalog & Filtering -->
+    <section>
+      <div class="section-header">
+        <h2>
+          <span>2. Commercial Catalog & Dynamic Filtering</span>
+          <span class="step-badge">SCREEN 02</span>
+        </h2>
+        <span style="color: var(--text-muted); font-size: 0.85rem;">Multi-Category Gear & Ingredients</span>
+      </div>
+
+      <div class="showcase-block">
+        <div class="showcase-grid">
+          <div class="showcase-preview-frame">
+            <div class="preview-header">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+              <span class="preview-url">http://127.0.0.1:5174/store (Catalog Filter & Search)</span>
+            </div>
+            <img src="./store_catalog_page_1786824708861.png" alt="Store Catalog" class="showcase-image" />
+          </div>
+
+          <div class="showcase-info">
+            <h3>Categorized Catalog & Instant Search</h3>
+            <p>
+              Engineered for seamless discovery across heavy deck ovens, spiral dough mixers, proofing chambers, and organic flours with instant real-time filtering and live pricing badges.
+            </p>
+            <ul class="feature-list">
+              <li><span class="check-icon">✓</span> <strong>Instant Category Pills:</strong> Deck Ovens, Precision Mixers, Proofing, Specialty Flours.</li>
+              <li><span class="check-icon">✓</span> <strong>Live Search Filter:</strong> Instant keystroke search with responsive layout.</li>
+              <li><span class="check-icon">✓</span> <strong>Card Micro-interactions:</strong> Quick spec inspection, stock warnings, and 1-click cart addition.</li>
+            </ul>
+            <div class="tech-tag-group">
+              <span class="tech-tag">Zustand Store</span>
+              <span class="tech-tag">Client-side Filter</span>
+              <span class="tech-tag">Stock Badges</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Product Detail Modal -->
+    <section>
+      <div class="section-header">
+        <h2>
+          <span>3. Deep Product Specification View</span>
+          <span class="step-badge">SCREEN 03</span>
+        </h2>
+        <span style="color: var(--text-muted); font-size: 0.85rem;">Technical Specs & Stock Assurance</span>
+      </div>
+
+      <div class="showcase-block">
+        <div class="showcase-grid">
+          <div class="showcase-preview-frame">
+            <div class="preview-header">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+              <span class="preview-url">http://127.0.0.1:5174/ (Product Detail Modal)</span>
+            </div>
+            <img src="./product_detail_modal_1786824497126.png" alt="Product Detail Modal" class="showcase-image" />
+          </div>
+
+          <div class="showcase-info">
+            <h3>High-Spec Commercial Modal</h3>
+            <p>
+              Allows clients to review thermal capacities, electrical voltage requirements, warranty durations, and warehouse inventory counts before purchasing.
+            </p>
+            <ul class="feature-list">
+              <li><span class="check-icon">✓</span> <strong>Detailed Specification Grid:</strong> Chamber dimensions, bowl capacity, motor wattage.</li>
+              <li><span class="check-icon">✓</span> <strong>Stock Integrity Badge:</strong> Live inventory alerts (e.g., 'Only 4 left in stock').</li>
+              <li><span class="check-icon">✓</span> <strong>Interactive Quantity Adjuster:</strong> Instant price recalculation before adding to order.</li>
+            </ul>
+            <div class="tech-tag-group">
+              <span class="tech-tag">Lucide Icons</span>
+              <span class="tech-tag">Modal Portal</span>
+              <span class="tech-tag">Spec Matrix</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Interactive Slide-Over Cart Drawer -->
+    <section>
+      <div class="section-header">
+        <h2>
+          <span>4. Slide-Over Cart & Dynamic Calculations</span>
+          <span class="step-badge">SCREEN 04</span>
+        </h2>
+        <span style="color: var(--text-muted); font-size: 0.85rem;">Seamless Order Management</span>
+      </div>
+
+      <div class="showcase-block">
+        <div class="showcase-grid">
+          <div class="showcase-preview-frame">
+            <div class="preview-header">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+              <span class="preview-url">http://127.0.0.1:5174/ (Cart Drawer View)</span>
+            </div>
+            <img src="./cart_drawer_and_modal_1786824561888.png" alt="Cart Drawer" class="showcase-image" />
+          </div>
+
+          <div class="showcase-info">
+            <h3>Cart Drawer & Freight Calculator</h3>
+            <p>
+              A non-blocking drawer UI enabling customers to inspect order lines, enter discount codes, preview commercial shipping rates, and progress smoothly to checkout.
+            </p>
+            <ul class="feature-list">
+              <li><span class="check-icon">✓</span> <strong>Free Shipping Threshold Bar:</strong> Dynamic progress visual motivating higher average order value.</li>
+              <li><span class="check-icon">✓</span> <strong>Coupon Code Validation:</strong> Live promotion calculation (e.g. BAKE10, CHEF20).</li>
+              <li><span class="check-icon">✓</span> <strong>Confetti & Feedback Animation:</strong> Rewarding interactions on checkout action.</li>
+            </ul>
+            <div class="tech-tag-group">
+              <span class="tech-tag">Canvas Confetti</span>
+              <span class="tech-tag">Zustand Cart</span>
+              <span class="tech-tag">Slide-out Drawer</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Video Masterclasses & Academy Hub -->
+    <section>
+      <div class="section-header">
+        <h2>
+          <span>5. Artisan Masterclass Academy Hub</span>
+          <span class="step-badge">SCREEN 05</span>
+        </h2>
+        <span style="color: var(--text-muted); font-size: 0.85rem;">Video Syllabus & Live Booking</span>
+      </div>
+
+      <div class="showcase-block">
+        <div class="showcase-grid">
+          <div class="showcase-preview-frame">
+            <div class="preview-header">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+              <span class="preview-url">http://127.0.0.1:5174/masterclass (Academy Hub)</span>
+            </div>
+            <img src="./home_masterclasses_1786824431323.png" alt="Masterclass Hub" class="showcase-image" />
+          </div>
+
+          <div class="showcase-info">
+            <h3>Artisan Video Masterclasses</h3>
+            <p>
+              Dedicated culinary academy integrating sourdough hydration science, laminated viennoiserie, and artisan fermentation workshops taught by master bakers.
+            </p>
+            <ul class="feature-list">
+              <li><span class="check-icon">✓</span> <strong>Tiered Difficulty Badges:</strong> Beginner, Intermediate, and Master Baker certifications.</li>
+              <li><span class="check-icon">✓</span> <strong>Curriculum & Video Previews:</strong> High-definition lesson walkthroughs and downloadable recipe guides.</li>
+              <li><span class="check-icon">✓</span> <strong>Seat Availability Counters:</strong> Live registration seats remaining.</li>
+            </ul>
+            <div class="tech-tag-group">
+              <span class="tech-tag">Video Player UI</span>
+              <span class="tech-tag">Booking Engine</span>
+              <span class="tech-tag">Curriculum Cards</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. AI Baker's Concierge Drawer -->
+    <section>
+      <div class="section-header">
+        <h2>
+          <span>6. AI Baking Concierge & Formula Copilot</span>
+          <span class="step-badge">SCREEN 06</span>
+        </h2>
+        <span style="color: var(--text-muted); font-size: 0.85rem;">Intelligent Baking Advisor</span>
+      </div>
+
+      <div class="showcase-block">
+        <div class="showcase-grid">
+          <div class="showcase-preview-frame">
+            <div class="preview-header">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+              <span class="preview-url">http://127.0.0.1:5174/ (AI Concierge Drawer)</span>
+            </div>
+            <img src="./ai_concierge_drawer_1786824893287.png" alt="AI Concierge Drawer" class="showcase-image" />
+          </div>
+
+          <div class="showcase-info">
+            <h3>AI Baker's Assistant & Hydration Calculator</h3>
+            <p>
+              An intelligent slide-over concierge designed to assist bakers with flour hydration formulas, sourdough troubleshooting, and customized equipment matching.
+            </p>
+            <ul class="feature-list">
+              <li><span class="check-icon">✓</span> <strong>Flour Hydration Math:</strong> Immediate Baker's Percentage calculation for precise dough consistency.</li>
+              <li><span class="check-icon">✓</span> <strong>Troubleshooting Guidance:</strong> Diagnostic assistance for crust blistering, crumb structure, and fermentation.</li>
+              <li><span class="check-icon">✓</span> <strong>Direct Equipment Recommendations:</strong> AI suggests exact catalog products matched to requirements.</li>
+            </ul>
+            <div class="tech-tag-group">
+              <span class="tech-tag">SignalR Agent</span>
+              <span class="tech-tag">Formula Engine</span>
+              <span class="tech-tag">Live Stream UI</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. Warehouse Admin & IoT Telemetry Hub -->
+    <section>
+      <div class="section-header">
+        <h2>
+          <span>7. Warehouse Operations & Telemetry Hub</span>
+          <span class="step-badge">SCREEN 07</span>
+        </h2>
+        <span style="color: var(--text-muted); font-size: 0.85rem;">Industrial IoT Inventory Console</span>
+      </div>
+
+      <div class="showcase-block">
+        <div class="showcase-grid">
+          <div class="showcase-preview-frame">
+            <div class="preview-header">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+              <span class="preview-url">http://127.0.0.1:5174/warehouse (Admin Dashboard)</span>
+            </div>
+            <img src="./warehouse_admin_hub_1786824871073.png" alt="Warehouse Admin Hub" class="showcase-image" />
+          </div>
+
+          <div class="showcase-info">
+            <h3>Commercial Warehouse & Stock Console</h3>
+            <p>
+              Operations dashboard for warehouse managers and logistics directors to monitor real-time stock levels, cold-storage temperatures, and supplier restocking.
+            </p>
+            <ul class="feature-list">
+              <li><span class="check-icon">✓</span> <strong>Live Telemetry Gauges:</strong> Cold storage humidity (62%) and temperature (4.2°C) sensors.</li>
+              <li><span class="check-icon">✓</span> <strong>Restock Automation Triggers:</strong> 1-click purchase order creation for low-stock equipment.</li>
+              <li><span class="check-icon">✓</span> <strong>Fulfillment Tracker:</strong> Dispatch pipeline monitoring from picking to freight transit.</li>
+            </ul>
+            <div class="tech-tag-group">
+              <span class="tech-tag">IoT Telemetry</span>
+              <span class="tech-tag">Inventory Grid</span>
+              <span class="tech-tag">Admin Role Gate</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. Authentication & Wholesale Partner Modal -->
+    <section>
+      <div class="section-header">
+        <h2>
+          <span>8. Authentication & Partner Portal Modal</span>
+          <span class="step-badge">SCREEN 08</span>
+        </h2>
+        <span style="color: var(--text-muted); font-size: 0.85rem;">Role-based Security & Evaluation Switcher</span>
+      </div>
+
+      <div class="showcase-block">
+        <div class="showcase-grid">
+          <div class="showcase-preview-frame">
+            <div class="preview-header">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+              <span class="preview-url">http://127.0.0.1:5174/ (Auth Modal)</span>
+            </div>
+            <img src="./auth_modal_1786824834981.png" alt="Auth Modal" class="showcase-image" />
+          </div>
+
+          <div class="showcase-info">
+            <h3>Enterprise Sign In & Fast Switcher</h3>
+            <p>
+              Clean authentication interface featuring customer and wholesale partner login tabs, with a built-in evaluation switcher for instant testing of all user permission levels.
+            </p>
+            <ul class="feature-list">
+              <li><span class="check-icon">✓</span> <strong>Role Switcher:</strong> Instantly switch between Guest, Wholesale Baker, and Warehouse Admin.</li>
+              <li><span class="check-icon">✓</span> <strong>B2B Wholesale Application:</strong> Dedicated form for commercial tax ID and bakery credit line requests.</li>
+              <li><span class="check-icon">✓</span> <strong>State Synchronization:</strong> Persisted token storage via Zustand and LocalStorage.</li>
+            </ul>
+            <div class="tech-tag-group">
+              <span class="tech-tag">Role-Based Auth</span>
+              <span class="tech-tag">B2B Wholesale</span>
+              <span class="tech-tag">Fast Switcher</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Summary Architecture & Technology Matrix -->
+    <section style="margin-top: 48px;">
+      <div class="section-header">
+        <h2>
+          <span>Technical Architecture & Component Matrix</span>
+          <span class="step-badge">SYSTEM OVERVIEW</span>
+        </h2>
+      </div>
+
+      <div class="showcase-block">
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Component / Module</th>
+                <th>Primary Function</th>
+                <th>State / Real-Time Integration</th>
+                <th>UI Pattern</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Navbar & Presence</strong></td>
+                <td>Global routing, active tab indicator, live visitor counts</td>
+                <td><code>SignalR /visitorHub</code></td>
+                <td>Glassmorphic Sticky Header</td>
+              </tr>
+              <tr>
+                <td><strong>Hero Section</strong></td>
+                <td>Cinematic branding, core metrics, dual CTA</td>
+                <td>Local Tab Routing</td>
+                <td>Gradient Hero + Stat Pills</td>
+              </tr>
+              <tr>
+                <td><strong>Store Catalog</strong></td>
+                <td>Gear & ingredient browsing, search, category filters</td>
+                <td><code>useCartStore</code></td>
+                <td>Filter Bar + Product Card Grid</td>
+              </tr>
+              <tr>
+                <td><strong>Product Detail Modal</strong></td>
+                <td>Technical specs, dimensions, stock integrity checks</td>
+                <td><code>useState</code> Modal State</td>
+                <td>Centered Spec Portal</td>
+              </tr>
+              <tr>
+                <td><strong>Cart Drawer</strong></td>
+                <td>Slide-out order inspection, coupon codes, checkout</td>
+                <td><code>useCartStore</code> + Confetti</td>
+                <td>Right Slide-Over Drawer</td>
+              </tr>
+              <tr>
+                <td><strong>Masterclass Hub</strong></td>
+                <td>Culinary video courses, syllabus preview, registration</td>
+                <td>Interactive Booking State</td>
+                <td>Course Cards + Curriculum List</td>
+              </tr>
+              <tr>
+                <td><strong>AI Concierge</strong></td>
+                <td>Hydration calculator, sourdough advice, gear matching</td>
+                <td><code>SignalR /agentHub</code></td>
+                <td>Chat Stream Drawer</td>
+              </tr>
+              <tr>
+                <td><strong>Warehouse Admin Hub</strong></td>
+                <td>Inventory tracking, IoT temperature telemetry, restock</td>
+                <td>Admin Role Filtered State</td>
+                <td>Operations Dashboard & Gauges</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <footer class="doc-footer">
+      <p>Nexus Bakery & Tech E-Commerce Platform • Prepared for Client Demonstration & Review</p>
+      <p style="margin-top: 4px; font-size: 0.75rem;">Generated with Antigravity UI Studio • 2026</p>
+    </footer>
+
+  </main>
+
+</body>
+</html>

@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nexus Bakery & Tech — End-to-End System Interaction & User Journey Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #080c14;
+      --bg-card: #0f172a;
+      --bg-card-alt: #162035;
+      --accent-amber: #f59e0b;
+      --accent-amber-light: #fbbf24;
+      --accent-cyan: #06b6d4;
+      --accent-purple: #8b5cf6;
+      --accent-emerald: #10b981;
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-accent: rgba(245, 158, 11, 0.25);
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-primary);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Fixed Header */
+    .top-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(8, 12, 20, 0.88);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 14px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-badge {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: rgba(6, 182, 212, 0.15);
+      color: var(--accent-cyan);
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      text-transform: uppercase;
+    }
+
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      color: #000;
+      border: none;
+      box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(245, 158, 11, 0.5);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-primary);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Container Layout */
+    .container {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 40px 24px;
+    }
+
+    /* Hero Banner */
+    .hero-banner {
+      background: radial-gradient(circle at top right, rgba(6, 182, 212, 0.12), transparent 50%),
+                  radial-gradient(circle at bottom left, rgba(245, 158, 11, 0.12), transparent 50%),
+                  var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 48px;
+      margin-bottom: 40px;
+      position: relative;
+    }
+
+    .hero-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--accent-amber);
+      letter-spacing: 0.08em;
+      margin-bottom: 12px;
+      display: inline-block;
+    }
+
+    .hero-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-desc {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      max-width: 800px;
+    }
+
+    /* Flow Section */
+    .flow-section {
+      margin-bottom: 48px;
+      page-break-inside: avoid;
+    }
+
+    .flow-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 12px;
+    }
+
+    .flow-header h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .flow-badge {
+      font-size: 0.75rem;
+      font-family: 'JetBrains Mono', monospace;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-weight: 600;
+    }
+
+    .flow-badge.ecommerce { background: rgba(245, 158, 11, 0.15); color: var(--accent-amber); border: 1px solid var(--border-accent); }
+    .flow-badge.ai { background: rgba(139, 92, 246, 0.15); color: var(--accent-purple); border: 1px solid rgba(139, 92, 246, 0.3); }
+    .flow-badge.iot { background: rgba(16, 185, 129, 0.15); color: var(--accent-emerald); border: 1px solid rgba(16, 185, 129, 0.3); }
+    .flow-badge.academy { background: rgba(6, 182, 212, 0.15); color: var(--accent-cyan); border: 1px solid rgba(6, 182, 212, 0.3); }
+
+    /* Interactive Journey Steps */
+    .journey-timeline {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      position: relative;
+    }
+
+    .journey-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: all 0.2s ease;
+    }
+
+    .journey-card:hover {
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .step-number {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent-amber);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .journey-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #fff;
+    }
+
+    .journey-card p {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      margin-bottom: 14px;
+      flex: 1;
+    }
+
+    .step-signal {
+      font-size: 0.75rem;
+      font-family: 'JetBrains Mono', monospace;
+      background: rgba(255, 255, 255, 0.04);
+      padding: 4px 8px;
+      border-radius: 4px;
+      color: var(--accent-cyan);
+      border-left: 2px solid var(--accent-cyan);
+    }
+
+    /* Sequence Box / Diagram */
+    .diagram-box {
+      background: var(--bg-card-alt);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      margin-top: 20px;
+    }
+
+    .diagram-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #e2e8f0;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sequence-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .sequence-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      background: rgba(0, 0, 0, 0.2);
+      padding: 12px 16px;
+      border-radius: var(--radius-sm);
+      border-left: 3px solid var(--accent-amber);
+    }
+
+    .seq-actor {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+      color: #fff;
+      min-width: 140px;
+    }
+
+    .seq-arrow {
+      color: var(--accent-amber);
+      font-weight: bold;
+    }
+
+    .seq-action {
+      flex: 1;
+      color: #e2e8f0;
+    }
+
+    /* Comparison Table */
+    .matrix-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 16px;
+      font-size: 0.88rem;
+    }
+
+    .matrix-table th {
+      text-align: left;
+      padding: 12px 16px;
+      background: rgba(255, 255, 255, 0.04);
+      color: #cbd5e1;
+      font-weight: 600;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .matrix-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      color: var(--text-secondary);
+    }
+
+    .matrix-table tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+      color: var(--text-primary);
+    }
+
+    /* Print Styles */
+    @media print {
+      body {
+        background: #ffffff !important;
+        color: #0f172a !important;
+      }
+
+      .top-bar {
+        display: none !important;
+      }
+
+      .container {
+        max-width: 100% !important;
+        padding: 0 !important;
+      }
+
+      .hero-banner {
+        background: #f8fafc !important;
+        border: 1px solid #e2e8f0 !important;
+        color: #0f172a !important;
+        padding: 24px !important;
+        margin-bottom: 24px !important;
+      }
+
+      .hero-title {
+        color: #0f172a !important;
+        -webkit-text-fill-color: #0f172a !important;
+        font-size: 2rem !important;
+      }
+
+      .hero-desc {
+        color: #475569 !important;
+      }
+
+      .journey-card {
+        background: #ffffff !important;
+        border: 1px solid #cbd5e1 !important;
+        color: #0f172a !important;
+        page-break-inside: avoid !important;
+      }
+
+      .journey-card h3 {
+        color: #0f172a !important;
+      }
+
+      .journey-card p {
+        color: #475569 !important;
+      }
+
+      .diagram-box {
+        background: #f8fafc !important;
+        border: 1px solid #cbd5e1 !important;
+      }
+
+      .sequence-item {
+        background: #ffffff !important;
+        border: 1px solid #e2e8f0 !important;
+        border-left: 3px solid #d97706 !important;
+      }
+
+      .seq-actor {
+        color: #0f172a !important;
+      }
+
+      .seq-action {
+        color: #334155 !important;
+      }
+
+      .matrix-table th {
+        background: #f1f5f9 !important;
+        color: #0f172a !important;
+        border-bottom: 1px solid #cbd5e1 !important;
+      }
+
+      .matrix-table td {
+        border-bottom: 1px solid #e2e8f0 !important;
+        color: #334155 !important;
+      }
+
+      .flow-section {
+        page-break-inside: avoid !important;
+        margin-bottom: 24px !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Fixed Header & Actions -->
+  <header class="top-bar">
+    <div class="brand-title">
+      <span>🍞 Nexus Bakery & Tech</span>
+      <span class="brand-badge">Interaction Architecture</span>
+    </div>
+    <div style="display: flex; gap: 12px; align-items: center;">
+      <a href="./index.html" class="action-btn btn-secondary">
+        🖼️ View UI Screenshots Deck
+      </a>
+      <a href="http://127.0.0.1:5174/" target="_blank" class="action-btn btn-secondary">
+        🌐 Open Live Web App
+      </a>
+      <button onclick="window.print()" class="action-btn btn-primary">
+        🖨️ Export / Print to PDF
+      </button>
+    </div>
+  </header>
+
+  <main class="container">
+    
+    <!-- Hero / Title -->
+    <section class="hero-banner">
+      <div class="hero-tag">SYSTEM INTERACTION ARCHITECTURE • CLIENT SPECIFICATION</div>
+      <h1 class="hero-title">End-to-End User Interaction & Real-Time Data Flows</h1>
+      <p class="hero-desc">
+        A deep dive into how customers, wholesale partners, and warehouse operators interact with the platform. This document traces live WebSocket triggers, AI copilot formula streaming, dynamic shopping cart recalculations, and warehouse IoT telemetry.
+      </p>
+    </section>
+
+    <!-- User Flow 1: E-Commerce Store & Order Flow -->
+    <section class="flow-section">
+      <div class="flow-header">
+        <h2>
+          <span>🛒 1. Customer Shopping & Instant Cart Interaction</span>
+        </h2>
+        <span class="flow-badge ecommerce">B2C & B2B STOREFRONT</span>
+      </div>
+
+      <div class="journey-timeline">
+        <div class="journey-card">
+          <div class="step-number">STEP 01</div>
+          <h3>Discovery & Filter</h3>
+          <p>Customer arrives on the Store tab, filters by category (Ovens, Mixers, Flours), and searches with instant client-side query matching.</p>
+          <div class="step-signal">EVENT: CategoryFilterChanged</div>
+        </div>
+
+        <div class="journey-card">
+          <div class="step-number">STEP 02</div>
+          <h3>Spec Modal Inspection</h3>
+          <p>Clicking an item opens the modal portal showing power voltage, dimensions, chamber capacity, and live inventory count.</p>
+          <div class="step-signal">EVENT: OpenProductModal(id)</div>
+        </div>
+
+        <div class="journey-card">
+          <div class="step-number">STEP 03</div>
+          <h3>Quantity & Add to Cart</h3>
+          <p>Customer chooses quantity and clicks 'Add to Cart'. The slide-over drawer animates open immediately showing updated totals.</p>
+          <div class="step-signal">STATE: Zustand useCartStore.add</div>
+        </div>
+
+        <div class="journey-card">
+          <div class="step-number">STEP 04</div>
+          <h3>Freight & Checkout</h3>
+          <p>The free freight progress bar computes remaining amount. Entering coupon codes triggers instant discounts with celebratory confetti.</p>
+          <div class="step-signal">ANIMATION: Canvas Confetti Burst</div>
+        </div>
+      </div>
+
+      <div class="diagram-box">
+        <div class="diagram-title">🔄 Store & Cart State Interaction Sequence</div>
+        <ul class="sequence-list">
+          <li class="sequence-item">
+            <span class="seq-actor">Customer</span>
+            <span class="seq-arrow">➔</span>
+            <span class="seq-action">Selects "Heavy Deck Oven 4-Tray" and sets quantity to 2</span>
+          </li>
+          <li class="sequence-item">
+            <span class="seq-actor">Product Modal</span>
+            <span class="seq-arrow">➔</span>
+            <span class="seq-action">Dispatches <code>addToCart(product, 2)</code> to Zustand Global Store</span>
+          </li>
+          <li class="sequence-item">
+            <span class="seq-actor">Cart Drawer</span>
+            <span class="seq-arrow">➔</span>
+            <span class="seq-action">Recalculates Subtotal ($6,800.00), Tax ($544.00), and validates Free Freight Threshold (> $2,500)</span>
+          </li>
+          <li class="sequence-item">
+            <span class="seq-actor">Checkout Action</span>
+            <span class="seq-arrow">➔</span>
+            <span class="seq-action">Applies Coupon <code>BAKE10</code> (-10% Discount) and renders confirmation celebration</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- User Flow 2: AI Baking Concierge & Formulation Copilot -->
+    <section class="flow-section">
+      <div class="flow-header">
+        <h2>
+          <span>✨ 2. AI Baking Concierge & Formula Interaction</span>
+        </h2>
+        <span class="flow-badge ai">SIGNALR STREAMING AGENT</span>
+      </div>
+
+      <div class="journey-timeline">
+        <div class="journey-card">
+          <div class="step-number">STEP 01</div>
+          <h3>Drawer Activation</h3>
+          <p>Baker opens the AI Concierge from any screen to solve dough hydration, oven steaming, or fermentation issues.</p>
+          <div class="step-signal">UI: Slide-Over AI Drawer</div>
+        </div>
+
+        <div class="journey-card">
+          <div class="step-number">STEP 02</div>
+          <h3>Formula Inquiry</h3>
+          <p>User enters questions like: <em>"Calculate 78% hydration sourdough for 4 loaves with whole wheat blend"</em>.</p>
+          <div class="step-signal">WEBSOCKET: /agentHub SendMessage</div>
+        </div>
+
+        <div class="journey-card">
+          <div class="step-number">STEP 03</div>
+          <h3>Formula Computation</h3>
+          <p>The AI formats exact Baker's Percentages (Flour: 2,000g, Water: 1,560g, Starter: 400g, Salt: 40g).</p>
+          <div class="step-signal">STREAM: Live Token Streaming</div>
+        </div>
+
+        <div class="journey-card">
+          <div class="step-number">STEP 04</div>
+          <h3>Direct Product Link</h3>
+          <p>AI attaches recommended commercial proofing baskets and bannetons directly into chat with 1-click cart insertion.</p>
+          <div class="step-signal">CTA: 1-Click Product Injection</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- User Flow 3: Warehouse & IoT Operations Hub -->
+    <section class="flow-section">
+      <div class="flow-header">
+        <h2>
+          <span>📦 3. Warehouse Operations & Telemetry Interaction</span>
+        </h2>
+        <span class="flow-badge iot">INDUSTRIAL IOT & LOGISTICS</span>
+      </div>
+
+      <div class="journey-timeline">
+        <div class="journey-card">
+          <div class="step-number">STEP 01</div>
+          <h3>Live Telemetry Feed</h3>
+          <p>Sensor gauges monitor cold fermentation rooms (4.2°C) and grain storage humidity (62%) in real-time.</p>
+          <div class="step-signal">SIGNAL: IoT Sensor Telemetry</div>
+        </div>
+
+        <div class="journey-card">
+          <div class="step-number">STEP 02</div>
+          <h3>Stock Threshold Alert</h3>
+          <p>When deck ovens or organic rye flour fall below safety limits, the system raises visual low-stock badges.</p>
+          <div class="step-signal">ALERT: Stock < Threshold</div>
+        </div>
+
+        <div class="journey-card">
+          <div class="step-number">STEP 03</div>
+          <h3>1-Click Restock PO</h3>
+          <p>Warehouse managers click 'Trigger Restock PO' to instantly notify certified European manufacturers.</p>
+          <div class="step-signal">ACTION: Automated PO Generation</div>
+        </div>
+
+        <div class="journey-card">
+          <div class="step-number">STEP 04</div>
+          <h3>Fulfillment Tracker</h3>
+          <p>Tracks commercial orders from Pick & Pack -> Freight Loading -> En Route with live GPS milestones.</p>
+          <div class="step-signal">STATUS: Dispatch Telemetry</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- User Flow 4: Masterclass Academy Hub -->
+    <section class="flow-section">
+      <div class="flow-header">
+        <h2>
+          <span>🎓 4. Masterclass Academy & Video Interaction</span>
+        </h2>
+        <span class="flow-badge academy">CULINARY EDUCATION</span>
+      </div>
+
+      <div class="journey-timeline">
+        <div class="journey-card">
+          <div class="step-number">STEP 01</div>
+          <h3>Course Selection</h3>
+          <p>Users browse sourdough science, croissant lamination, and panettone masterclasses with difficulty tags.</p>
+          <div class="step-signal">FILTER: Course Difficulty</div>
+        </div>
+
+        <div class="journey-card">
+          <div class="step-number">STEP 02</div>
+          <h3>Curriculum Breakdown</h3>
+          <p>Interactive accordion displays video lesson chapters, downloadable formula PDFs, and instructor bios.</p>
+          <div class="step-signal">VIEW: Lesson Syllabus & Preview</div>
+        </div>
+
+        <div class="journey-card">
+          <div class="step-number">STEP 03</div>
+          <h3>Live Seat Reservation</h3>
+          <p>Real-time countdown shows available seats remaining for live interactive Zoom tasting sessions.</p>
+          <div class="step-signal">COUNTER: Remaining Seats Live</div>
+        </div>
+
+        <div class="journey-card">
+          <div class="step-number">STEP 04</div>
+          <h3>Instant Enrollment</h3>
+          <p>Completes registration and unlocks immediate access to high-definition video masterclass modules.</p>
+          <div class="step-signal">ACCESS: Unlocked Course Portal</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Summary Interaction Matrix -->
+    <section class="flow-section">
+      <div class="flow-header">
+        <h2>
+          <span>📊 System Interaction & Role Permission Matrix</span>
+        </h2>
+      </div>
+
+      <div class="diagram-box">
+        <table class="matrix-table">
+          <thead>
+            <tr>
+              <th>Role / Persona</th>
+              <th>Storefront & Cart</th>
+              <th>AI Concierge Copilot</th>
+              <th>Masterclass Academy</th>
+              <th>Warehouse IoT Hub</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Guest Shopper</strong></td>
+              <td>Full Browse, Retail Prices, Cart Drawer</td>
+              <td>General Baking & Hydration Advice</td>
+              <td>Preview Syllabus & Book Seats</td>
+              <td>View-Only Public Metrics</td>
+            </tr>
+            <tr>
+              <td><strong>B2B Wholesale Partner</strong></td>
+              <td>Volume Tier Pricing, Net-30 Invoicing</td>
+              <td>Commercial Batch Formula Scaling</td>
+              <td>Team Masterclass Licensing</td>
+              <td>Supplier Delivery Lead Times</td>
+            </tr>
+            <tr>
+              <td><strong>Warehouse Operations Admin</strong></td>
+              <td>Inventory Count Override, Barcode Scan</td>
+              <td>Equipment Diagnostics & Repair Assist</td>
+              <td>Instructor Resource Management</td>
+              <td>Full Sensor Telemetry & PO Restock</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer style="margin-top: 40px; text-align: center; color: var(--text-muted); font-size: 0.85rem; padding: 24px 0;">
+      <p>Nexus Bakery & Tech • Comprehensive Interaction Architecture Document</p>
+      <p style="margin-top: 4px; font-size: 0.75rem;">Exportable to PDF via Standard Browser Print (Ctrl+P / 🖨️ Export to PDF)</p>
+    </footer>
+
+  </main>
+
+</body>
+</html>
