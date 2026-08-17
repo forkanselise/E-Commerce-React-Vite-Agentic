@@ -34,14 +34,15 @@ To execute this plan, we will utilize a specialized team of AI subagents.
 | **Coder** | Implements the code based on the Code Explorer's findings and Designer's specs. Writes both frontend (React) and backend (C#) code. |
 | **Tester** | Writes and runs unit tests (xUnit for backend, Vitest for frontend) for the newly implemented code. |
 | **Self Tester & Code Fix** | (Looping Agent) Runs tests, identifies failures or lint errors, and fixes the code. It iterates up to 10 times to ensure the code works perfectly. |
+| **Quality Checker** | Performs static analysis, code quality reviews, and enforces the `nexus_coding_standards.md`. Ensures clean architecture and optimal logic. |
 | **Validator** | Performs an integration review, ensuring the frontend and backend are communicating correctly and business requirements are met. |
 | **PR Creator** | Stages the verified changes, writes a comprehensive pull request description, and commits the code. |
 
 ## 3. Execution Strategy
 
 1.  **Phase 1: Discovery** (Code Explorer & Designer)
-2.  **Phase 2: Backend Implementation** (Coder -> Tester -> Self Tester)
-3.  **Phase 3: Frontend Implementation** (Coder -> Tester -> Self Tester)
+2.  **Phase 2: Backend Implementation** (Coder -> Quality Checker -> Tester -> Self Tester)
+3.  **Phase 3: Frontend Implementation** (Coder -> Quality Checker -> Tester -> Self Tester)
 4.  **Phase 4: Integration & Validation** (Validator)
 5.  **Phase 5: Delivery** (PR Creator)
 
