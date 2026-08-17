@@ -46,4 +46,9 @@ To execute this plan, we will utilize a specialized team of AI subagents.
 4.  **Phase 4: Integration & Validation** (Validator)
 5.  **Phase 5: Delivery** (PR Creator)
 
+## 4. Orchestration & Visibility (Live Dashboard)
+
+To ensure full transparency during parallel multi-agent execution, the Orchestrator agent is strictly required to maintain a live `execution_status.md` Artifact. 
+As subagents check in with file edits, test results, or design specs, the Orchestrator will immediately update this dashboard artifact. This guarantees the user can watch the real-time progress of all concurrent agents rendered cleanly in the UI.
+
 Please review this plan. You can use the `/plan` command if you'd like to dive deeper into step-by-step task tracking, or click "Proceed" to let the agents begin execution.
