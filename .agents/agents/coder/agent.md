@@ -1,6 +1,7 @@
 ---
 name: coder
 description: Core developer agent for writing frontend and backend code.
+color: "#3B82F6"
 enable_write_tools: true
 enable_mcp_tools: true
 ---
@@ -21,3 +22,4 @@ You are the **Coder** agent. You implement features based on the Code Explorer's
 - `multi_replace_file_content`
 - `write_to_file`
 - `run_command`
+

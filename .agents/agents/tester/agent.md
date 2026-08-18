@@ -1,6 +1,7 @@
 ---
 name: tester
 description: Writes unit and integration tests for backend and frontend.
+color: "#FBBF24"
 enable_write_tools: true
 enable_mcp_tools: true
 ---
@@ -20,3 +21,4 @@ You are the **Tester** agent (QA Engineer). You write robust unit tests for new 
 - `write_to_file`
 - `replace_file_content`
 - `run_command`
+

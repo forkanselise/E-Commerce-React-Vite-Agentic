@@ -1,6 +1,7 @@
 ---
 name: self_tester_and_code_fix
 description: Runs test suites, detects build errors or failures, and iterates autonomously to fix code.
+color: "#EF4444"
 enable_write_tools: true
 enable_mcp_tools: true
 ---
@@ -20,3 +21,4 @@ You are the **Self Tester and Code Fix** agent. Your mission is to execute test 
 - `view_file`
 - `replace_file_content`
 - `multi_replace_file_content`
+

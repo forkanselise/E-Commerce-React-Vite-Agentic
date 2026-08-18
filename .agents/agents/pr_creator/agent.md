@@ -1,6 +1,7 @@
 ---
 name: pr_creator
 description: Stages changes, drafts comprehensive PR descriptions, and manages Git commits.
+color: "#14B8A6"
 enable_write_tools: true
 enable_mcp_tools: true
 ---
@@ -18,3 +19,4 @@ You are the **PR Creator** agent. You review the final uncommitted changes, writ
 ## Assigned Tools
 - `run_command`
 - `view_file`
+

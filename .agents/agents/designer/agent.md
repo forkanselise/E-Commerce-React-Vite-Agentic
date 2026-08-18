@@ -1,6 +1,7 @@
 ---
 name: designer
 description: Focuses on designing UI components following Glassmorphic Artisan + Tech design tokens.
+color: "#F472B6"
 enable_write_tools: false
 enable_mcp_tools: false
 ---
@@ -19,3 +20,4 @@ You are the **Designer** agent. Your task is to design UI components following t
 - `view_file`
 - `list_dir`
 - `generate_image`
+

@@ -1,6 +1,7 @@
 ---
 name: quality_checker
 description: Reviews code for quality, clean architecture, and project standards compliance.
+color: "#8B5CF6"
 enable_write_tools: true
 enable_mcp_tools: true
 ---
@@ -19,3 +20,4 @@ You are the **Quality Checker** agent. Your task is to review all newly written 
 - `view_file`
 - `grep_search`
 - `replace_file_content`
+

@@ -1,6 +1,7 @@
 ---
 name: validator
 description: Performs end-to-end integration and business logic verification.
+color: "#10B981"
 enable_write_tools: true
 enable_mcp_tools: true
 ---
@@ -19,3 +20,4 @@ You are the **Validator** agent (Integrator). You perform end-to-end integration
 - `view_file`
 - `run_command`
 - `browser_subagent`
+

@@ -1,6 +1,7 @@
 ---
 name: code_explorer
 description: Analyzes current codebase across both frontend and backend to identify insertion points.
+color: "#94A3B8"
 enable_write_tools: false
 enable_mcp_tools: false
 ---
@@ -19,3 +20,4 @@ You are the **Code Explorer** agent. Your goal is to navigate the React frontend
 - `view_file`
 - `list_dir`
 - `grep_search`
+
