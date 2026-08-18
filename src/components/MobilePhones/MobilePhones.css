@@ -1,0 +1,233 @@
+/* src/components/MobilePhones/MobilePhones.css */
+
+/* List Styles */
+.mobile-hub-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.mobile-hub-title {
+  font-size: 1.875rem;
+  font-weight: 700;
+}
+
+.mobile-hub-controls {
+  display: flex;
+  gap: 1rem;
+}
+
+.mobile-hub-input {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem 1rem;
+  color: var(--text-primary);
+  outline: none;
+}
+
+.mobile-hub-input:focus {
+  border-color: var(--color-cyan-500);
+}
+
+.mobile-list-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.mobile-list-message {
+  text-align: center;
+  padding: 2.5rem 0;
+}
+
+.mobile-list-loading {
+  color: var(--color-cyan-500);
+  font-weight: 700;
+}
+
+.mobile-list-empty {
+  color: var(--text-secondary);
+}
+
+/* Card Styles */
+.mobile-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  cursor: pointer;
+}
+
+.mobile-card-image-container {
+  position: relative;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.2);
+  height: 240px;
+}
+
+.mobile-card-image {
+  max-height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 8px rgba(0, 0, 0, 0.04)) drop-shadow(0 4px 3px rgba(0, 0, 0, 0.1));
+}
+
+.mobile-card-badge {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+}
+
+.mobile-card-content {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.mobile-card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mobile-card-specs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.mobile-card-footer {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mobile-card-price {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+/* Details Styles */
+.mobile-details-container {
+  padding: 2.5rem 0;
+}
+
+.mobile-details-back {
+  margin-bottom: 1.5rem;
+  color: var(--color-cyan-400);
+  font-weight: 600;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.mobile-details-back:hover {
+  color: var(--color-cyan-500);
+}
+
+.mobile-details-panel {
+  padding: 2.5rem;
+}
+
+.mobile-details-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+}
+
+@media (min-width: 768px) {
+  .mobile-details-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.mobile-details-image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: var(--radius-xl);
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.mobile-details-image {
+  width: 100%;
+  max-width: 28rem;
+  object-fit: contain;
+  filter: drop-shadow(0 25px 25px rgba(0, 0, 0, 0.15));
+}
+
+.mobile-details-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.mobile-details-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.mobile-details-price {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 1.5rem;
+}
+
+.mobile-details-desc {
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  line-height: 1.625;
+}
+
+.mobile-details-specs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.mobile-details-spec-item {
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.mobile-details-spec-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.mobile-details-spec-val {
+  font-weight: 500;
+  color: #fff;
+}
+
+.mobile-details-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: auto;
+}
+
+.mobile-details-add-btn {
+  flex: 1;
+  padding: 0.75rem;
+  font-size: 1.125rem;
+}

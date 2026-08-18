@@ -22,11 +22,11 @@ export const useCartStore = create((set, get) => ({
       const newItem = {
         id: product.id || product.productId,
         productId: product.id || product.productId,
-        title: product.title,
+        title: product.title || product.name, // Handle MobilePhone mapping
         price: product.price,
-        thumbnail: product.thumbnail || product.images?.[0]?.url || 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=400',
+        thumbnail: product.thumbnail || product.image || product.images?.[0]?.url || 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=400',
         quantity: quantity,
-        sku: product.sku
+        sku: product.sku || `PHONE-${(product.id || '').toString().slice(0, 8)}` // Fallback SKU for orders
       };
       set({ items: [...items, newItem], isCartDrawerOpen: true });
     }

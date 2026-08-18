@@ -12,6 +12,7 @@ import { Footer } from './components/Footer';
 import { useVisitorStore } from './stores/visitorStore';
 import { useAiDrawerStore } from './stores/aiDrawerStore';
 import { useAuthStore } from './stores/authStore';
+import { MobilePhonesHub } from './components/MobilePhones/MobilePhonesHub';
 
 export function App() {
   const [activeTab, setActiveTab] = useState('home'); // 'home' | 'store' | 'masterclass' | 'warehouse'
@@ -49,6 +50,10 @@ export function App() {
 
         {activeTab === 'masterclass' && (
           <MasterclassHub />
+        )}
+
+        {activeTab === 'mobiles' && (
+          <MobilePhonesHub />
         )}
 
         {activeTab === 'warehouse' && (

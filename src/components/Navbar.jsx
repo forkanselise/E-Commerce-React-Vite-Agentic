@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShoppingBag, Bot, Users, Sparkles, User, ShieldAlert, BookOpen, Layers } from 'lucide-react';
+import { ShoppingBag, Bot, Users, Sparkles, User, ShieldAlert, BookOpen, Layers, Smartphone } from 'lucide-react';
 import { useCartStore } from '../stores/cartStore';
 import { useVisitorStore } from '../stores/visitorStore';
 import { useAiDrawerStore } from '../stores/aiDrawerStore';
@@ -98,6 +98,26 @@ export function Navbar({ activeTab, setActiveTab }) {
             }}
           >
             <BookOpen size={14} /> Masterclass Hub
+          </button>
+
+          {/* Mobile Phones Tab */}
+          <button
+            onClick={() => setActiveTab('mobiles')}
+            style={{
+              background: activeTab === 'mobiles' ? 'var(--bg-surface-elevated)' : 'transparent',
+              color: activeTab === 'mobiles' ? 'var(--color-cyan-400)' : 'var(--text-secondary)',
+              border: activeTab === 'mobiles' ? '1px solid rgba(34, 211, 238, 0.3)' : '1px solid transparent',
+              borderRadius: '8px',
+              padding: '6px 14px',
+              fontSize: '13px',
+              fontWeight: 600,
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px'
+            }}
+          >
+            <Smartphone size={14} /> Mobile Phones
           </button>
 
           {/* Admin Warehouse Tab */}
