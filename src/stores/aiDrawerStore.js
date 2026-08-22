@@ -96,12 +96,32 @@ export const useAiDrawerStore = create((set, get) => ({
 
       if (res.ok) {
         const data = await res.json();
-        if (data && data.message && data.message.length > 20) {
+        if (data && data.message) {
+          let responseText = data.message;
+
+          // If backend returns the generic default sentence, dynamically enrich it with matching items
+          if (responseText.includes("Here are our top recommended products matching your inquiry")) {
+            const matches = INITIAL_PRODUCTS.filter(p => 
+              lower.includes(p.title.toLowerCase()) ||
+              lower.includes(p.category.toLowerCase()) ||
+              p.tags.some(t => lower.includes(t))
+            );
+            const displayProducts = matches.length > 0 ? matches.slice(0, 3) : INITIAL_PRODUCTS.slice(0, 3);
+
+            responseText = `📦 **Smart Bakery Catalog Matches:**\n\n` +
+              displayProducts.map(p => 
+                `• **${p.title}**\n` +
+                `  🏷️ Price: ৳${p.price.toLocaleString()} BDT | 📦 In Stock: ${p.warehouseStock} units\n` +
+                `  📝 ${p.shortDescription}`
+              ).join('\n\n') +
+              `\n\n💡 *Tip: Ask me to add any of these to your cart!*`;
+          }
+
           const assistantMsg = {
             id: 'ai_' + Date.now(),
             sender: data.respondingAgent || 'RouterConcierge',
             role: 'assistant',
-            text: data.message,
+            text: responseText,
             toolsExecuted: data.toolsExecuted || [],
             timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
           };
