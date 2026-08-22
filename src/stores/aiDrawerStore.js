@@ -1,27 +1,20 @@
 import { create } from 'zustand';
 import * as signalR from '@microsoft/signalr';
 import { useCartStore } from './cartStore';
-import { API_BASE_URL } from '../services/api';
+import { API_BASE_URL, INITIAL_PRODUCTS, INITIAL_TUTORIALS } from '../services/api';
 
 const backendOrigin = API_BASE_URL.replace(/\/api\/?$/, '');
 
-// Multi-Model Failover Configuration
-const AI_MODELS = [
-  { id: 'primary-dotnet-agent', name: 'Smart Bakery Primary ASP.NET Agent', type: 'backend' },
-  { id: 'secondary-cloud-llm', name: 'Free Cloud AI Backup Model (Meta-Llama-3-8B)', type: 'cloud_free' },
-  { id: 'tertiary-local-engine', name: 'Smart Bakery Embedded Local Agent Engine', type: 'local_engine' }
-];
-
 export const useAiDrawerStore = create((set, get) => ({
   isOpen: false,
-  activeModelId: 'primary-dotnet-agent',
-  activeModelName: 'Smart Bakery Primary ASP.NET Agent',
+  activeModelId: 'smart-bakery-agent',
+  activeModelName: 'Smart Bakery AI Multi-Agent Concierge',
   messages: [
     {
       id: 'welcome_msg',
       sender: 'RouterConcierge',
       role: 'assistant',
-      text: "Hello! 🧁 Welcome to Smart Bakery Hub. I am your AI Concierge with Automatic Multi-Model Failover. Ask me about Callebaut chocolates, Anchor butter, baking tools, video masterclasses, or adding items directly to your shopping cart.",
+      text: "Hello! 🧁 Welcome to Smart Bakery Hub. I am your AI Concierge. Ask me about Callebaut chocolates, Anchor dairy, baking tools, video masterclasses, or adding items directly to your shopping cart.",
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     }
   ],
@@ -86,10 +79,10 @@ export const useAiDrawerStore = create((set, get) => ({
     set({
       messages: [...get().messages, userMessage],
       isThinking: true,
-      currentThought: 'Searching Smart Bakery catalog and evaluating query...'
+      currentThought: 'Analyzing query intent and searching Smart Bakery catalog...'
     });
 
-    // --- TRY MODEL 1: Primary ASP.NET Core Agent Engine ---
+    // Try backend endpoint first
     try {
       const token = localStorage.getItem('auth_token');
       const res = await fetch(`${API_BASE_URL}/Agent/chat`, {
@@ -101,66 +94,19 @@ export const useAiDrawerStore = create((set, get) => ({
         body: JSON.stringify({ message: userText, prompt: userText })
       });
 
-      if (!res.ok) {
-        throw new Error(`Model 1 (ASP.NET Core API) returned HTTP ${res.status}`);
-      }
-
-      const data = await res.json();
-
-      const assistantMsg = {
-        id: 'ai_' + Date.now(),
-        sender: data.respondingAgent || 'RouterConcierge',
-        role: 'assistant',
-        text: data.reply || data.message || "Welcome to Smart Bakery! I can help you find Callebaut chocolates, Anchor butter, baking tools, or baking masterclasses.",
-        toolsExecuted: data.toolsExecuted || [],
-        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-      };
-
-      set({
-        activeModelId: 'primary-dotnet-agent',
-        activeModelName: 'Smart Bakery Primary ASP.NET Agent',
-        messages: [...get().messages, assistantMsg],
-        isThinking: false,
-        currentThought: null,
-        activeToolName: null
-      });
-      return;
-
-    } catch (err1) {
-      console.warn(`[Auto-Shift] ${err1.message}. Shifting to Secondary Free AI Cloud Model...`);
-      set({ currentThought: 'Model 1 unavailable. Shifting automatically to Secondary Free AI Model...' });
-    }
-
-    // --- TRY MODEL 2: Secondary Free Public AI Model Endpoint ---
-    try {
-      const freeModelUrl = 'https://api-inference.huggingface.co/models/HuggingFaceH4/zephyr-7b-beta';
-      const freeRes = await fetch(freeModelUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          inputs: `<|system|>\nYou are Smart Bakery AI Assistant. Answer bakery and pastry questions.\n<|user|>\n${userText}\n<|assistant|>\n`
-        })
-      });
-
-      if (freeRes.ok) {
-        const freeData = await freeRes.json();
-        const generatedText = Array.isArray(freeData) ? freeData[0]?.generated_text : freeData?.generated_text;
-        
-        if (generatedText) {
-          const cleanReply = generatedText.split('<|assistant|>')[1] || generatedText;
-
+      if (res.ok) {
+        const data = await res.json();
+        if (data && data.message && data.message.length > 20) {
           const assistantMsg = {
             id: 'ai_' + Date.now(),
-            sender: 'SecondaryCloudModel',
+            sender: data.respondingAgent || 'RouterConcierge',
             role: 'assistant',
-            text: cleanReply.trim(),
-            toolsExecuted: ['AutoShift_SecondaryModel'],
+            text: data.message,
+            toolsExecuted: data.toolsExecuted || [],
             timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
           };
 
           set({
-            activeModelId: 'secondary-cloud-llm',
-            activeModelName: 'Free Cloud AI Backup Model (Meta-Llama-3-8B)',
             messages: [...get().messages, assistantMsg],
             isThinking: false,
             currentThought: null,
@@ -169,52 +115,97 @@ export const useAiDrawerStore = create((set, get) => ({
           return;
         }
       }
-      throw new Error('Secondary Model response empty or rate-limited');
-    } catch (err2) {
-      console.warn(`[Auto-Shift] ${err2.message}. Shifting to Tertiary Smart Local Agent Engine...`);
+    } catch {
+      // Proceed to Dynamic Intelligence Engine
     }
 
-    // --- MODEL 3 (TERTIARY): Smart Standalone Local Agent Engine ---
-    const lower = userText.toLowerCase();
-    let replyText = "I can answer questions related to Smart Bakery products, Callebaut chocolates, baking tools, masterclasses, and your cart.";
+    // --- DYNAMIC AI AGENT INTENT & SEARCH ENGINE ---
+    const lower = userText.toLowerCase().trim();
+    let replyText = "";
     let agent = 'RouterConcierge';
-    let tools = ['AutoShift_LocalAgentEngine'];
+    let tools = [];
 
-    // Strict Out-of-Domain Guardrail Refusal Check
+    // 1. Domain Guardrail Check (Refusal for Out-of-Domain topics)
     const outOfDomainKeywords = [
       "python", "javascript", "c#", "java", "write code", "html", "css",
-      "weather in", "football", "cricket", "president", "capital of",
-      "crypto", "bitcoin", "solve math", "calculate 2+", "who won"
+      "weather", "football", "cricket", "president", "capital of",
+      "crypto", "bitcoin", "solve math", "calculate", "who won"
     ];
-    const isOutOfDomain = outOfDomainKeywords.some(k => lower.includes(k));
-
-    if (isOutOfDomain) {
-      replyText = "I can only answer questions related to Smart Bakery & Tech products, tools, baking tutorials, and your shopping cart. I can't assist with queries outside my domain.";
+    if (outOfDomainKeywords.some(k => lower.includes(k))) {
+      replyText = "I can only answer questions related to Smart Bakery products, tools, baking tutorials, and your shopping cart. I can't assist with queries outside my domain.";
       agent = 'RouterConcierge';
-    } else if (lower.includes('add') && (lower.includes('cart') || lower.includes('buy'))) {
+    } 
+    // 2. Greetings Intent
+    else if (lower === 'hi' || lower === 'hello' || lower === 'hey' || lower === 'good morning') {
+      replyText = "Hello! 🧁 Welcome to Smart Bakery Hub. I can help you find artisan chocolates, dairy ingredients, baking tools, fresh cakes, or enroll in masterclasses. What are you baking today?";
+      agent = 'RouterConcierge';
+    }
+    // 3. Add to Cart Intent
+    else if (lower.includes('add') && (lower.includes('cart') || lower.includes('buy') || lower.includes('bag'))) {
       agent = 'StorefrontInventory';
-      tools.push('AddToCart');
-      replyText = "🛒 Added! I have placed Callebaut Dark Chocolate 1kg into your Smart Bakery shopping cart.";
+      tools = ['SearchProducts', 'AddToCart'];
+
+      // Search matching product in catalog
+      const matched = INITIAL_PRODUCTS.find(p => 
+        lower.includes(p.title.toLowerCase()) || 
+        lower.includes(p.category.toLowerCase()) || 
+        p.tags.some(t => lower.includes(t))
+      ) || INITIAL_PRODUCTS[0];
+
       useCartStore.getState().addItem({
-        id: 'prod_1',
-        title: 'Callebaut Dark Chocolate 1kg (54.5% Cocoa)',
-        price: 1250,
-        thumbnail: 'https://images.unsplash.com/photo-1548907040-4baa42d10919?w=400'
+        id: matched.id,
+        title: matched.title,
+        price: matched.price,
+        thumbnail: matched.images[0]?.url
       }, 1);
-    } else if (lower.includes('tutorial') || lower.includes('macaron') || lower.includes('sourdough')) {
+
+      replyText = `🛒 **Added to Cart!**\n\nI have added **${matched.title}** (৳${matched.price.toLocaleString()} BDT) to your shopping cart. You can view your cart or proceed to checkout anytime!`;
+    }
+    // 4. Masterclass / Tutorial / Recipe Intent
+    else if (lower.includes('class') || lower.includes('tutorial') || lower.includes('masterclass') || lower.includes('macaron') || lower.includes('sourdough') || lower.includes('croissant') || lower.includes('technique')) {
       agent = 'BakingMasterclass';
-      tools.push('SearchTutorials');
-      replyText = "🎓 Masterclass Recommendation: Check out our French Macarons Masterclass by Chef Aminul Haque! Jump to 15:40 for the Macaronage folding technique.";
-    } else {
+      tools = ['SearchTutorials'];
+
+      const matchedCourses = INITIAL_TUTORIALS.filter(t => 
+        lower.includes(t.title.toLowerCase()) ||
+        lower.includes(t.category.toLowerCase()) ||
+        lower.includes(t.skillLevel.toLowerCase())
+      );
+
+      const coursesToList = matchedCourses.length > 0 ? matchedCourses : INITIAL_TUTORIALS.slice(0, 2);
+
+      replyText = `🎓 **Smart Bakery Academy Masterclasses Found:**\n\n` + 
+        coursesToList.map(c => 
+          `• **${c.title}** (${c.skillLevel})\n` +
+          `  👨‍🍳 Instructor: ${c.instructor.name} | ⏱️ Duration: ${c.durationMinutes} mins | ৳${c.price.toLocaleString()} BDT\n` +
+          `  📌 Chapters: ${c.chapters.map(ch => `[${ch.timestampDisplay}] ${ch.title}`).join(', ')}`
+        ).join('\n\n');
+    }
+    // 5. Product & Stock Search Intent (Chocolates, Dairy, Tools, Bakery Items)
+    else {
       agent = 'StorefrontInventory';
-      tools.push('SearchProducts');
-      replyText = "🧁 We have Callebaut Dark Chocolate 1kg (1,250 BDT), Anchor Whipping Cream 1L (780 BDT), and fresh Chocolate Donuts (120 BDT) ready for delivery!";
+      tools = ['SearchProducts', 'CheckStock'];
+
+      const matches = INITIAL_PRODUCTS.filter(p => 
+        lower.includes(p.title.toLowerCase()) ||
+        lower.includes(p.category.toLowerCase()) ||
+        lower.includes(p.subCategory?.toLowerCase()) ||
+        p.tags.some(t => lower.includes(t))
+      );
+
+      const displayProducts = matches.length > 0 ? matches.slice(0, 3) : INITIAL_PRODUCTS.slice(0, 3);
+
+      replyText = `📦 **Smart Bakery Inventory Matches:**\n\n` +
+        displayProducts.map(p => 
+          `• **${p.title}**\n` +
+          `  🏷️ Price: ৳${p.price.toLocaleString()} BDT | 📦 In Stock: ${p.warehouseStock} units | SKU: ${p.sku}\n` +
+          `  📝 ${p.shortDescription}`
+        ).join('\n\n') +
+        `\n\n💡 *Tip: Type "Add ${displayProducts[0]?.title.split(' ')[0]} to cart" to purchase directly!*`;
     }
 
     setTimeout(() => {
       set({
-        activeModelId: 'tertiary-local-engine',
-        activeModelName: 'Smart Bakery Embedded Local Agent Engine',
         messages: [
           ...get().messages,
           {
@@ -230,6 +221,6 @@ export const useAiDrawerStore = create((set, get) => ({
         currentThought: null,
         activeToolName: null
       });
-    }, 400);
+    }, 350);
   }
 }));
