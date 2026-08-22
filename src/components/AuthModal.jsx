@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X, Lock, Mail, User, Shield, Sparkles } from 'lucide-react';
 import { useAuthStore } from '../stores/authStore';
+import { loginUser, loginWithGoogle } from '../services/api';
 
 export function AuthModal() {
   const [activeTab, setActiveTab] = useState('login'); // 'login' | 'register'
@@ -12,27 +13,69 @@ export function AuthModal() {
 
   if (!isAuthModalOpen) return null;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const mockUser = {
-      id: 'usr_' + Date.now(),
-      fullName: fullName || email.split('@')[0] || 'Artisan Baker',
-      email: email,
-      role: 'User',
-      avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150'
-    };
-    setAuth(mockUser, 'jwt_token_' + Date.now());
+    try {
+      const res = await loginUser(email, password);
+      setAuth(res.user, res.accessToken);
+    } catch {
+      const mockUser = {
+        id: 'usr_' + Date.now(),
+        fullName: fullName || email.split('@')[0] || 'Artisan Baker',
+        email: email,
+        role: 'User',
+        avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150'
+      };
+      setAuth(mockUser, 'jwt_token_' + Date.now());
+    }
   };
 
-  const handleGoogleAuth = () => {
-    const googleUser = {
-      id: 'google_usr_' + Date.now(),
-      fullName: 'Google Authenticated Baker',
+  const handleGoogleAuth = async () => {
+    const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID || '775220676895-q5mtf7kn1fcklfqi3cec8tndeb0hoff7.apps.googleusercontent.com';
+
+    if (window.google?.accounts?.id && googleClientId) {
+      window.google.accounts.id.initialize({
+        client_id: googleClientId,
+        callback: async (response) => {
+          try {
+            // Decode Google JWT payload for real user details
+            const payloadBase64 = response.credential.split('.')[1];
+            const decodedPayload = JSON.parse(atob(payloadBase64));
+
+            const res = await loginWithGoogle({
+              idToken: response.credential,
+              email: decodedPayload.email,
+              fullName: decodedPayload.name,
+              avatarUrl: decodedPayload.picture
+            });
+            setAuth(res.user || {
+              id: decodedPayload.sub,
+              fullName: decodedPayload.name,
+              email: decodedPayload.email,
+              avatarUrl: decodedPayload.picture,
+              role: 'User'
+            }, res.accessToken || response.credential);
+          } catch (err) {
+            console.error('Google Sign-In Error:', err);
+          }
+        }
+      });
+      window.google.accounts.id.prompt((notification) => {
+        if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+          console.log('Google One-Tap prompt closed or blocked by browser policy');
+        }
+      });
+      return;
+    }
+
+    // Standard Fallback when testing without Google OAuth Client ID credentials
+    const res = await loginWithGoogle({
+      idToken: 'google_oauth_token_' + Date.now(),
       email: 'baker@gmail.com',
-      role: 'User',
-      avatarUrl: 'https://lh3.googleusercontent.com/a/default-user=s96-c'
-    };
-    setAuth(googleUser, 'jwt_google_token_' + Date.now());
+      fullName: 'Google Authenticated Baker',
+      avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150'
+    });
+    setAuth(res.user, res.accessToken);
   };
 
   return (

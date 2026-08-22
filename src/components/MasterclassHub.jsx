@@ -81,7 +81,7 @@ export function MasterclassHub() {
 
         {/* Selected Course Player & Chapters Showcase (Matching Mockup Section 06) */}
         {selectedTutorial && (
-          <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 0.9fr', gap: '32px', marginBottom: '48px' }}>
+          <div className="responsive-grid-2" style={{ display: 'grid', gridTemplateColumns: '1.4fr 0.9fr', gap: '32px', marginBottom: '48px' }}>
             
             {/* Left Video Player & Instructor Bio */}
             <div>

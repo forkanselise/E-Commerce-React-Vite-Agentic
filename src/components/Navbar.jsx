@@ -22,10 +22,10 @@ export function Navbar({ activeTab, setActiveTab }) {
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
             <Heart size={13} color="#e05297" fill="#e05297" />
             <span style={{ fontWeight: 600, color: '#f472b6' }}>Bake • Learn • Inspire</span>
-            <span style={{ opacity: 0.7, marginLeft: '8px' }}>| One stop destination for Baking Ingredients, Tools, Packaging, Bakery & Coffee and Professional Baking Classes</span>
+            <span className="hide-on-mobile" style={{ opacity: 0.7, marginLeft: '8px' }}>| One stop destination for Baking Ingredients, Tools, Packaging, Bakery & Coffee and Professional Baking Classes</span>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '16px', fontSize: '11px', opacity: 0.9 }}>
+          <div className="hide-on-mobile" style={{ display: 'flex', alignItems: 'center', gap: '16px', fontSize: '11px', opacity: 0.9 }}>
             <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
               <Award size={12} color="#fbbf24" /> Premium Quality Products
             </span>
@@ -40,40 +40,40 @@ export function Navbar({ activeTab, setActiveTab }) {
       </div>
 
       {/* Main Navbar */}
-      <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '76px' }}>
+      <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '76px', gap: '12px' }}>
         
         {/* Brand Logo (Smart Bakery Hub) */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer' }} onClick={() => setActiveTab('home')}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer', flexShrink: 0 }} onClick={() => setActiveTab('home')}>
           <div style={{
-            width: '46px',
-            height: '46px',
+            width: '44px',
+            height: '44px',
             borderRadius: '14px',
             background: 'linear-gradient(135deg, #e05297 0%, #3d2314 100%)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            fontSize: '24px',
+            fontSize: '22px',
             boxShadow: '0 4px 14px rgba(224, 82, 151, 0.3)'
           }}>
             🧁
           </div>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <span style={{ fontSize: '20px', fontWeight: 800, letterSpacing: '-0.02em', color: '#3d2314', fontFamily: 'var(--font-heading)' }}>
+              <span style={{ fontSize: '18px', fontWeight: 800, letterSpacing: '-0.02em', color: '#3d2314', fontFamily: 'var(--font-heading)' }}>
                 Smart Bakery
               </span>
-              <span style={{ fontSize: '10px', fontWeight: 800, padding: '2px 6px', background: '#3d2314', color: '#fcd34d', borderRadius: '6px', letterSpacing: '0.05em' }}>
+              <span style={{ fontSize: '10px', fontWeight: 800, padding: '2px 6px', background: '#3d2314', color: '#fcd34d', borderRadius: '6px' }}>
                 HUB
               </span>
             </div>
-            <div style={{ fontSize: '10px', fontWeight: 700, color: '#e05297', letterSpacing: '0.12em', textTransform: 'uppercase' }}>
+            <div className="hide-on-mobile" style={{ fontSize: '10px', fontWeight: 700, color: '#e05297', letterSpacing: '0.12em', textTransform: 'uppercase' }}>
               BAKERY • SUPPLY • ACADEMY
             </div>
           </div>
         </div>
 
-        {/* Center Navigation Tabs */}
-        <nav style={{ display: 'flex', alignItems: 'center', gap: '4px', background: '#faf6f0', padding: '4px', borderRadius: '12px', border: '1px solid rgba(61, 35, 20, 0.08)' }}>
+        {/* Center Navigation Tabs (Scrollable on Mobile) */}
+        <nav className="nav-scroll-container" style={{ display: 'flex', alignItems: 'center', gap: '4px', background: '#faf6f0', padding: '4px', borderRadius: '12px', border: '1px solid rgba(61, 35, 20, 0.08)', maxWidth: '100%', overflowX: 'auto' }}>
           
           <button
             onClick={() => setActiveTab('home')}

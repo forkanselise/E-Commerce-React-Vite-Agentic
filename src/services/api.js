@@ -660,6 +660,32 @@ export async function loginUser(email, password) {
   }
 }
 
+export async function loginWithGoogle(googlePayload = {}) {
+  try {
+    return await customFetch('/Auth/google', {
+      method: 'POST',
+      body: JSON.stringify({
+        idToken: googlePayload.idToken || 'mock_google_id_token_' + Date.now(),
+        email: googlePayload.email || 'baker@gmail.com',
+        fullName: googlePayload.fullName || 'Google Authenticated Baker',
+        avatarUrl: googlePayload.avatarUrl || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150'
+      })
+    });
+  } catch (err) {
+    console.warn('GoogleAuth backend endpoint fallback:', err.message);
+    return {
+      accessToken: 'jwt_google_token_' + Date.now(),
+      user: {
+        id: 'google_usr_' + Date.now(),
+        fullName: googlePayload.fullName || 'Google Authenticated Baker',
+        email: googlePayload.email || 'baker@gmail.com',
+        role: 'User',
+        avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150'
+      }
+    };
+  }
+}
+
 export async function sendAgentMessage(prompt, conversationHistory = []) {
   try {
     return await customFetch('/Agent/chat', {

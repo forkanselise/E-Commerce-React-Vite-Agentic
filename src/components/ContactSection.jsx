@@ -49,7 +49,7 @@ export function ContactSection() {
         </div>
 
         {/* Section 10 Contact Us Form & Info Grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: '36px', alignItems: 'start' }}>
+        <div className="responsive-grid-2" style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: '36px', alignItems: 'start' }}>
           
           {/* Contact Details Card */}
           <div style={{ background: '#ffffff', padding: '32px', borderRadius: '24px', border: '1px solid rgba(61, 35, 20, 0.08)', boxShadow: '0 6px 20px rgba(61, 35, 20, 0.05)' }}>

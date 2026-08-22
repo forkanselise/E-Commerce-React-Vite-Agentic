@@ -319,3 +319,67 @@ button, input, select, textarea {
 .animate-fade-in {
   animation: fadeIn 0.3s ease-out forwards;
 }
+
+/* ==========================================================================
+   Responsive Media Queries (Mobile, Tablet, Desktop)
+   ========================================================================== */
+
+/* Scrollable Horizontal Nav Bar for Mobile & Tablet */
+.nav-scroll-container {
+  overflow-x: auto;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+}
+.nav-scroll-container::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+@media (max-width: 1024px) {
+  .responsive-grid-2 {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 16px !important;
+  }
+
+  .hide-on-mobile {
+    display: none !important;
+  }
+
+  .mobile-full-width {
+    width: 100% !important;
+  }
+
+  .mobile-stack {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+
+  .mobile-text-center {
+    text-align: center !important;
+  }
+
+  h1 {
+    font-size: 28px !important;
+    line-height: 1.2 !important;
+  }
+
+  h2 {
+    font-size: 22px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 12px !important;
+  }
+
+  .btn {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+}

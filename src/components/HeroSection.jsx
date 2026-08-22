@@ -21,7 +21,7 @@ export function HeroSection({ setActiveTab }) {
       <div className="container" style={{ position: 'relative', zIndex: 1 }}>
         
         {/* Main Hero Banner Grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1.1fr 0.9fr', gap: '40px', alignItems: 'center', marginBottom: '50px' }}>
+        <div className="responsive-grid-2" style={{ display: 'grid', gridTemplateColumns: '1.1fr 0.9fr', gap: '40px', alignItems: 'center', marginBottom: '50px' }}>
           
           {/* Left Hero Content */}
           <div>
