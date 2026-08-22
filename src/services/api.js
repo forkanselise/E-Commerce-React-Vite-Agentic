@@ -690,7 +690,7 @@ export async function sendAgentMessage(prompt, conversationHistory = []) {
   try {
     return await customFetch('/Agent/chat', {
       method: 'POST',
-      body: JSON.stringify({ prompt, history: conversationHistory })
+      body: JSON.stringify({ message: prompt, prompt: prompt, history: conversationHistory })
     });
   } catch (err) {
     return {
