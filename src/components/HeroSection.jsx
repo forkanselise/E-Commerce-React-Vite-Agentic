@@ -1,153 +1,169 @@
 import React from 'react';
-import { ArrowRight, Bot, Sparkles, Play, ShieldCheck, Flame, Cpu } from 'lucide-react';
+import { ArrowRight, Bot, Sparkles, Play, Heart, Award, ShieldCheck, ShoppingBag, BookOpen } from 'lucide-react';
 import { useAiDrawerStore } from '../stores/aiDrawerStore';
 
 export function HeroSection({ setActiveTab }) {
   const { openDrawer } = useAiDrawerStore();
 
+  const categories = [
+    { id: 'Ingredients', label: 'Ingredients', icon: '🥛', count: '120+ Items' },
+    { id: 'Chocolate', label: 'Chocolate', icon: '🍫', count: '45+ Items' },
+    { id: 'Tools', label: 'Tools', icon: '🥣', count: '80+ Items' },
+    { id: 'Moulds', label: 'Moulds', icon: '🧁', count: '65+ Items' },
+    { id: 'Packaging', label: 'Packaging', icon: '📦', count: '90+ Items' },
+    { id: 'Decorations', label: 'Decorations', icon: '✨', count: '50+ Items' },
+    { id: 'Flavours', label: 'Flavours', icon: '🍓', count: '40+ Items' },
+    { id: 'Nuts & Seeds', label: 'Nuts & Seeds', icon: '🥜', count: '35+ Items' }
+  ];
+
   return (
-    <section style={{ position: 'relative', overflow: 'hidden', padding: '60px 0 80px 0' }}>
-      
-      {/* Subtle background glow orbs */}
-      <div style={{
-        position: 'absolute',
-        top: '-10%',
-        left: '25%',
-        width: '500px',
-        height: '500px',
-        background: 'radial-gradient(circle, rgba(245, 158, 11, 0.12) 0%, rgba(0, 0, 0, 0) 70%)',
-        zIndex: 0,
-        pointerEvents: 'none'
-      }} />
-
-      <div style={{
-        position: 'absolute',
-        top: '20%',
-        right: '10%',
-        width: '450px',
-        height: '450px',
-        background: 'radial-gradient(circle, rgba(6, 182, 212, 0.1) 0%, rgba(0, 0, 0, 0) 70%)',
-        zIndex: 0,
-        pointerEvents: 'none'
-      }} />
-
+    <section style={{ position: 'relative', overflow: 'hidden', padding: '40px 0 60px 0', background: 'linear-gradient(180deg, #fdfbf7 0%, #faf6f0 100%)' }}>
       <div className="container" style={{ position: 'relative', zIndex: 1 }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1.1fr 0.9fr', gap: '48px', alignItems: 'center' }}>
+        
+        {/* Main Hero Banner Grid */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1.1fr 0.9fr', gap: '40px', alignItems: 'center', marginBottom: '50px' }}>
           
-          {/* Left Column Text & CTA */}
+          {/* Left Hero Content */}
           <div>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 14px', borderRadius: '9999px', background: 'rgba(245, 158, 11, 0.12)', border: '1px solid rgba(245, 158, 11, 0.3)', marginBottom: '20px' }}>
-              <Sparkles size={14} color="#F59E0B" />
-              <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--color-amber-400)' }}>Artisan Pastry Meets Precision Engineering</span>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 16px', borderRadius: '9999px', background: '#fdf2f8', border: '1px solid #f472b6', marginBottom: '20px' }}>
+              <Heart size={14} color="#e05297" fill="#e05297" />
+              <span style={{ fontSize: '13px', fontWeight: 700, color: '#e05297' }}>Bake • Learn • Inspire</span>
             </div>
 
-            <h1 style={{ fontSize: '48px', lineHeight: 1.15, fontWeight: 800, marginBottom: '20px' }}>
-              Where Slow Fermentation <br />
-              <span className="gradient-text-amber">Meets Digital Precision.</span>
+            <h1 style={{ fontSize: '46px', lineHeight: 1.15, fontWeight: 800, color: '#3d2314', marginBottom: '18px', fontFamily: 'var(--font-heading)' }}>
+              Smart Bakery Hub <br />
+              <span style={{ color: '#e05297' }}>Bakery, Baking Supplies & Classes</span> <br />
+              All In One Place
             </h1>
 
-            <p style={{ fontSize: '16px', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '32px', maxWidth: '540px' }}>
-              Explore hand-crafted 36-hour wild sourdoughs, French pastry lamination kits, and precision culinary electronics. Stream our multi-chapter video masterclasses taught by master bakers.
+            <p style={{ fontSize: '16px', color: '#6e5849', lineHeight: 1.6, marginBottom: '28px', maxWidth: '540px' }}>
+              One stop destination for premium baking ingredients (Callebaut, Anchor), professional tools, bakery packaging, fresh cakes, donuts, coffee, and certified masterclass baking courses.
             </p>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
+            {/* CTAs */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap', marginBottom: '32px' }}>
               <button
                 onClick={() => setActiveTab('store')}
-                className="btn btn-primary"
-                style={{ padding: '12px 24px', fontSize: '15px' }}
+                className="btn btn-rose"
+                style={{ padding: '14px 28px', fontSize: '15px', fontWeight: 800 }}
               >
-                <span>Browse Store Catalog</span>
-                <ArrowRight size={16} />
+                <ShoppingBag size={18} />
+                <span>SHOP NOW</span>
               </button>
 
               <button
                 onClick={() => setActiveTab('masterclass')}
-                className="btn btn-secondary"
-                style={{ padding: '12px 24px', fontSize: '15px' }}
+                className="btn btn-dark"
+                style={{ padding: '14px 28px', fontSize: '15px', fontWeight: 800 }}
               >
-                <Play size={16} color="#F59E0B" />
-                <span>Watch Masterclasses</span>
+                <BookOpen size={18} />
+                <span>JOIN CLASS</span>
               </button>
 
               <button
                 onClick={openDrawer}
                 className="btn btn-secondary"
-                style={{ padding: '12px 20px', fontSize: '14px', borderColor: 'rgba(34, 211, 238, 0.3)', color: '#22D3EE' }}
+                style={{ padding: '13px 20px', fontSize: '14px', borderColor: '#e05297', color: '#e05297' }}
               >
-                <Bot size={16} color="#22D3EE" />
-                <span>Ask AI Agent</span>
+                <Bot size={16} color="#e05297" />
+                <span>Ask AI Assistant</span>
               </button>
             </div>
 
-            {/* Micro Highlights */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '28px', marginTop: '40px', paddingTop: '24px', borderTop: '1px solid var(--glass-border)' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <Flame size={20} color="#F59E0B" />
-                <div>
-                  <div style={{ fontSize: '13px', fontWeight: 700 }}>Stone Baked Daily</div>
-                  <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>10-Year Mother Starter</div>
-                </div>
+            {/* Badges */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '20px', fontSize: '13px', color: '#6e5849', fontWeight: 600 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <Award size={16} color="#e05297" /> 100% Original Products
               </div>
-
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <Cpu size={20} color="#22D3EE" />
-                <div>
-                  <div style={{ fontSize: '13px', fontWeight: 700 }}>Precision Gear</div>
-                  <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>0.1g Digital Calibration</div>
-                </div>
-              </div>
-
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <ShieldCheck size={20} color="#34D399" />
-                <div>
-                  <div style={{ fontSize: '13px', fontWeight: 700 }}>Multi-Agent Support</div>
-                  <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Live Cart & Tech Assistance</div>
-                </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <ShieldCheck size={16} color="#34d399" /> Secure Payment (bKash, Nagad, Card)
               </div>
             </div>
           </div>
 
-          {/* Right Column Featured Visual Showcase */}
+          {/* Right Hero Showcase Visual */}
           <div style={{ position: 'relative' }}>
-            <div className="glass-card" style={{ padding: '14px', position: 'relative', overflow: 'hidden' }}>
+            <div className="glass-card" style={{ padding: '12px', background: '#ffffff', borderRadius: '24px', boxShadow: '0 12px 35px rgba(61, 35, 20, 0.1)' }}>
               <img
-                src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=1000"
-                alt="Artisan Sourdough and Bakery Goods"
-                style={{ width: '100%', height: '380px', objectFit: 'cover', borderRadius: '14px' }}
+                src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=1000"
+                alt="Smart Bakery Chocolate Cake & Pastries"
+                style={{ width: '100%', height: '360px', objectFit: 'cover', borderRadius: '18px' }}
               />
 
-              {/* Floating Highlight Card Over Image */}
+              {/* Floating Highlight Banner */}
               <div style={{
                 position: 'absolute',
                 bottom: '24px',
                 left: '24px',
                 right: '24px',
-                background: 'rgba(17, 20, 29, 0.88)',
-                backdropFilter: 'blur(16px)',
-                border: '1px solid rgba(255, 255, 255, 0.12)',
-                borderRadius: '14px',
+                background: 'rgba(61, 35, 20, 0.92)',
+                backdropFilter: 'blur(12px)',
+                borderRadius: '16px',
                 padding: '16px 20px',
+                color: '#ffffff',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between'
               }}>
                 <div>
-                  <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--color-amber-400)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Chef's Masterpiece</div>
-                  <div style={{ fontSize: '15px', fontWeight: 700 }}>San Francisco Sourdough Boule (850g)</div>
-                  <div style={{ fontSize: '13px', color: 'var(--text-secondary)' }}>36h cold ferment • 380 BDT</div>
+                  <div style={{ fontSize: '11px', fontWeight: 800, color: '#fcd34d', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Featured Artisan Cake</div>
+                  <div style={{ fontSize: '16px', fontWeight: 800 }}>Belgian Dark Chocolate Ganache Gateau</div>
+                  <div style={{ fontSize: '13px', opacity: 0.85 }}>৳ 1,850 • Fresh Daily Baked</div>
                 </div>
 
                 <button
                   onClick={() => setActiveTab('store')}
-                  className="btn btn-primary btn-sm"
+                  className="btn btn-rose btn-sm"
                 >
-                  Order Fresh
+                  Order Now
                 </button>
               </div>
             </div>
           </div>
 
         </div>
+
+        {/* Shop By Category Banner (Matching Mockup Section 1) */}
+        <div>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
+            <h2 style={{ fontSize: '22px', fontWeight: 800, color: '#3d2314' }}>Shop by Category</h2>
+            <button onClick={() => setActiveTab('store')} style={{ background: 'none', border: 'none', color: '#e05297', fontWeight: 700, cursor: 'pointer', fontSize: '14px' }}>
+              View All →
+            </button>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(130px, 1fr))', gap: '14px' }}>
+            {categories.map((c) => (
+              <div
+                key={c.id}
+                onClick={() => setActiveTab('store')}
+                style={{
+                  background: '#ffffff',
+                  border: '1px solid rgba(61, 35, 20, 0.08)',
+                  borderRadius: '16px',
+                  padding: '16px 12px',
+                  textAlign: 'center',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease',
+                  boxShadow: '0 4px 12px rgba(61, 35, 20, 0.04)'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-4px)';
+                  e.currentTarget.style.borderColor = '#e05297';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.borderColor = 'rgba(61, 35, 20, 0.08)';
+                }}
+              >
+                <div style={{ fontSize: '28px', marginBottom: '8px' }}>{c.icon}</div>
+                <div style={{ fontSize: '13px', fontWeight: 700, color: '#3d2314', marginBottom: '2px' }}>{c.label}</div>
+                <div style={{ fontSize: '11px', color: '#9e8c80' }}>{c.count}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
       </div>
     </section>
   );

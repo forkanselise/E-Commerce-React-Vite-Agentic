@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShoppingBag, Bot, Users, Sparkles, User, ShieldAlert, BookOpen, Layers, Smartphone } from 'lucide-react';
+import { ShoppingBag, Bot, Users, Sparkles, User, ShieldAlert, BookOpen, Layers, Coffee, PhoneCall, Award, Truck, ShieldCheck, Heart } from 'lucide-react';
 import { useCartStore } from '../stores/cartStore';
 import { useVisitorStore } from '../stores/visitorStore';
 import { useAiDrawerStore } from '../stores/aiDrawerStore';
@@ -14,49 +14,83 @@ export function Navbar({ activeTab, setActiveTab }) {
   const cartCount = getTotalItemCount();
 
   return (
-    <header className="sticky top-0 z-40 w-full" style={{ background: 'var(--glass-bg)', backdropFilter: 'var(--glass-blur)', borderBottom: '1px solid var(--glass-border)' }}>
-      <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '72px' }}>
+    <header className="sticky top-0 z-40 w-full" style={{ background: '#ffffff', borderBottom: '1px solid rgba(61, 35, 20, 0.1)', boxShadow: '0 2px 10px rgba(61, 35, 20, 0.04)' }}>
+      
+      {/* Top Announcement Bar (Matching Buttercup Mockup Header) */}
+      <div style={{ background: '#3d2314', color: '#fdfbf7', padding: '6px 24px', fontSize: '12px', fontWeight: 500 }}>
+        <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <Heart size={13} color="#e05297" fill="#e05297" />
+            <span style={{ fontWeight: 600, color: '#f472b6' }}>Bake • Learn • Inspire</span>
+            <span style={{ opacity: 0.7, marginLeft: '8px' }}>| One stop destination for Baking Ingredients, Tools, Packaging, Bakery & Coffee and Professional Baking Classes</span>
+          </div>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px', fontSize: '11px', opacity: 0.9 }}>
+            <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+              <Award size={12} color="#fbbf24" /> Premium Quality Products
+            </span>
+            <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+              <ShieldCheck size={12} color="#34d399" /> Trusted by 60,000+ Bakers
+            </span>
+            <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+              <Truck size={12} color="#22d3ee" /> Fast & Safe Delivery
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Navbar */}
+      <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '76px' }}>
         
-        {/* Brand Logo */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '14px', cursor: 'pointer' }} onClick={() => setActiveTab('home')}>
+        {/* Brand Logo (Smart Bakery Hub) */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer' }} onClick={() => setActiveTab('home')}>
           <div style={{
-            width: '44px',
-            height: '44px',
-            borderRadius: '12px',
-            background: 'linear-gradient(135deg, #F59E0B 0%, #D97706 100%)',
+            width: '46px',
+            height: '46px',
+            borderRadius: '14px',
+            background: 'linear-gradient(135deg, #e05297 0%, #3d2314 100%)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             fontSize: '24px',
-            boxShadow: '0 4px 15px rgba(245, 158, 11, 0.4)'
+            boxShadow: '0 4px 14px rgba(224, 82, 151, 0.3)'
           }}>
-            🥐
+            🧁
           </div>
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span style={{ fontSize: '18px', fontWeight: 800, letterSpacing: '-0.02em' }}>NEXUS BAKERY</span>
-              <span style={{ fontSize: '11px', fontWeight: 700, padding: '2px 6px', background: 'rgba(34, 211, 238, 0.15)', color: '#22D3EE', borderRadius: '4px', border: '1px solid rgba(34, 211, 238, 0.3)' }}>& TECH</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <span style={{ fontSize: '20px', fontWeight: 800, letterSpacing: '-0.02em', color: '#3d2314', fontFamily: 'var(--font-heading)' }}>
+                Smart Bakery
+              </span>
+              <span style={{ fontSize: '10px', fontWeight: 800, padding: '2px 6px', background: '#3d2314', color: '#fcd34d', borderRadius: '6px', letterSpacing: '0.05em' }}>
+                HUB
+              </span>
             </div>
-            <div style={{ fontSize: '11px', color: 'var(--text-secondary)' }}>Artisan Goods • Precision Gear • Masterclasses</div>
+            <div style={{ fontSize: '10px', fontWeight: 700, color: '#e05297', letterSpacing: '0.12em', textTransform: 'uppercase' }}>
+              BAKERY • SUPPLY • ACADEMY
+            </div>
           </div>
         </div>
 
         {/* Center Navigation Tabs */}
-        <nav style={{ display: 'flex', alignItems: 'center', gap: '6px', background: 'rgba(255, 255, 255, 0.04)', padding: '4px', borderRadius: '12px', border: '1px solid var(--glass-border)' }}>
+        <nav style={{ display: 'flex', alignItems: 'center', gap: '4px', background: '#faf6f0', padding: '4px', borderRadius: '12px', border: '1px solid rgba(61, 35, 20, 0.08)' }}>
+          
           <button
             onClick={() => setActiveTab('home')}
             style={{
-              background: activeTab === 'home' ? 'var(--bg-surface-elevated)' : 'transparent',
-              color: activeTab === 'home' ? 'var(--color-amber-400)' : 'var(--text-secondary)',
-              border: activeTab === 'home' ? '1px solid rgba(245, 158, 11, 0.3)' : '1px solid transparent',
+              background: activeTab === 'home' ? '#ffffff' : 'transparent',
+              color: activeTab === 'home' ? '#e05297' : '#6e5849',
+              boxShadow: activeTab === 'home' ? '0 2px 8px rgba(61, 35, 20, 0.08)' : 'none',
               borderRadius: '8px',
-              padding: '6px 14px',
+              padding: '8px 14px',
               fontSize: '13px',
-              fontWeight: 600,
+              fontWeight: 700,
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
-              gap: '6px'
+              gap: '6px',
+              border: 'none',
+              transition: 'all 0.2s ease'
             }}
           >
             <Sparkles size={14} /> Home
@@ -65,59 +99,106 @@ export function Navbar({ activeTab, setActiveTab }) {
           <button
             onClick={() => setActiveTab('store')}
             style={{
-              background: activeTab === 'store' ? 'var(--bg-surface-elevated)' : 'transparent',
-              color: activeTab === 'store' ? 'var(--color-amber-400)' : 'var(--text-secondary)',
-              border: activeTab === 'store' ? '1px solid rgba(245, 158, 11, 0.3)' : '1px solid transparent',
+              background: activeTab === 'store' ? '#ffffff' : 'transparent',
+              color: activeTab === 'store' ? '#e05297' : '#6e5849',
+              boxShadow: activeTab === 'store' ? '0 2px 8px rgba(61, 35, 20, 0.08)' : 'none',
               borderRadius: '8px',
-              padding: '6px 14px',
+              padding: '8px 14px',
               fontSize: '13px',
-              fontWeight: 600,
+              fontWeight: 700,
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
-              gap: '6px'
+              gap: '6px',
+              border: 'none',
+              transition: 'all 0.2s ease'
             }}
           >
-            <Layers size={14} /> Store Catalog
+            <Layers size={14} /> Shop
+          </button>
+
+          <button
+            onClick={() => setActiveTab('bakery')}
+            style={{
+              background: activeTab === 'bakery' ? '#ffffff' : 'transparent',
+              color: activeTab === 'bakery' ? '#e05297' : '#6e5849',
+              boxShadow: activeTab === 'bakery' ? '0 2px 8px rgba(61, 35, 20, 0.08)' : 'none',
+              borderRadius: '8px',
+              padding: '8px 14px',
+              fontSize: '13px',
+              fontWeight: 700,
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              border: 'none',
+              transition: 'all 0.2s ease'
+            }}
+          >
+            <Coffee size={14} /> Bakery & Coffee
           </button>
 
           <button
             onClick={() => setActiveTab('masterclass')}
             style={{
-              background: activeTab === 'masterclass' ? 'var(--bg-surface-elevated)' : 'transparent',
-              color: activeTab === 'masterclass' ? 'var(--color-amber-400)' : 'var(--text-secondary)',
-              border: activeTab === 'masterclass' ? '1px solid rgba(245, 158, 11, 0.3)' : '1px solid transparent',
+              background: activeTab === 'masterclass' ? '#ffffff' : 'transparent',
+              color: activeTab === 'masterclass' ? '#e05297' : '#6e5849',
+              boxShadow: activeTab === 'masterclass' ? '0 2px 8px rgba(61, 35, 20, 0.08)' : 'none',
               borderRadius: '8px',
-              padding: '6px 14px',
+              padding: '8px 14px',
               fontSize: '13px',
-              fontWeight: 600,
+              fontWeight: 700,
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
-              gap: '6px'
+              gap: '6px',
+              border: 'none',
+              transition: 'all 0.2s ease'
             }}
           >
-            <BookOpen size={14} /> Masterclass Hub
+            <BookOpen size={14} /> Academy
           </button>
 
-          {/* Mobile Phones Tab */}
           <button
-            onClick={() => setActiveTab('mobiles')}
+            onClick={() => setActiveTab('blog')}
             style={{
-              background: activeTab === 'mobiles' ? 'var(--bg-surface-elevated)' : 'transparent',
-              color: activeTab === 'mobiles' ? 'var(--color-cyan-400)' : 'var(--text-secondary)',
-              border: activeTab === 'mobiles' ? '1px solid rgba(34, 211, 238, 0.3)' : '1px solid transparent',
+              background: activeTab === 'blog' ? '#ffffff' : 'transparent',
+              color: activeTab === 'blog' ? '#e05297' : '#6e5849',
+              boxShadow: activeTab === 'blog' ? '0 2px 8px rgba(61, 35, 20, 0.08)' : 'none',
               borderRadius: '8px',
-              padding: '6px 14px',
+              padding: '8px 14px',
               fontSize: '13px',
-              fontWeight: 600,
+              fontWeight: 700,
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
-              gap: '6px'
+              gap: '6px',
+              border: 'none',
+              transition: 'all 0.2s ease'
             }}
           >
-            <Smartphone size={14} /> Mobile Phones
+            <BookOpen size={14} /> Blog / Recipes
+          </button>
+
+          <button
+            onClick={() => setActiveTab('contact')}
+            style={{
+              background: activeTab === 'contact' ? '#ffffff' : 'transparent',
+              color: activeTab === 'contact' ? '#e05297' : '#6e5849',
+              boxShadow: activeTab === 'contact' ? '0 2px 8px rgba(61, 35, 20, 0.08)' : 'none',
+              borderRadius: '8px',
+              padding: '8px 14px',
+              fontSize: '13px',
+              fontWeight: 700,
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              border: 'none',
+              transition: 'all 0.2s ease'
+            }}
+          >
+            <PhoneCall size={14} /> Contact
           </button>
 
           {/* Admin Warehouse Tab */}
@@ -125,17 +206,17 @@ export function Navbar({ activeTab, setActiveTab }) {
             <button
               onClick={() => setActiveTab('warehouse')}
               style={{
-                background: activeTab === 'warehouse' ? 'rgba(251, 113, 133, 0.2)' : 'transparent',
-                color: activeTab === 'warehouse' ? '#FB7185' : 'var(--text-secondary)',
-                border: activeTab === 'warehouse' ? '1px solid rgba(251, 113, 133, 0.4)' : '1px solid transparent',
+                background: activeTab === 'warehouse' ? 'rgba(239, 68, 68, 0.1)' : 'transparent',
+                color: activeTab === 'warehouse' ? '#dc2626' : '#6e5849',
                 borderRadius: '8px',
-                padding: '6px 14px',
+                padding: '8px 14px',
                 fontSize: '13px',
-                fontWeight: 600,
+                fontWeight: 700,
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '6px'
+                gap: '6px',
+                border: 'none'
               }}
             >
               <ShieldAlert size={14} /> Warehouse Admin
@@ -143,34 +224,34 @@ export function Navbar({ activeTab, setActiveTab }) {
           )}
         </nav>
 
-        {/* Right Actions & Badges */}
+        {/* Right Actions */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           
-          {/* Live Visitor Counter Badge */}
-          <div className="badge badge-emerald" title="Real-time connected users via SignalR" style={{ cursor: 'default' }}>
+          {/* Live Visitor Badge */}
+          <div className="badge" style={{ background: '#ecfdf5', border: '1px solid #a7f3d0', color: '#047857' }} title="Connected Live via ASP.NET Core SignalR">
             <span className="pulse-dot"></span>
-            <Users size={13} />
-            <span>{liveVisitors} Live Now</span>
+            <Users size={12} />
+            <span>{liveVisitors} Online</span>
           </div>
 
-          {/* AI Drawer Floating Trigger Button */}
+          {/* AI Concierge Drawer Trigger */}
           <button
             onClick={toggleDrawer}
             className="btn btn-secondary btn-sm"
             style={{
-              background: isAiOpen ? 'rgba(245, 158, 11, 0.2)' : 'rgba(255, 255, 255, 0.06)',
-              borderColor: isAiOpen ? 'var(--color-amber-500)' : 'var(--glass-border)',
-              color: isAiOpen ? 'var(--color-amber-400)' : 'var(--text-primary)'
+              background: isAiOpen ? '#fdf2f8' : '#ffffff',
+              borderColor: isAiOpen ? '#e05297' : 'rgba(61, 35, 20, 0.15)',
+              color: isAiOpen ? '#e05297' : '#3d2314'
             }}
           >
-            <Bot size={15} color="#F59E0B" />
-            <span>Ask Concierge</span>
+            <Bot size={15} color="#e05297" />
+            <span>AI Concierge</span>
           </button>
 
           {/* Cart Trigger */}
           <button
             onClick={openCart}
-            className="btn btn-primary btn-sm"
+            className="btn btn-rose btn-sm"
             style={{ position: 'relative' }}
           >
             <ShoppingBag size={15} />
@@ -180,8 +261,8 @@ export function Navbar({ activeTab, setActiveTab }) {
                 position: 'absolute',
                 top: '-6px',
                 right: '-6px',
-                background: '#EF4444',
-                color: '#fff',
+                background: '#3d2314',
+                color: '#ffffff',
                 borderRadius: '50%',
                 width: '20px',
                 height: '20px',
@@ -190,25 +271,24 @@ export function Navbar({ activeTab, setActiveTab }) {
                 justifyContent: 'center',
                 fontSize: '11px',
                 fontWeight: 800,
-                boxShadow: '0 2px 6px rgba(0,0,0,0.5)'
+                boxShadow: '0 2px 6px rgba(0,0,0,0.2)'
               }}>
                 {cartCount}
               </span>
             )}
           </button>
 
-          {/* User Auth Profile Trigger */}
+          {/* User Auth Trigger */}
           {isAuthenticated && user ? (
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <img
                 src={user.avatarUrl || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100'}
                 alt={user.fullName}
-                style={{ width: '34px', height: '34px', borderRadius: '50%', border: '2px solid var(--color-amber-500)', objectFit: 'cover' }}
+                style={{ width: '34px', height: '34px', borderRadius: '50%', border: '2px solid #e05297', objectFit: 'cover' }}
               />
               <button
                 onClick={logout}
-                style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', fontSize: '12px' }}
-                title="Log out"
+                style={{ background: 'transparent', border: 'none', color: '#9e8c80', cursor: 'pointer', fontSize: '12px', fontWeight: 600 }}
               >
                 Sign out
               </button>

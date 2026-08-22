@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { X, Trash2, ShoppingBag, ArrowRight, Sparkles, Check, CreditCard, Banknote } from 'lucide-react';
+import { X, Trash2, ShoppingBag, ArrowRight, Check, CreditCard } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { useCartStore } from '../stores/cartStore';
 import { useAuthStore } from '../stores/authStore';
+import { createOrder } from '../services/api';
 
 export function CartDrawer() {
   const [couponInput, setCouponInput] = useState('');
@@ -19,7 +20,6 @@ export function CartDrawer() {
     removeItem,
     clearCart,
     applyCoupon,
-    couponCode,
     discountPercent,
     getSubtotal,
     getDiscountAmount,
@@ -38,15 +38,23 @@ export function CartDrawer() {
     setCouponMessage(result);
   };
 
-  const handleConfirmOrder = () => {
-    const orderNumber = `NB-${Date.now().toString().slice(-6)}`;
+  const handleConfirmOrder = async () => {
+    const orderPayload = {
+      items: items.map(i => ({ productId: i.id || i.productId, quantity: i.quantity, price: i.price })),
+      totalAmount: getTotal(),
+      paymentMethod,
+      shippingAddress: 'Dhanmondi, Dhaka'
+    };
+
+    const res = await createOrder(orderPayload);
+    const orderNumber = res.data?.orderNumber || `SMART-${Date.now().toString().slice(-6)}`;
+
     setOrderPlaced({
       orderNumber,
       total: getTotal(),
       itemCount: items.length
     });
 
-    // Trigger celebration confetti
     try {
       confetti({
         particleCount: 100,
@@ -66,7 +74,7 @@ export function CartDrawer() {
       left: 0,
       right: 0,
       bottom: 0,
-      background: 'rgba(0, 0, 0, 0.7)',
+      background: 'rgba(61, 35, 20, 0.7)',
       backdropFilter: 'blur(6px)',
       zIndex: 70,
       display: 'flex',
@@ -79,26 +87,28 @@ export function CartDrawer() {
           width: '100%',
           maxWidth: '440px',
           height: '100%',
-          background: 'var(--bg-surface)',
-          borderLeft: '1px solid var(--glass-border)',
+          background: '#ffffff',
+          borderLeft: '1px solid rgba(61, 35, 20, 0.1)',
           display: 'flex',
           flexDirection: 'column',
-          boxShadow: 'var(--shadow-lg)'
+          boxShadow: '0 12px 35px rgba(61, 35, 20, 0.2)'
         }}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Drawer Header */}
-        <div style={{ padding: '20px', borderBottom: '1px solid var(--glass-border)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ padding: '20px', borderBottom: '1px solid rgba(61, 35, 20, 0.08)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: '#faf6f0' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <ShoppingBag size={20} color="var(--color-amber-400)" />
-            <h3 style={{ fontSize: '18px', fontWeight: 800 }}>Your Shopping Cart</h3>
-            <span className="badge badge-amber">{items.length} items</span>
+            <ShoppingBag size={20} color="#e05297" />
+            <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#3d2314' }}>Smart Bakery Cart</h3>
+            <span style={{ fontSize: '11px', fontWeight: 800, padding: '2px 8px', background: '#e05297', color: '#ffffff', borderRadius: '9999px' }}>
+              {items.length} items
+            </span>
           </div>
 
           <button
             onClick={closeCart}
             style={{
-              background: 'rgba(255, 255, 255, 0.06)',
+              background: 'transparent',
               border: 'none',
               borderRadius: '50%',
               width: '32px',
@@ -107,10 +117,10 @@ export function CartDrawer() {
               alignItems: 'center',
               justifyContent: 'center',
               cursor: 'pointer',
-              color: 'var(--text-secondary)'
+              color: '#3d2314'
             }}
           >
-            <X size={16} />
+            <X size={18} />
           </button>
         </div>
 
@@ -122,73 +132,73 @@ export function CartDrawer() {
                 width: '64px',
                 height: '64px',
                 borderRadius: '50%',
-                background: 'rgba(52, 211, 153, 0.2)',
-                border: '2px solid #34D399',
+                background: '#ecfdf5',
+                border: '2px solid #34d399',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 margin: '0 auto 20px auto'
               }}>
-                <Check size={32} color="#34D399" />
+                <Check size={32} color="#059669" />
               </div>
-              <h3 style={{ fontSize: '20px', fontWeight: 800, marginBottom: '8px' }}>Order Placed Successfully!</h3>
-              <p style={{ fontSize: '13px', color: 'var(--text-secondary)', marginBottom: '16px' }}>
-                Thank you for your artisan order. Your confirmation number is <strong>#{orderPlaced.orderNumber}</strong>.
+              <h3 style={{ fontSize: '20px', fontWeight: 800, color: '#3d2314', marginBottom: '8px' }}>Order Confirmed!</h3>
+              <p style={{ fontSize: '13px', color: '#6e5849', marginBottom: '16px' }}>
+                Thank you for ordering with Smart Bakery. Your order tracking number is <strong>#{orderPlaced.orderNumber}</strong>.
               </p>
               <button
                 onClick={() => { setOrderPlaced(null); closeCart(); }}
-                className="btn btn-primary"
-                style={{ width: '100%' }}
+                className="btn btn-rose"
+                style={{ width: '100%', fontWeight: 800 }}
               >
                 Continue Shopping
               </button>
             </div>
           ) : items.length === 0 ? (
-            <div style={{ textAlign: 'center', padding: '60px 20px', color: 'var(--text-muted)' }}>
+            <div style={{ textAlign: 'center', padding: '60px 20px', color: '#9e8c80' }}>
               <ShoppingBag size={48} style={{ opacity: 0.3, marginBottom: '16px' }} />
-              <h4 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '6px' }}>Your cart is empty</h4>
-              <p style={{ fontSize: '13px' }}>Add fresh artisan pastries or baking equipment from the catalog or via the AI Concierge.</p>
+              <h4 style={{ fontSize: '16px', fontWeight: 800, color: '#3d2314', marginBottom: '6px' }}>Your cart is empty</h4>
+              <p style={{ fontSize: '13px', color: '#6e5849' }}>Add Callebaut chocolates, Anchor butter, fresh donuts, or baking classes from the store catalog.</p>
             </div>
           ) : (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
               {items.map(item => (
                 <div
-                  key={item.id}
+                  key={item.id || item.productId}
                   style={{
                     display: 'flex',
                     alignItems: 'center',
                     gap: '12px',
                     padding: '12px',
-                    borderRadius: '12px',
-                    background: 'var(--bg-surface-elevated)',
-                    border: '1px solid var(--glass-border)'
+                    borderRadius: '14px',
+                    background: '#faf6f0',
+                    border: '1px solid rgba(61, 35, 20, 0.08)'
                   }}
                 >
                   <img
                     src={item.thumbnail}
                     alt={item.title}
-                    style={{ width: '60px', height: '60px', borderRadius: '8px', objectFit: 'cover' }}
+                    style={{ width: '60px', height: '60px', borderRadius: '10px', objectFit: 'cover' }}
                   />
 
                   <div style={{ flex: 1, minWidth: 0 }}>
-                    <h4 style={{ fontSize: '13px', fontWeight: 700, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                    <h4 style={{ fontSize: '13px', fontWeight: 800, color: '#3d2314', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                       {item.title}
                     </h4>
-                    <div style={{ fontSize: '13px', fontWeight: 800, color: 'var(--color-amber-400)', marginTop: '2px' }}>
-                      ৳ {item.price.toLocaleString()}
+                    <div style={{ fontSize: '13px', fontWeight: 800, color: '#e05297', marginTop: '2px' }}>
+                      ৳ {item.price?.toLocaleString()}
                     </div>
 
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '6px' }}>
                       <button
                         onClick={() => updateQuantity(item.id, -1)}
-                        style={{ background: 'rgba(255,255,255,0.08)', border: 'none', borderRadius: '4px', width: '22px', height: '22px', cursor: 'pointer' }}
+                        style={{ background: '#ffffff', border: '1px solid rgba(61, 35, 20, 0.15)', borderRadius: '4px', width: '22px', height: '22px', cursor: 'pointer', fontWeight: 800 }}
                       >
                         -
                       </button>
-                      <span style={{ fontSize: '12px', fontWeight: 700 }}>{item.quantity}</span>
+                      <span style={{ fontSize: '12px', fontWeight: 800, color: '#3d2314' }}>{item.quantity}</span>
                       <button
                         onClick={() => updateQuantity(item.id, 1)}
-                        style={{ background: 'rgba(255,255,255,0.08)', border: 'none', borderRadius: '4px', width: '22px', height: '22px', cursor: 'pointer' }}
+                        style={{ background: '#ffffff', border: '1px solid rgba(61, 35, 20, 0.15)', borderRadius: '4px', width: '22px', height: '22px', cursor: 'pointer', fontWeight: 800 }}
                       >
                         +
                       </button>
@@ -197,7 +207,7 @@ export function CartDrawer() {
 
                   <button
                     onClick={() => removeItem(item.id)}
-                    style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', padding: '6px' }}
+                    style={{ background: 'transparent', border: 'none', color: '#9e8c80', cursor: 'pointer', padding: '6px' }}
                   >
                     <Trash2 size={16} />
                   </button>
@@ -207,79 +217,79 @@ export function CartDrawer() {
           )}
         </div>
 
-        {/* Footer Pricing Summary & Checkout Button */}
+        {/* Summary Footer */}
         {items.length > 0 && !orderPlaced && (
-          <div style={{ padding: '20px', borderTop: '1px solid var(--glass-border)', background: 'rgba(0,0,0,0.3)' }}>
+          <div style={{ padding: '20px', borderTop: '1px solid rgba(61, 35, 20, 0.08)', background: '#faf6f0' }}>
             
-            {/* Coupon Code Input */}
-            <form onSubmit={handleApplyCoupon} style={{ display: 'flex', gap: '8px', marginBottom: '16px' }}>
+            {/* Promo Code Form */}
+            <form onSubmit={handleApplyCoupon} style={{ display: 'flex', gap: '8px', marginBottom: '14px' }}>
               <input
                 type="text"
-                placeholder="Promo code (Try: NEXUS10)"
+                placeholder="Promo code (Try: SMART10)"
                 value={couponInput}
                 onChange={(e) => setCouponInput(e.target.value)}
                 style={{
                   flex: 1,
-                  background: 'var(--bg-surface-elevated)',
-                  border: '1px solid var(--glass-border)',
+                  background: '#ffffff',
+                  border: '1px solid rgba(61, 35, 20, 0.15)',
                   borderRadius: '8px',
-                  padding: '6px 10px',
+                  padding: '7px 10px',
                   fontSize: '12px',
-                  color: 'var(--text-primary)',
+                  color: '#3d2314',
                   outline: 'none'
                 }}
               />
-              <button type="submit" className="btn btn-secondary btn-sm" style={{ padding: '6px 12px' }}>
+              <button type="submit" className="btn btn-secondary btn-sm">
                 Apply
               </button>
             </form>
 
             {couponMessage && (
-              <div style={{ fontSize: '11px', color: couponMessage.success ? '#34D399' : '#FB7185', marginBottom: '10px' }}>
+              <div style={{ fontSize: '11px', color: couponMessage.success ? '#059669' : '#dc2626', marginBottom: '10px', fontWeight: 700 }}>
                 {couponMessage.message}
               </div>
             )}
 
-            {/* Price Calculations */}
+            {/* Pricing Details */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '13px', marginBottom: '16px' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-secondary)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', color: '#6e5849' }}>
                 <span>Subtotal</span>
-                <span>৳ {getSubtotal().toLocaleString()}</span>
+                <span style={{ fontWeight: 700 }}>৳ {getSubtotal().toLocaleString()}</span>
               </div>
 
               {discountPercent > 0 && (
-                <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--color-emerald-400)' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', color: '#059669', fontWeight: 700 }}>
                   <span>Discount ({discountPercent}%)</span>
                   <span>- ৳ {getDiscountAmount().toLocaleString()}</span>
                 </div>
               )}
 
-              <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-secondary)' }}>
-                <span>Shipping</span>
-                <span>{getShippingCost() === 0 ? 'FREE' : `৳ ${getShippingCost()}`}</span>
+              <div style={{ display: 'flex', justifyContent: 'space-between', color: '#6e5849' }}>
+                <span>Delivery Charge</span>
+                <span style={{ fontWeight: 700 }}>{getShippingCost() === 0 ? 'FREE' : `৳ ${getShippingCost()}`}</span>
               </div>
 
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '16px', fontWeight: 800, color: 'var(--text-primary)', paddingTop: '8px', borderTop: '1px solid var(--glass-border)' }}>
-                <span>Total Amount</span>
-                <span style={{ color: 'var(--color-amber-400)' }}>৳ {getTotal().toLocaleString()}</span>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '16px', fontWeight: 800, color: '#3d2314', paddingTop: '8px', borderTop: '1px solid rgba(61, 35, 20, 0.1)' }}>
+                <span>Total Payable</span>
+                <span style={{ color: '#e05297' }}>৳ {getTotal().toLocaleString()}</span>
               </div>
             </div>
 
             {/* Checkout Action */}
             {isCheckingOut ? (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                <div style={{ fontSize: '12px', fontWeight: 700, color: 'var(--text-secondary)' }}>Select Payment:</div>
+                <div style={{ fontSize: '12px', fontWeight: 800, color: '#3d2314' }}>Payment Method:</div>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
                   <button
                     onClick={() => setPaymentMethod('cod')}
                     style={{
                       padding: '8px',
                       borderRadius: '8px',
-                      background: paymentMethod === 'cod' ? 'rgba(245, 158, 11, 0.2)' : 'var(--bg-surface-elevated)',
-                      border: paymentMethod === 'cod' ? '1px solid var(--color-amber-500)' : '1px solid var(--glass-border)',
-                      color: paymentMethod === 'cod' ? 'var(--color-amber-400)' : 'var(--text-primary)',
+                      background: paymentMethod === 'cod' ? '#e05297' : '#ffffff',
+                      color: paymentMethod === 'cod' ? '#ffffff' : '#3d2314',
+                      border: '1px solid rgba(61, 35, 20, 0.15)',
                       fontSize: '12px',
-                      fontWeight: 600,
+                      fontWeight: 700,
                       cursor: 'pointer'
                     }}
                   >
@@ -291,33 +301,33 @@ export function CartDrawer() {
                     style={{
                       padding: '8px',
                       borderRadius: '8px',
-                      background: paymentMethod === 'bkash' ? 'rgba(245, 158, 11, 0.2)' : 'var(--bg-surface-elevated)',
-                      border: paymentMethod === 'bkash' ? '1px solid var(--color-amber-500)' : '1px solid var(--glass-border)',
-                      color: paymentMethod === 'bkash' ? 'var(--color-amber-400)' : 'var(--text-primary)',
+                      background: paymentMethod === 'bkash' ? '#e05297' : '#ffffff',
+                      color: paymentMethod === 'bkash' ? '#ffffff' : '#3d2314',
+                      border: '1px solid rgba(61, 35, 20, 0.15)',
                       fontSize: '12px',
-                      fontWeight: 600,
+                      fontWeight: 700,
                       cursor: 'pointer'
                     }}
                   >
-                    bKash / Nagad
+                    bKash / Nagad / Card
                   </button>
                 </div>
 
                 <button
                   onClick={handleConfirmOrder}
-                  className="btn btn-primary"
-                  style={{ width: '100%', padding: '12px', marginTop: '6px' }}
+                  className="btn btn-rose"
+                  style={{ width: '100%', padding: '12px', marginTop: '6px', fontWeight: 800 }}
                 >
-                  Confirm & Place Order (৳ {getTotal().toLocaleString()})
+                  PLACE ORDER (৳ {getTotal().toLocaleString()})
                 </button>
               </div>
             ) : (
               <button
                 onClick={() => setIsCheckingOut(true)}
-                className="btn btn-primary"
-                style={{ width: '100%', padding: '12px' }}
+                className="btn btn-rose"
+                style={{ width: '100%', padding: '12px', fontWeight: 800 }}
               >
-                <span>Proceed to Checkout</span>
+                <span>PROCEED TO CHECKOUT</span>
                 <ArrowRight size={16} />
               </button>
             )}

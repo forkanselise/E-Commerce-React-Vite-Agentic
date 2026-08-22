@@ -1,5 +1,8 @@
 import { create } from 'zustand';
 import * as signalR from '@microsoft/signalr';
+import { API_BASE_URL } from '../services/api';
+
+const backendOrigin = API_BASE_URL.replace(/\/api\/?$/, '');
 
 export const useVisitorStore = create((set, get) => ({
   liveVisitors: 1,
@@ -11,7 +14,7 @@ export const useVisitorStore = create((set, get) => ({
     if (get().connection) return;
 
     const hubConnection = new signalR.HubConnectionBuilder()
-      .withUrl('/hubs/visitor')
+      .withUrl(`${backendOrigin}/hubs/visitor`)
       .withAutomaticReconnect()
       .build();
 
@@ -26,7 +29,6 @@ export const useVisitorStore = create((set, get) => ({
       })
       .catch((err) => {
         console.warn('VisitorHub fallback mode (running offline simulation):', err.message);
-        // Realistic random fluctuation in offline/preview mode
         setInterval(() => {
           set((state) => ({
             liveVisitors: Math.max(1, state.liveVisitors + (Math.random() > 0.5 ? 1 : -1))

@@ -1,6 +1,9 @@
 import { create } from 'zustand';
 import * as signalR from '@microsoft/signalr';
 import { useCartStore } from './cartStore';
+import { API_BASE_URL } from '../services/api';
+
+const backendOrigin = API_BASE_URL.replace(/\/api\/?$/, '');
 
 export const useAiDrawerStore = create((set, get) => ({
   isOpen: false,
@@ -9,7 +12,7 @@ export const useAiDrawerStore = create((set, get) => ({
       id: 'welcome_msg',
       sender: 'RouterConcierge',
       role: 'assistant',
-      text: "Hello! 🥐 I am the Nexus Bakery & Tech concierge. I can assist you with finding artisan baked goods, precision kitchen tools, streaming video masterclasses, or adding items directly to your cart.",
+      text: "Hello! 🧁 Welcome to Smart Bakery Hub. I am your AI Concierge. I can assist you with finding baking supplies (Callebaut chocolate, Anchor butter), fresh bakery goods, video masterclasses, or adding items directly to your shopping cart.",
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     }
   ],
@@ -27,7 +30,7 @@ export const useAiDrawerStore = create((set, get) => ({
     if (get().connection) return;
 
     const hubConnection = new signalR.HubConnectionBuilder()
-      .withUrl('/hubs/agent', {
+      .withUrl(`${backendOrigin}/hubs/agent`, {
         accessTokenFactory: () => token || ''
       })
       .withAutomaticReconnect()
@@ -74,14 +77,14 @@ export const useAiDrawerStore = create((set, get) => ({
     set({
       messages: [...get().messages, userMessage],
       isThinking: true,
-      currentThought: 'Analyzing request and evaluating domain boundaries...'
+      currentThought: 'Searching Smart Bakery catalog and evaluating query...'
     });
 
     try {
-      const res = await fetch('/api/agent/chat', {
+      const res = await fetch(`${API_BASE_URL}/Agent/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: userText })
+        body: JSON.stringify({ prompt: userText })
       });
 
       if (!res.ok) throw new Error('Failed to reach AI Agent');
@@ -92,7 +95,7 @@ export const useAiDrawerStore = create((set, get) => ({
         id: 'ai_' + Date.now(),
         sender: data.respondingAgent || 'RouterConcierge',
         role: 'assistant',
-        text: data.message,
+        text: data.reply || data.message,
         toolsExecuted: data.toolsExecuted || [],
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       };
@@ -104,36 +107,30 @@ export const useAiDrawerStore = create((set, get) => ({
         activeToolName: null
       });
     } catch {
-      // Local fallback simulation if backend is booting or proxy disconnected
+      // Local fallback simulation if backend is booting
       const lower = userText.toLowerCase();
-      let replyText = "I can only answer questions related to Nexus Bakery & Tech products, tools, baking tutorials, and your shopping cart. I can't assist with queries outside my domain.";
+      let replyText = "I can answer questions related to Smart Bakery products, Callebaut chocolates, baking tools, masterclasses, and your cart.";
       let agent = 'RouterConcierge';
       let tools = [];
 
-      const outOfContextKeywords = ["python", "javascript", "code", "weather", "math", "who is"];
-      const isOut = outOfContextKeywords.some(k => lower.includes(k));
-
-      if (!isOut) {
-        if (lower.includes('add') && (lower.includes('cart') || lower.includes('buy'))) {
-          agent = 'StorefrontInventory';
-          tools = ['AddToCart'];
-          replyText = "🛒 Done! I have added the item to your shopping cart.";
-          // Trigger local cart update
-          useCartStore.getState().addItem({
-            id: 'mock_item_add',
-            title: 'French Pure Butter Croissant (Box of 4)',
-            price: 520,
-            thumbnail: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=400'
-          }, 1);
-        } else if (lower.includes('tutorial') || lower.includes('macaron') || lower.includes('sourdough')) {
-          agent = 'BakingMasterclass';
-          tools = ['SearchTutorials'];
-          replyText = "🎓 Masterclass Recommendation: Check out our French Macarons Masterclass by Chef Aminul Haque! Click on timestamp 15:40 for the Macaronage technique.";
-        } else {
-          agent = 'StorefrontInventory';
-          tools = ['SearchProducts'];
-          replyText = "🥐 We have fresh Artisan Sourdough Boules (380 BDT), Pure Butter Croissants (520 BDT), and Titanium Stand Mixers (14,999 BDT) ready for delivery!";
-        }
+      if (lower.includes('add') && (lower.includes('cart') || lower.includes('buy'))) {
+        agent = 'StorefrontInventory';
+        tools = ['AddToCart'];
+        replyText = "🛒 Added! I have placed the item into your Smart Bakery shopping cart.";
+        useCartStore.getState().addItem({
+          id: 'prod_1',
+          title: 'Callebaut Dark Chocolate 1kg (54.5% Cocoa)',
+          price: 1250,
+          thumbnail: 'https://images.unsplash.com/photo-1548907040-4baa42d10919?w=400'
+        }, 1);
+      } else if (lower.includes('tutorial') || lower.includes('macaron') || lower.includes('sourdough')) {
+        agent = 'BakingMasterclass';
+        tools = ['SearchTutorials'];
+        replyText = "🎓 Masterclass Recommendation: Check out our French Macarons Masterclass by Chef Aminul Haque! Jump to 15:40 for the Macaronage folding technique.";
+      } else {
+        agent = 'StorefrontInventory';
+        tools = ['SearchProducts'];
+        replyText = "🧁 We have Callebaut Dark Chocolate 1kg (1,250 BDT), Anchor Whipping Cream 1L (780 BDT), and fresh Chocolate Donuts (120 BDT) ready for delivery!";
       }
 
       setTimeout(() => {
@@ -153,7 +150,7 @@ export const useAiDrawerStore = create((set, get) => ({
           currentThought: null,
           activeToolName: null
         });
-      }, 700);
+      }, 600);
     }
   }
 }));

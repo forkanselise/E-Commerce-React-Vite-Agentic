@@ -3,52 +3,61 @@
    ========================================================================== */
 
 :root {
-  /* Surface & Base Backgrounds */
-  --bg-base: #0a0c10;
-  --bg-surface: #11141d;
-  --bg-surface-elevated: #181d2a;
-  --bg-surface-translucent: rgba(17, 20, 29, 0.75);
+  /* Surface & Base Backgrounds - Warm Cream & Luxury Cocoa */
+  --bg-base: #faf6f0;
+  --bg-surface: #ffffff;
+  --bg-surface-elevated: #f4ede4;
+  --bg-surface-translucent: rgba(255, 255, 255, 0.85);
+  
+  /* Brand Dark Cocoa & Chocolate Surface */
+  --bg-cocoa-dark: #3d2314;
+  --bg-cocoa-deeper: #2a170d;
   
   /* Glassmorphism */
-  --glass-bg: rgba(17, 20, 29, 0.72);
-  --glass-bg-hover: rgba(24, 29, 42, 0.85);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --glass-border-hover: rgba(245, 158, 11, 0.35);
-  --glass-blur: blur(18px);
+  --glass-bg: rgba(255, 255, 255, 0.92);
+  --glass-bg-hover: #ffffff;
+  --glass-border: rgba(61, 35, 20, 0.12);
+  --glass-border-hover: rgba(224, 82, 151, 0.4);
+  --glass-blur: blur(12px);
 
-  /* Artisan Amber & Gold Palettes (Warm Culinary) */
-  --color-amber-300: #FCD34D;
-  --color-amber-400: #FBBF24;
-  --color-amber-500: #F59E0B;
-  --color-amber-600: #D97706;
+  /* Warm Rose & Pink Palette (Primary Brand Accents) */
+  --color-rose-300: #f472b6;
+  --color-rose-400: #e05297;
+  --color-rose-500: #d84384;
+  --color-rose-600: #c23b75;
+  --color-rose-glow: rgba(224, 82, 151, 0.25);
+
+  /* Artisan Amber & Gold Palettes (Warm Bakery) */
+  --color-amber-300: #fcd34d;
+  --color-amber-400: #fbbf24;
+  --color-amber-500: #f59e0b;
+  --color-amber-600: #d97706;
   --color-gold-glow: rgba(245, 158, 11, 0.25);
 
-  /* Precision Tech Accents (Cyan & Indigo) */
-  --color-cyan-400: #22D3EE;
-  --color-cyan-500: #06B6D4;
-  --color-indigo-400: #818CF8;
-  --color-indigo-500: #6366F1;
-  --color-emerald-400: #34D399;
-  --color-emerald-500: #10B981;
-  --color-rose-400: #FB7185;
-  --color-rose-500: #F43F5E;
+  /* Precision Tech Accents */
+  --color-cyan-400: #22d3ee;
+  --color-cyan-500: #06b6d4;
+  --color-indigo-400: #818cf8;
+  --color-indigo-500: #6366f1;
+  --color-emerald-400: #34d399;
+  --color-emerald-500: #10b981;
 
   /* Typography */
   --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
 
   /* Text Colors */
-  --text-primary: #F9FAFB;
-  --text-secondary: #9CA3AF;
-  --text-muted: #6B7280;
-  --text-inverted: #0A0C10;
+  --text-primary: #3d2314;
+  --text-secondary: #6e5849;
+  --text-muted: #9e8c80;
+  --text-inverted: #ffffff;
 
   /* Shadows */
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.35);
-  --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.45);
-  --shadow-lg: 0 12px 35px rgba(0, 0, 0, 0.6);
+  --shadow-sm: 0 2px 8px rgba(61, 35, 20, 0.06);
+  --shadow-md: 0 6px 20px rgba(61, 35, 20, 0.1);
+  --shadow-lg: 0 12px 35px rgba(61, 35, 20, 0.15);
+  --shadow-glow-rose: 0 0 25px rgba(224, 82, 151, 0.25);
   --shadow-glow-amber: 0 0 25px rgba(245, 158, 11, 0.2);
-  --shadow-glow-cyan: 0 0 25px rgba(6, 182, 212, 0.2);
 
   /* Borders & Radius */
   --radius-sm: 8px;
@@ -171,24 +180,46 @@ button, input, select, textarea {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--color-amber-500) 0%, var(--color-amber-600) 100%);
-  color: #111;
-  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.3);
+  background: linear-gradient(135deg, var(--color-rose-400) 0%, var(--color-rose-500) 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(224, 82, 151, 0.35);
 }
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.45);
-  background: linear-gradient(135deg, var(--color-amber-400) 0%, var(--color-amber-500) 100%);
+  box-shadow: 0 6px 20px rgba(224, 82, 151, 0.5);
+  background: linear-gradient(135deg, var(--color-rose-300) 0%, var(--color-rose-400) 100%);
+}
+
+.btn-rose {
+  background: linear-gradient(135deg, #e05297 0%, #d84384 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(224, 82, 151, 0.35);
+}
+.btn-rose:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(224, 82, 151, 0.5);
+  background: linear-gradient(135deg, #f472b6 0%, #e05297 100%);
+}
+
+.btn-dark {
+  background: var(--bg-cocoa-dark);
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(61, 35, 20, 0.25);
+}
+.btn-dark:hover {
+  transform: translateY(-2px);
+  background: var(--bg-cocoa-deeper);
 }
 
 .btn-secondary {
-  background: rgba(255, 255, 255, 0.08);
+  background: #ffffff;
   border: 1px solid var(--glass-border);
   color: var(--text-primary);
+  box-shadow: 0 2px 6px rgba(61, 35, 20, 0.05);
 }
 .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.15);
-  border-color: rgba(255, 255, 255, 0.2);
+  background: #fdfaf6;
+  border-color: rgba(224, 82, 151, 0.3);
   transform: translateY(-2px);
 }
 
