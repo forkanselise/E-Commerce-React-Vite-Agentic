@@ -8,9 +8,11 @@ import { BlogRecipesSection } from './components/BlogRecipesSection';
 import { ContactSection } from './components/ContactSection';
 import { WarehouseAdminHub } from './components/WarehouseAdminHub';
 import { ProductDetailModal } from './components/ProductDetailModal';
+import { AboutModal } from './components/AboutModal';
 import { CartDrawer } from './components/CartDrawer';
 import { AiConciergeDrawer } from './components/AiConciergeDrawer';
 import { AuthModal } from './components/AuthModal';
+import { UserProfileModal } from './components/UserProfileModal';
 import { Footer } from './components/Footer';
 import { useVisitorStore } from './stores/visitorStore';
 import { useAiDrawerStore } from './stores/aiDrawerStore';
@@ -19,29 +21,55 @@ import { useAuthStore } from './stores/authStore';
 export function App() {
   const [activeTab, setActiveTab] = useState('home'); // 'home' | 'store' | 'bakery' | 'masterclass' | 'blog' | 'contact' | 'warehouse'
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [storeCategoryFilter, setStoreCategoryFilter] = useState('All');
+  
+  // About Modal state
+  const [isAboutModalOpen, setIsAboutModalOpen] = useState(false);
+  const [aboutModalInitialTab, setAboutModalInitialTab] = useState('about');
 
   const { initVisitorHub } = useVisitorStore();
   const { initAgentHub } = useAiDrawerStore();
-  const { token } = useAuthStore();
+  const { token, initAuth } = useAuthStore();
 
   useEffect(() => {
-    // Initialize SignalR WebSocket subscriptions
+    // Initialize Auth state & SignalR WebSocket subscriptions
+    initAuth();
     initVisitorHub();
     initAgentHub(token);
   }, []);
+
+  const handleOpenAboutModal = (tabKey = 'about') => {
+    setAboutModalInitialTab(tabKey);
+    setIsAboutModalOpen(true);
+  };
+
+  const handleSelectCategoryFilter = (catId) => {
+    setStoreCategoryFilter(catId);
+  };
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', background: '#faf6f0', color: '#3d2314' }}>
       
       {/* Navigation Header */}
-      <Navbar activeTab={activeTab} setActiveTab={setActiveTab} />
+      <Navbar
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        onOpenAboutModal={handleOpenAboutModal}
+        onSelectCategoryFilter={handleSelectCategoryFilter}
+      />
 
       {/* Main Tab Content */}
       <main style={{ flex: 1 }}>
         {activeTab === 'home' && (
           <>
-            <HeroSection setActiveTab={setActiveTab} />
-            <StoreCatalog onSelectProduct={(p) => setSelectedProduct(p)} />
+            <HeroSection
+              setActiveTab={setActiveTab}
+              onSelectCategoryFilter={handleSelectCategoryFilter}
+            />
+            <StoreCatalog
+              initialCategory={storeCategoryFilter}
+              onSelectProduct={(p) => setSelectedProduct(p)}
+            />
             <BakeryCoffeeSection onSelectProduct={(p) => setSelectedProduct(p)} />
             <MasterclassHub />
             <BlogRecipesSection />
@@ -50,7 +78,10 @@ export function App() {
         )}
 
         {activeTab === 'store' && (
-          <StoreCatalog onSelectProduct={(p) => setSelectedProduct(p)} />
+          <StoreCatalog
+            initialCategory={storeCategoryFilter}
+            onSelectProduct={(p) => setSelectedProduct(p)}
+          />
         )}
 
         {activeTab === 'bakery' && (
@@ -82,10 +113,18 @@ export function App() {
         />
       )}
 
+      {/* About & Services Modal */}
+      <AboutModal
+        isOpen={isAboutModalOpen}
+        onClose={() => setIsAboutModalOpen(false)}
+        initialTab={aboutModalInitialTab}
+      />
+
       {/* Slide-over Drawers & Modals */}
       <CartDrawer />
       <AiConciergeDrawer />
       <AuthModal />
+      <UserProfileModal />
 
       {/* Footer */}
       <Footer />

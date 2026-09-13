@@ -3,16 +3,22 @@ import { Search, ShoppingBag, Star, Eye, Check, SlidersHorizontal, ArrowRight } 
 import { useCartStore } from '../stores/cartStore';
 import { fetchProducts } from '../services/api';
 
-export function StoreCatalog({ onSelectProduct }) {
+export function StoreCatalog({ onSelectProduct, initialCategory = 'All' }) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [selectedCategory, setSelectedCategory] = useState(initialCategory);
   const [searchTerm, setSearchTerm] = useState('');
   const [maxPrice, setMaxPrice] = useState(15000);
   const [inStockOnly, setInStockOnly] = useState(false);
   const [addedProductId, setAddedProductId] = useState(null);
 
   const { addItem } = useCartStore();
+
+  useEffect(() => {
+    if (initialCategory) {
+      setSelectedCategory(initialCategory);
+    }
+  }, [initialCategory]);
 
   useEffect(() => {
     async function loadCatalog() {
@@ -28,19 +34,27 @@ export function StoreCatalog({ onSelectProduct }) {
     { id: 'All', label: 'All Items' },
     { id: 'Ingredients', label: '🥛 Ingredients' },
     { id: 'Chocolate', label: '🍫 Chocolate' },
-    { id: 'Tools', label: '🥣 Tools & Mats' },
+    { id: 'Tools', label: '🥣 Tools' },
+    { id: 'Moulds', label: '🧁 Moulds' },
     { id: 'Packaging', label: '📦 Packaging' },
-    { id: 'Bakery & Coffee', label: '🥐 Bakery & Coffee' },
-    { id: 'Electronics', label: '⚡ Electronics' }
+    { id: 'Decorations', label: '✨ Decorations' },
+    { id: 'Flavours', label: '🍓 Flavours' },
+    { id: 'Nuts & Seeds', label: '🥜 Nuts & Seeds' },
+    { id: 'Bakery & Coffee', label: '🥐 Bakery & Coffee' }
   ];
 
   const filteredProducts = useMemo(() => {
     return products.filter(p => {
       // Category match
       if (selectedCategory !== 'All') {
-        if (selectedCategory === 'Chocolate' && p.subCategory !== 'Chocolate' && !p.title.toLowerCase().includes('chocolate')) {
-          if (p.category !== 'Ingredients') return false;
-        } else if (p.category !== selectedCategory && p.subCategory !== selectedCategory) {
+        const cat = selectedCategory.toLowerCase();
+        const pCat = p.category?.toLowerCase() || '';
+        const pSub = p.subCategory?.toLowerCase() || '';
+        const pTitle = p.title?.toLowerCase() || '';
+        
+        if (cat === 'chocolate' && !pCat.includes('chocolate') && !pSub.includes('chocolate') && !pTitle.includes('chocolate')) {
+          return false;
+        } else if (cat !== 'chocolate' && !pCat.includes(cat) && !pSub.includes(cat) && !pTitle.includes(cat)) {
           return false;
         }
       }
@@ -79,7 +93,7 @@ export function StoreCatalog({ onSelectProduct }) {
         <div style={{ marginBottom: '32px' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px', marginBottom: '24px' }}>
             <div>
-              <div style={{ fontSize: '12px', fontWeight: 800, color: '#e05297', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Smart Bakery Shop</div>
+              <div style={{ fontSize: '12px', fontWeight: 800, color: '#e05297', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Butter Cup Store</div>
               <h2 style={{ fontSize: '28px', fontWeight: 800, color: '#3d2314', fontFamily: 'var(--font-heading)' }}>Product Catalog</h2>
               <p style={{ fontSize: '14px', color: '#6e5849' }}>Showing {filteredProducts.length} premium baking ingredients, supplies & tools</p>
             </div>
@@ -89,7 +103,7 @@ export function StoreCatalog({ onSelectProduct }) {
               <Search size={16} style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', color: '#9e8c80' }} />
               <input
                 type="text"
-                placeholder="Search Callebaut, Anchor, Spatulas, Boxes..."
+                placeholder="Search Callebaut, Anchor, Spatulas, Moulds..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 style={{
@@ -121,7 +135,7 @@ export function StoreCatalog({ onSelectProduct }) {
                     color: selectedCategory === c.id ? '#ffffff' : '#3d2314',
                     border: 'none',
                     borderRadius: '9999px',
-                    padding: '8px 18px',
+                    padding: '8px 16px',
                     fontSize: '13px',
                     fontWeight: 700,
                     cursor: 'pointer',
@@ -168,7 +182,7 @@ export function StoreCatalog({ onSelectProduct }) {
         {loading ? (
           <div style={{ padding: '60px', textAlign: 'center', color: '#9e8c80' }}>
             <div style={{ fontSize: '24px', marginBottom: '12px' }}>🧁</div>
-            <div>Loading Smart Bakery Catalog...</div>
+            <div>Loading Butter Cup Catalog...</div>
           </div>
         ) : filteredProducts.length === 0 ? (
           <div style={{ padding: '60px', textAlign: 'center', background: '#ffffff', borderRadius: '18px', border: '1px solid rgba(61, 35, 20, 0.08)' }}>
@@ -301,3 +315,5 @@ export function StoreCatalog({ onSelectProduct }) {
     </div>
   );
 }
+
+export default StoreCatalog;

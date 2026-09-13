@@ -1,48 +1,123 @@
-import React from 'react';
-import { ShoppingBag, Bot, Users, Sparkles, User, ShieldAlert, BookOpen, Layers, Coffee, PhoneCall, Award, Truck, ShieldCheck, Heart } from 'lucide-react';
+import React, { useState, useRef, useEffect } from 'react';
+import { ShoppingBag, Bot, Users, Sparkles, User, ShieldAlert, ChevronDown, Coffee, PhoneCall, Award, Truck, ShieldCheck, Heart, Info, Mail, MapPin, Phone, Layers, BookOpen, Package } from 'lucide-react';
 import { useCartStore } from '../stores/cartStore';
 import { useVisitorStore } from '../stores/visitorStore';
 import { useAiDrawerStore } from '../stores/aiDrawerStore';
 import { useAuthStore } from '../stores/authStore';
 
-export function Navbar({ activeTab, setActiveTab }) {
+export function Navbar({ activeTab, setActiveTab, onOpenAboutModal, onSelectCategoryFilter }) {
   const { getTotalItemCount, openCart } = useCartStore();
   const { liveVisitors } = useVisitorStore();
-  const { toggleDrawer, isOpen: isAiOpen } = useAiDrawerStore();
-  const { user, isAuthenticated, openAuthModal, logout } = useAuthStore();
+  const { toggleDrawer } = useAiDrawerStore();
+  const { user, isAuthenticated, openAuthModal, openProfileModal, logout } = useAuthStore();
+
+  const [activeDropdown, setActiveDropdown] = useState(null); // 'bakes' | 'homeTools' | 'order' | 'contact' | 'about' | null
+  const navRef = useRef(null);
+  const timeoutRef = useRef(null);
 
   const cartCount = getTotalItemCount();
 
+  // Close dropdown on outside click
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (navRef.current && !navRef.current.contains(event.target)) {
+        setActiveDropdown(null);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const handleMouseEnter = (menuKey) => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    setActiveDropdown(menuKey);
+  };
+
+  const handleMouseLeave = () => {
+    timeoutRef.current = setTimeout(() => {
+      setActiveDropdown(null);
+    }, 200);
+  };
+
+  const handleBakesSelect = (subItem) => {
+    setActiveDropdown(null);
+    if (onSelectCategoryFilter) {
+      onSelectCategoryFilter(subItem);
+    }
+    setActiveTab('bakery');
+  };
+
+  const handleToolsSelect = (subItem) => {
+    setActiveDropdown(null);
+    if (onSelectCategoryFilter) {
+      onSelectCategoryFilter(subItem);
+    }
+    setActiveTab('store');
+  };
+
+  const handleOrderSelect = (subType) => {
+    setActiveDropdown(null);
+    if (subType === 'individual') {
+      if (!isAuthenticated) {
+        openAuthModal();
+      } else {
+        openProfileModal();
+      }
+    } else if (subType === 'preorder') {
+      setActiveTab('bakery');
+    } else if (subType === 'corporate') {
+      setActiveTab('contact');
+    }
+  };
+
+  const handleContactSelect = (subType) => {
+    setActiveDropdown(null);
+    if (subType === 'mrbutter') {
+      toggleDrawer();
+    } else {
+      setActiveTab('contact');
+    }
+  };
+
+  const handleAboutSelect = (tabKey) => {
+    setActiveDropdown(null);
+    if (onOpenAboutModal) {
+      onOpenAboutModal(tabKey);
+    }
+  };
+
   return (
-    <header className="sticky top-0 z-40 w-full" style={{ background: '#ffffff', borderBottom: '1px solid rgba(61, 35, 20, 0.1)', boxShadow: '0 2px 10px rgba(61, 35, 20, 0.04)' }}>
+    <header ref={navRef} className="sticky top-0 z-40 w-full" style={{ background: '#ffffff', borderBottom: '1px solid rgba(61, 35, 20, 0.1)', boxShadow: '0 2px 10px rgba(61, 35, 20, 0.04)' }}>
       
-      {/* Top Announcement Bar (Matching Buttercup Mockup Header) */}
+      {/* Stage-01: Top Container (Matching PDF Page 1 Stage-01) */}
       <div style={{ background: '#3d2314', color: '#fdfbf7', padding: '6px 24px', fontSize: '12px', fontWeight: 500 }}>
         <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
             <Heart size={13} color="#e05297" fill="#e05297" />
-            <span style={{ fontWeight: 600, color: '#f472b6' }}>Bake • Learn • Inspire</span>
-            <span className="hide-on-mobile" style={{ opacity: 0.7, marginLeft: '8px' }}>| One stop destination for Baking Ingredients, Tools, Packaging, Bakery & Coffee and Professional Baking Classes</span>
+            <span style={{ fontWeight: 700, color: '#f472b6' }}>Bake • Make • Learn</span>
+            <span className="hide-on-mobile" style={{ opacity: 0.85, marginLeft: '6px' }}>
+              || One Stop Destination for Bakery, Coffee, Tools, Banking Ingredients, Packaging, and Professional Baking Classes
+            </span>
           </div>
 
-          <div className="hide-on-mobile" style={{ display: 'flex', alignItems: 'center', gap: '16px', fontSize: '11px', opacity: 0.9 }}>
-            <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+          <div className="hide-on-mobile" style={{ display: 'flex', alignItems: 'center', gap: '16px', fontSize: '11px', opacity: 0.95 }}>
+            <span style={{ display: 'flex', alignItems: 'center', gap: '4px', color: '#fbbf24', fontWeight: 600 }}>
               <Award size={12} color="#fbbf24" /> Premium Quality Products
             </span>
-            <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-              <ShieldCheck size={12} color="#34d399" /> Trusted by 60,000+ Bakers
+            <span style={{ display: 'flex', alignItems: 'center', gap: '4px', color: '#38bdf8', fontWeight: 600 }}>
+              <Package size={12} color="#38bdf8" /> Corporate Supply
             </span>
-            <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-              <Truck size={12} color="#22d3ee" /> Fast & Safe Delivery
+            <span style={{ display: 'flex', alignItems: 'center', gap: '4px', color: '#34d399', fontWeight: 600 }}>
+              <Truck size={12} color="#34d399" /> Fast & Safe Delivery
             </span>
           </div>
         </div>
       </div>
 
-      {/* Main Navbar */}
-      <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '76px', gap: '12px' }}>
+      {/* Stage-02: Header Container */}
+      <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '76px', gap: '16px', position: 'relative' }}>
         
-        {/* Brand Logo (Smart Bakery Hub) */}
+        {/* Left Adjust : Name Logo (Home Page Link) */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer', flexShrink: 0 }} onClick={() => setActiveTab('home')}>
           <div style={{
             width: '44px',
@@ -59,8 +134,8 @@ export function Navbar({ activeTab, setActiveTab }) {
           </div>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <span style={{ fontSize: '18px', fontWeight: 800, letterSpacing: '-0.02em', color: '#3d2314', fontFamily: 'var(--font-heading)' }}>
-                Smart Bakery
+              <span style={{ fontSize: '20px', fontWeight: 800, letterSpacing: '-0.02em', color: '#3d2314', fontFamily: 'var(--font-heading)' }}>
+                Butter Cup
               </span>
               <span style={{ fontSize: '10px', fontWeight: 800, padding: '2px 6px', background: '#3d2314', color: '#fcd34d', borderRadius: '6px' }}>
                 HUB
@@ -72,16 +147,17 @@ export function Navbar({ activeTab, setActiveTab }) {
           </div>
         </div>
 
-        {/* Center Navigation Tabs (Scrollable on Mobile) */}
-        <nav className="nav-scroll-container" style={{ display: 'flex', alignItems: 'center', gap: '4px', background: '#faf6f0', padding: '4px', borderRadius: '12px', border: '1px solid rgba(61, 35, 20, 0.08)', maxWidth: '100%', overflowX: 'auto' }}>
+        {/* Center Navigation Menu Bar with Hover Dropdowns */}
+        <nav style={{ display: 'flex', alignItems: 'center', gap: '4px', background: '#faf6f0', padding: '5px', borderRadius: '14px', border: '1px solid rgba(61, 35, 20, 0.08)', position: 'relative' }}>
           
+          {/* 1. Home Button */}
           <button
-            onClick={() => setActiveTab('home')}
+            onClick={() => { setActiveTab('home'); setActiveDropdown(null); }}
             style={{
               background: activeTab === 'home' ? '#ffffff' : 'transparent',
               color: activeTab === 'home' ? '#e05297' : '#6e5849',
               boxShadow: activeTab === 'home' ? '0 2px 8px rgba(61, 35, 20, 0.08)' : 'none',
-              borderRadius: '8px',
+              borderRadius: '9px',
               padding: '8px 14px',
               fontSize: '13px',
               fontWeight: 700,
@@ -96,55 +172,164 @@ export function Navbar({ activeTab, setActiveTab }) {
             <Sparkles size={14} /> Home
           </button>
 
-          <button
-            onClick={() => setActiveTab('store')}
-            style={{
-              background: activeTab === 'store' ? '#ffffff' : 'transparent',
-              color: activeTab === 'store' ? '#e05297' : '#6e5849',
-              boxShadow: activeTab === 'store' ? '0 2px 8px rgba(61, 35, 20, 0.08)' : 'none',
-              borderRadius: '8px',
-              padding: '8px 14px',
-              fontSize: '13px',
-              fontWeight: 700,
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px',
-              border: 'none',
-              transition: 'all 0.2s ease'
-            }}
+          {/* 2. Our Bakes Dropdown */}
+          <div
+            style={{ position: 'relative' }}
+            onMouseEnter={() => handleMouseEnter('bakes')}
+            onMouseLeave={handleMouseLeave}
           >
-            <Layers size={14} /> Shop
-          </button>
+            <button
+              onClick={() => setActiveDropdown(activeDropdown === 'bakes' ? null : 'bakes')}
+              style={{
+                background: (activeTab === 'bakery' || activeDropdown === 'bakes') ? '#ffffff' : 'transparent',
+                color: (activeTab === 'bakery' || activeDropdown === 'bakes') ? '#e05297' : '#6e5849',
+                boxShadow: (activeTab === 'bakery' || activeDropdown === 'bakes') ? '0 2px 8px rgba(61, 35, 20, 0.08)' : 'none',
+                borderRadius: '9px',
+                padding: '8px 14px',
+                fontSize: '13px',
+                fontWeight: 700,
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                border: 'none',
+                transition: 'all 0.2s ease'
+              }}
+            >
+              <Coffee size={14} /> Our Bakes <ChevronDown size={12} style={{ transform: activeDropdown === 'bakes' ? 'rotate(180deg)' : 'none', transition: '0.2s' }} />
+            </button>
 
-          <button
-            onClick={() => setActiveTab('bakery')}
-            style={{
-              background: activeTab === 'bakery' ? '#ffffff' : 'transparent',
-              color: activeTab === 'bakery' ? '#e05297' : '#6e5849',
-              boxShadow: activeTab === 'bakery' ? '0 2px 8px rgba(61, 35, 20, 0.08)' : 'none',
-              borderRadius: '8px',
-              padding: '8px 14px',
-              fontSize: '13px',
-              fontWeight: 700,
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px',
-              border: 'none',
-              transition: 'all 0.2s ease'
-            }}
+            {activeDropdown === 'bakes' && (
+              <div style={{
+                position: 'absolute',
+                top: '100%',
+                left: 0,
+                marginTop: '6px',
+                width: '190px',
+                background: '#ffffff',
+                borderRadius: '14px',
+                boxShadow: '0 14px 40px rgba(61, 35, 20, 0.18)',
+                border: '1px solid rgba(61, 35, 20, 0.1)',
+                padding: '6px',
+                zIndex: 1000,
+                animation: 'fadeIn 0.2s ease'
+              }}>
+                {[
+                  { label: '🍩 Donuts', val: 'Donuts' },
+                  { label: '🎂 Cake', val: 'Cake' },
+                  { label: '🍫 Chocolate', val: 'Chocolate' },
+                  { label: '☕ Coffee', val: 'Coffee' },
+                  { label: '🥤 Drinks', val: 'Drinks' },
+                  { label: '🍪 Cookies', val: 'Cookies' }
+                ].map((item) => (
+                  <button
+                    key={item.val}
+                    onClick={() => handleBakesSelect(item.val)}
+                    style={{
+                      width: '100%',
+                      textAlign: 'left',
+                      padding: '9px 12px',
+                      fontSize: '13px',
+                      fontWeight: 600,
+                      color: '#3d2314',
+                      background: 'transparent',
+                      border: 'none',
+                      borderRadius: '8px',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '6px'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.background = '#fdf2f8'}
+                    onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* 3. Try Your Home Dropdown */}
+          <div
+            style={{ position: 'relative' }}
+            onMouseEnter={() => handleMouseEnter('homeTools')}
+            onMouseLeave={handleMouseLeave}
           >
-            <Coffee size={14} /> Bakery & Coffee
-          </button>
+            <button
+              onClick={() => setActiveDropdown(activeDropdown === 'homeTools' ? null : 'homeTools')}
+              style={{
+                background: (activeTab === 'store' || activeDropdown === 'homeTools') ? '#ffffff' : 'transparent',
+                color: (activeTab === 'store' || activeDropdown === 'homeTools') ? '#e05297' : '#6e5849',
+                boxShadow: (activeTab === 'store' || activeDropdown === 'homeTools') ? '0 2px 8px rgba(61, 35, 20, 0.08)' : 'none',
+                borderRadius: '9px',
+                padding: '8px 14px',
+                fontSize: '13px',
+                fontWeight: 700,
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                border: 'none',
+                transition: 'all 0.2s ease'
+              }}
+            >
+              <Layers size={14} /> Try Your Home <ChevronDown size={12} style={{ transform: activeDropdown === 'homeTools' ? 'rotate(180deg)' : 'none', transition: '0.2s' }} />
+            </button>
 
+            {activeDropdown === 'homeTools' && (
+              <div style={{
+                position: 'absolute',
+                top: '100%',
+                left: 0,
+                marginTop: '6px',
+                width: '200px',
+                background: '#ffffff',
+                borderRadius: '14px',
+                boxShadow: '0 14px 40px rgba(61, 35, 20, 0.18)',
+                border: '1px solid rgba(61, 35, 20, 0.1)',
+                padding: '6px',
+                zIndex: 1000,
+                animation: 'fadeIn 0.2s ease'
+              }}>
+                {[
+                  { label: '🥣 Mixers & Pans', val: 'Tools' },
+                  { label: '🧁 Decorating Tools', val: 'Decorations' },
+                  { label: '✨ Silicone Moulds', val: 'Moulds' }
+                ].map((item) => (
+                  <button
+                    key={item.val}
+                    onClick={() => handleToolsSelect(item.val)}
+                    style={{
+                      width: '100%',
+                      textAlign: 'left',
+                      padding: '9px 12px',
+                      fontSize: '13px',
+                      fontWeight: 600,
+                      color: '#3d2314',
+                      background: 'transparent',
+                      border: 'none',
+                      borderRadius: '8px',
+                      cursor: 'pointer'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.background = '#fdf2f8'}
+                    onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* 4. Academy Button */}
           <button
-            onClick={() => setActiveTab('masterclass')}
+            onClick={() => { setActiveTab('masterclass'); setActiveDropdown(null); }}
             style={{
               background: activeTab === 'masterclass' ? '#ffffff' : 'transparent',
               color: activeTab === 'masterclass' ? '#e05297' : '#6e5849',
               boxShadow: activeTab === 'masterclass' ? '0 2px 8px rgba(61, 35, 20, 0.08)' : 'none',
-              borderRadius: '8px',
+              borderRadius: '9px',
               padding: '8px 14px',
               fontSize: '13px',
               fontWeight: 700,
@@ -159,56 +344,238 @@ export function Navbar({ activeTab, setActiveTab }) {
             <BookOpen size={14} /> Academy
           </button>
 
-          <button
-            onClick={() => setActiveTab('blog')}
-            style={{
-              background: activeTab === 'blog' ? '#ffffff' : 'transparent',
-              color: activeTab === 'blog' ? '#e05297' : '#6e5849',
-              boxShadow: activeTab === 'blog' ? '0 2px 8px rgba(61, 35, 20, 0.08)' : 'none',
-              borderRadius: '8px',
-              padding: '8px 14px',
-              fontSize: '13px',
-              fontWeight: 700,
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px',
-              border: 'none',
-              transition: 'all 0.2s ease'
-            }}
+          {/* 5. Order Now Dropdown */}
+          <div
+            style={{ position: 'relative' }}
+            onMouseEnter={() => handleMouseEnter('order')}
+            onMouseLeave={handleMouseLeave}
           >
-            <BookOpen size={14} /> Blog / Recipes
-          </button>
+            <button
+              onClick={() => setActiveDropdown(activeDropdown === 'order' ? null : 'order')}
+              style={{
+                background: activeDropdown === 'order' ? '#ffffff' : 'transparent',
+                color: activeDropdown === 'order' ? '#e05297' : '#6e5849',
+                boxShadow: activeDropdown === 'order' ? '0 2px 8px rgba(61, 35, 20, 0.08)' : 'none',
+                borderRadius: '9px',
+                padding: '8px 14px',
+                fontSize: '13px',
+                fontWeight: 700,
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                border: 'none',
+                transition: 'all 0.2s ease'
+              }}
+            >
+              <ShoppingBag size={14} /> Order Now <ChevronDown size={12} style={{ transform: activeDropdown === 'order' ? 'rotate(180deg)' : 'none', transition: '0.2s' }} />
+            </button>
 
-          <button
-            onClick={() => setActiveTab('contact')}
-            style={{
-              background: activeTab === 'contact' ? '#ffffff' : 'transparent',
-              color: activeTab === 'contact' ? '#e05297' : '#6e5849',
-              boxShadow: activeTab === 'contact' ? '0 2px 8px rgba(61, 35, 20, 0.08)' : 'none',
-              borderRadius: '8px',
-              padding: '8px 14px',
-              fontSize: '13px',
-              fontWeight: 700,
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px',
-              border: 'none',
-              transition: 'all 0.2s ease'
-            }}
+            {activeDropdown === 'order' && (
+              <div style={{
+                position: 'absolute',
+                top: '100%',
+                left: 0,
+                marginTop: '6px',
+                width: '230px',
+                background: '#ffffff',
+                borderRadius: '14px',
+                boxShadow: '0 14px 40px rgba(61, 35, 20, 0.18)',
+                border: '1px solid rgba(61, 35, 20, 0.1)',
+                padding: '6px',
+                zIndex: 1000,
+                animation: 'fadeIn 0.2s ease'
+              }}>
+                <button
+                  onClick={() => handleOrderSelect('individual')}
+                  style={{ width: '100%', textAlign: 'left', padding: '9px 12px', fontSize: '13px', fontWeight: 600, color: '#3d2314', background: 'transparent', border: 'none', borderRadius: '8px', cursor: 'pointer' }}
+                  onMouseEnter={(e) => e.currentTarget.style.background = '#fdf2f8'}
+                  onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                >
+                  👤 Individual (Profile & Account)
+                </button>
+                <button
+                  onClick={() => handleOrderSelect('preorder')}
+                  style={{ width: '100%', textAlign: 'left', padding: '9px 12px', fontSize: '13px', fontWeight: 600, color: '#3d2314', background: 'transparent', border: 'none', borderRadius: '8px', cursor: 'pointer' }}
+                  onMouseEnter={(e) => e.currentTarget.style.background = '#fdf2f8'}
+                  onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                >
+                  ✨ Special Program (Pre Order)
+                </button>
+                <button
+                  onClick={() => handleOrderSelect('corporate')}
+                  style={{ width: '100%', textAlign: 'left', padding: '9px 12px', fontSize: '13px', fontWeight: 600, color: '#3d2314', background: 'transparent', border: 'none', borderRadius: '8px', cursor: 'pointer' }}
+                  onMouseEnter={(e) => e.currentTarget.style.background = '#fdf2f8'}
+                  onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                >
+                  🏢 Corporate (Contact Us)
+                </button>
+              </div>
+            )}
+          </div>
+
+          {/* 6. Contact Dropdown */}
+          <div
+            style={{ position: 'relative' }}
+            onMouseEnter={() => handleMouseEnter('contact')}
+            onMouseLeave={handleMouseLeave}
           >
-            <PhoneCall size={14} /> Contact
-          </button>
+            <button
+              onClick={() => setActiveDropdown(activeDropdown === 'contact' ? null : 'contact')}
+              style={{
+                background: (activeTab === 'contact' || activeDropdown === 'contact') ? '#ffffff' : 'transparent',
+                color: (activeTab === 'contact' || activeDropdown === 'contact') ? '#e05297' : '#6e5849',
+                boxShadow: (activeTab === 'contact' || activeDropdown === 'contact') ? '0 2px 8px rgba(61, 35, 20, 0.08)' : 'none',
+                borderRadius: '9px',
+                padding: '8px 14px',
+                fontSize: '13px',
+                fontWeight: 700,
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                border: 'none',
+                transition: 'all 0.2s ease'
+              }}
+            >
+              <PhoneCall size={14} /> Contact <ChevronDown size={12} style={{ transform: activeDropdown === 'contact' ? 'rotate(180deg)' : 'none', transition: '0.2s' }} />
+            </button>
 
-          {/* Admin Warehouse Tab */}
+            {activeDropdown === 'contact' && (
+              <div style={{
+                position: 'absolute',
+                top: '100%',
+                left: 0,
+                marginTop: '6px',
+                width: '210px',
+                background: '#ffffff',
+                borderRadius: '14px',
+                boxShadow: '0 14px 40px rgba(61, 35, 20, 0.18)',
+                border: '1px solid rgba(61, 35, 20, 0.1)',
+                padding: '6px',
+                zIndex: 1000,
+                animation: 'fadeIn 0.2s ease'
+              }}>
+                <button
+                  onClick={() => handleContactSelect('mrbutter')}
+                  style={{ width: '100%', textAlign: 'left', padding: '9px 12px', fontSize: '13px', fontWeight: 700, color: '#e05297', background: '#fdf2f8', border: 'none', borderRadius: '8px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}
+                >
+                  🤖 Mr. Butter (//chatbot//)
+                </button>
+                <button
+                  onClick={() => handleContactSelect('email')}
+                  style={{ width: '100%', textAlign: 'left', padding: '9px 12px', fontSize: '13px', fontWeight: 600, color: '#3d2314', background: 'transparent', border: 'none', borderRadius: '8px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}
+                  onMouseEnter={(e) => e.currentTarget.style.background = '#faf6f0'}
+                  onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                >
+                  <Mail size={14} /> Email Us
+                </button>
+                <button
+                  onClick={() => handleContactSelect('call')}
+                  style={{ width: '100%', textAlign: 'left', padding: '9px 12px', fontSize: '13px', fontWeight: 600, color: '#3d2314', background: 'transparent', border: 'none', borderRadius: '8px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}
+                  onMouseEnter={(e) => e.currentTarget.style.background = '#faf6f0'}
+                  onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                >
+                  <Phone size={14} /> Call Hotline
+                </button>
+                <button
+                  onClick={() => handleContactSelect('location')}
+                  style={{ width: '100%', textAlign: 'left', padding: '9px 12px', fontSize: '13px', fontWeight: 600, color: '#3d2314', background: 'transparent', border: 'none', borderRadius: '8px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}
+                  onMouseEnter={(e) => e.currentTarget.style.background = '#faf6f0'}
+                  onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                >
+                  <MapPin size={14} /> Store Location
+                </button>
+              </div>
+            )}
+          </div>
+
+          {/* 7. About Dropdown */}
+          <div
+            style={{ position: 'relative' }}
+            onMouseEnter={() => handleMouseEnter('about')}
+            onMouseLeave={handleMouseLeave}
+          >
+            <button
+              onClick={() => setActiveDropdown(activeDropdown === 'about' ? null : 'about')}
+              style={{
+                background: activeDropdown === 'about' ? '#ffffff' : 'transparent',
+                color: activeDropdown === 'about' ? '#e05297' : '#6e5849',
+                boxShadow: activeDropdown === 'about' ? '0 2px 8px rgba(61, 35, 20, 0.08)' : 'none',
+                borderRadius: '9px',
+                padding: '8px 14px',
+                fontSize: '13px',
+                fontWeight: 700,
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                border: 'none',
+                transition: 'all 0.2s ease'
+              }}
+            >
+              <Info size={14} /> About <ChevronDown size={12} style={{ transform: activeDropdown === 'about' ? 'rotate(180deg)' : 'none', transition: '0.2s' }} />
+            </button>
+
+            {activeDropdown === 'about' && (
+              <div style={{
+                position: 'absolute',
+                top: '100%',
+                right: 0,
+                marginTop: '6px',
+                width: '240px',
+                background: '#ffffff',
+                borderRadius: '14px',
+                boxShadow: '0 14px 40px rgba(61, 35, 20, 0.18)',
+                border: '1px solid rgba(61, 35, 20, 0.1)',
+                padding: '6px',
+                zIndex: 1000,
+                animation: 'fadeIn 0.2s ease'
+              }}>
+                <button
+                  onClick={() => handleAboutSelect('services')}
+                  style={{ width: '100%', textAlign: 'left', padding: '9px 12px', fontSize: '13px', fontWeight: 600, color: '#3d2314', background: 'transparent', border: 'none', borderRadius: '8px', cursor: 'pointer' }}
+                  onMouseEnter={(e) => e.currentTarget.style.background = '#fdf2f8'}
+                  onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                >
+                  💼 Our Services
+                </button>
+                <button
+                  onClick={() => handleAboutSelect('gallery')}
+                  style={{ width: '100%', textAlign: 'left', padding: '9px 12px', fontSize: '13px', fontWeight: 600, color: '#3d2314', background: 'transparent', border: 'none', borderRadius: '8px', cursor: 'pointer' }}
+                  onMouseEnter={(e) => e.currentTarget.style.background = '#fdf2f8'}
+                  onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                >
+                  📸 Get In Touch (Gallery & Clips)
+                </button>
+                <button
+                  onClick={() => handleAboutSelect('about')}
+                  style={{ width: '100%', textAlign: 'left', padding: '9px 12px', fontSize: '13px', fontWeight: 600, color: '#3d2314', background: 'transparent', border: 'none', borderRadius: '8px', cursor: 'pointer' }}
+                  onMouseEnter={(e) => e.currentTarget.style.background = '#fdf2f8'}
+                  onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                >
+                  ℹ️ About Butter Cup
+                </button>
+                <button
+                  onClick={() => handleAboutSelect('license')}
+                  style={{ width: '100%', textAlign: 'left', padding: '9px 12px', fontSize: '13px', fontWeight: 600, color: '#3d2314', background: 'transparent', border: 'none', borderRadius: '8px', cursor: 'pointer' }}
+                  onMouseEnter={(e) => e.currentTarget.style.background = '#fdf2f8'}
+                  onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                >
+                  📜 License & Verification
+                </button>
+              </div>
+            )}
+          </div>
+
+          {/* Admin Warehouse Button (If user is Admin) */}
           {(user?.role === 'Admin' || user?.role === 'SystemAdmin') && (
             <button
-              onClick={() => setActiveTab('warehouse')}
+              onClick={() => { setActiveTab('warehouse'); setActiveDropdown(null); }}
               style={{
                 background: activeTab === 'warehouse' ? 'rgba(239, 68, 68, 0.1)' : 'transparent',
                 color: activeTab === 'warehouse' ? '#dc2626' : '#6e5849',
-                borderRadius: '8px',
+                borderRadius: '9px',
                 padding: '8px 14px',
                 fontSize: '13px',
                 fontWeight: 700,
@@ -219,43 +586,30 @@ export function Navbar({ activeTab, setActiveTab }) {
                 border: 'none'
               }}
             >
-              <ShieldAlert size={14} /> Warehouse Admin
+              <ShieldAlert size={14} /> Warehouse
             </button>
           )}
+
         </nav>
 
-        {/* Right Actions */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+        {/* Right Action Icons (Live Visitors, Profile Avatar, Cart, Sign Out) */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           
-          {/* Live Visitor Badge */}
-          <div className="badge" style={{ background: '#ecfdf5', border: '1px solid #a7f3d0', color: '#047857' }} title="Connected Live via ASP.NET Core SignalR">
+          {/* Live Visitor Counter */}
+          <div className="badge hide-on-mobile" style={{ background: '#ecfdf5', border: '1px solid #a7f3d0', color: '#047857', fontSize: '12px' }} title="Connected Live via ASP.NET Core SignalR">
             <span className="pulse-dot"></span>
             <Users size={12} />
             <span>{liveVisitors} Online</span>
           </div>
 
-          {/* AI Concierge Drawer Trigger */}
-          <button
-            onClick={toggleDrawer}
-            className="btn btn-secondary btn-sm"
-            style={{
-              background: isAiOpen ? '#fdf2f8' : '#ffffff',
-              borderColor: isAiOpen ? '#e05297' : 'rgba(61, 35, 20, 0.15)',
-              color: isAiOpen ? '#e05297' : '#3d2314'
-            }}
-          >
-            <Bot size={15} color="#e05297" />
-            <span>AI Concierge</span>
-          </button>
-
-          {/* Cart Trigger */}
+          {/* Cart Button */}
           <button
             onClick={openCart}
             className="btn btn-rose btn-sm"
-            style={{ position: 'relative' }}
+            style={{ position: 'relative', fontWeight: 700 }}
           >
             <ShoppingBag size={15} />
-            <span>Cart</span>
+            <span className="hide-on-mobile">Cart</span>
             {cartCount > 0 && (
               <span style={{
                 position: 'absolute',
@@ -278,14 +632,35 @@ export function Navbar({ activeTab, setActiveTab }) {
             )}
           </button>
 
-          {/* User Auth Trigger */}
+          {/* Logged-In User Profile Trigger & Avatar */}
           {isAuthenticated && user ? (
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <img
-                src={user.avatarUrl || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100'}
-                alt={user.fullName}
-                style={{ width: '34px', height: '34px', borderRadius: '50%', border: '2px solid #e05297', objectFit: 'cover' }}
-              />
+              <div
+                onClick={openProfileModal}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  cursor: 'pointer',
+                  padding: '4px 8px',
+                  borderRadius: '12px',
+                  background: '#faf6f0',
+                  border: '1px solid rgba(61, 35, 20, 0.1)',
+                  transition: 'all 0.2s ease'
+                }}
+                title="Click to view & update your Profile"
+                onMouseEnter={(e) => e.currentTarget.style.borderColor = '#e05297'}
+                onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(61, 35, 20, 0.1)'}
+              >
+                <img
+                  src={user.avatarUrl || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100'}
+                  alt={user.fullName}
+                  style={{ width: '32px', height: '32px', borderRadius: '50%', border: '2px solid #e05297', objectFit: 'cover' }}
+                />
+                <span className="hide-on-mobile" style={{ fontSize: '13px', fontWeight: 700, color: '#3d2314' }}>
+                  {user.fullName?.split(' ')[0] || 'Profile'}
+                </span>
+              </div>
               <button
                 onClick={logout}
                 style={{ background: 'transparent', border: 'none', color: '#9e8c80', cursor: 'pointer', fontSize: '12px', fontWeight: 600 }}
@@ -297,9 +672,10 @@ export function Navbar({ activeTab, setActiveTab }) {
             <button
               onClick={openAuthModal}
               className="btn btn-secondary btn-sm"
+              style={{ fontWeight: 700 }}
             >
               <User size={14} />
-              <span>Sign In</span>
+              <span>Login</span>
             </button>
           )}
 
@@ -308,3 +684,5 @@ export function Navbar({ activeTab, setActiveTab }) {
     </header>
   );
 }
+
+export default Navbar;
