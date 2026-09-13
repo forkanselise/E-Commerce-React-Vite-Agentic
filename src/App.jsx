@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { SplashScreen } from './components/SplashScreen';
 import { Navbar } from './components/Navbar';
 import { HeroSection } from './components/HeroSection';
 import { StoreCatalog } from './components/StoreCatalog';
@@ -49,7 +50,9 @@ export function App() {
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', background: '#faf6f0', color: '#3d2314' }}>
-      
+      {/* Initial Load Logo Splash Overlay */}
+      <SplashScreen duration={2000} />
+
       {/* Navigation Header */}
       <Navbar
         activeTab={activeTab}

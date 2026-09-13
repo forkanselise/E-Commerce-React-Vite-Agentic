@@ -101,9 +101,9 @@ export function HeroSection({ setActiveTab, onSelectCategoryFilter }) {
         
         {/* Main Stage-03 Grid */}
         <div className="responsive-grid-2" style={{ display: 'grid', gridTemplateColumns: '1.1fr 0.9fr', gap: '40px', alignItems: 'center', marginBottom: '60px' }}>
-          
           {/* Left Adjust: Stage-03 Hero Content */}
           <div>
+            {/* Stage-03 Hero Pill Tags */}
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 16px', borderRadius: '9999px', background: '#fdf2f8', border: '1px solid #f472b6', marginBottom: '20px' }}>
               <Heart size={14} color="#e05297" fill="#e05297" />
               <span style={{ fontSize: '13px', fontWeight: 700, color: '#e05297' }}>Bake • Make • Learn</span>
@@ -116,19 +116,15 @@ export function HeroSection({ setActiveTab, onSelectCategoryFilter }) {
               </span>
             </h1>
 
-            <p style={{ fontSize: '16px', color: '#6e5849', lineHeight: 1.65, marginBottom: '32px', maxWidth: '560px' }}>
-              Welcome to <strong>Buttercup</strong>, your ultimate destination for artisanal cakes, premium baking supplies, and professional baking masterclasses. Whether you're craving a rich decadent treat or stocking up on top tier ingredients for your next creation, we’ve got you covered.
-            </p>
-
-            {/* Stage-03 Call-to-Action (CTA) Buttons */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap', marginBottom: '36px' }}>
+            {/* Stage-03 Call-to-Action (CTA) Buttons - Positioned at Top */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap', marginBottom: '24px' }}>
               
               {/* ORDER NOW Dropdown Button */}
               <div style={{ position: 'relative' }}>
                 <button
                   onClick={() => setShowOrderDropdown(!showOrderDropdown)}
                   className="btn btn-rose"
-                  style={{ padding: '14px 26px', fontSize: '15px', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '8px' }}
+                  style={{ padding: '14px 28px', fontSize: '15px', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '8px', boxShadow: '0 8px 24px rgba(224, 82, 151, 0.25)' }}
                 >
                   <ShoppingBag size={18} />
                   <span>ORDER NOW</span>
@@ -173,7 +169,7 @@ export function HeroSection({ setActiveTab, onSelectCategoryFilter }) {
                 <button
                   onClick={() => setShowJoinDropdown(!showJoinDropdown)}
                   className="btn btn-dark"
-                  style={{ padding: '14px 26px', fontSize: '15px', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '8px' }}
+                  style={{ padding: '14px 28px', fontSize: '15px', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '8px', boxShadow: '0 8px 24px rgba(61, 35, 20, 0.2)' }}
                 >
                   <BookOpen size={18} />
                   <span>JOIN CLASS</span>
@@ -205,17 +201,44 @@ export function HeroSection({ setActiveTab, onSelectCategoryFilter }) {
                 )}
               </div>
 
-              {/* Mr. Butter AI Agent Link */}
+              {/* Mr. Butter AI Assistant Chip */}
               <button
                 onClick={openDrawer}
-                className="btn btn-secondary"
-                style={{ padding: '13px 20px', fontSize: '14px', fontWeight: 700, borderColor: '#e05297', color: '#e05297', background: '#ffffff' }}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  padding: '13px 20px',
+                  borderRadius: '14px',
+                  background: 'linear-gradient(135deg, #ffffff 0%, #fdf2f8 100%)',
+                  border: '1.5px solid #e05297',
+                  boxShadow: '0 4px 14px rgba(224, 82, 151, 0.18)',
+                  color: '#e05297',
+                  fontSize: '14px',
+                  fontWeight: 800,
+                  cursor: 'pointer',
+                  transition: 'all 0.25s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-2px) scale(1.02)';
+                  e.currentTarget.style.boxShadow = '0 8px 22px rgba(224, 82, 151, 0.3)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'none';
+                  e.currentTarget.style.boxShadow = '0 4px 14px rgba(224, 82, 151, 0.18)';
+                }}
               >
+                <span style={{ display: 'inline-block', width: '8px', height: '8px', borderRadius: '50%', background: '#10b981', boxShadow: '0 0 8px #10b981' }} />
                 <Bot size={18} color="#e05297" />
                 <span>Mr. Butter</span>
+                <Sparkles size={14} color="#f59e0b" />
               </button>
 
             </div>
+
+            <p style={{ fontSize: '16px', color: '#6e5849', lineHeight: 1.65, marginBottom: '32px', maxWidth: '560px' }}>
+              Welcome to <strong>Buttercup</strong>, your ultimate destination for artisanal cakes, premium baking supplies, and professional baking masterclasses. Whether you're craving a rich decadent treat or stocking up on top tier ingredients for your next creation, we’ve got you covered.
+            </p>
 
             {/* Bottom Badges matching Stage-03 PDF */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '24px', fontSize: '14px', color: '#6e5849', fontWeight: 700 }}>
