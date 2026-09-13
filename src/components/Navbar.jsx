@@ -4,7 +4,7 @@ import { useCartStore } from '../stores/cartStore';
 import { useVisitorStore } from '../stores/visitorStore';
 import { useAiDrawerStore } from '../stores/aiDrawerStore';
 import { useAuthStore } from '../stores/authStore';
-import logoImg from '../assets/logo.jpeg';
+import logoImg from '../assets/Picture2.png';
 
 export function Navbar({ activeTab, setActiveTab, onOpenAboutModal, onSelectCategoryFilter }) {
   const { getTotalItemCount, openCart } = useCartStore();
@@ -119,31 +119,18 @@ export function Navbar({ activeTab, setActiveTab, onOpenAboutModal, onSelectCate
       <div className="container navbar-header-row" style={{ position: 'relative' }}>
         
         {/* Left Adjust : Name Logo (Home Page Link) */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer', flexShrink: 0 }} onClick={() => setActiveTab('home')}>
+        <div style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', flexShrink: 0 }} onClick={() => setActiveTab('home')}>
           <img
             src={logoImg}
             alt="Buttercup Logo"
             style={{
-              height: '60px',
+              height: '75px',
               width: 'auto',
-              maxHeight: '60px',
+              maxHeight: '75px',
               objectFit: 'contain',
               flexShrink: 0
             }}
           />
-          <div style={{ flexShrink: 0 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <span style={{ fontSize: '20px', fontWeight: 800, letterSpacing: '-0.02em', color: '#3d2314', fontFamily: 'var(--font-heading)', whiteSpace: 'nowrap' }}>
-                Buttercup
-              </span>
-              <span style={{ fontSize: '10px', fontWeight: 800, padding: '2px 6px', background: '#3d2314', color: '#fcd34d', borderRadius: '6px' }}>
-                HUB
-              </span>
-            </div>
-            <div className="hide-on-mobile" style={{ fontSize: '10px', fontWeight: 700, color: '#e05297', letterSpacing: '0.12em', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>
-              BAKERY • SUPPLY • ACADEMY
-            </div>
-          </div>
         </div>
 
         {/* Center Navigation Menu Bar with Hover Dropdowns */}

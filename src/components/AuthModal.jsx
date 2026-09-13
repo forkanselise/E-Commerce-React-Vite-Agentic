@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { X, Lock, Mail, User, AlertCircle, Loader2 } from 'lucide-react';
 import { useAuthStore } from '../stores/authStore';
-import logoImg from '../assets/logo.jpeg';
+import logoImg from '../assets/Picture2.png';
 
 export function AuthModal() {
   const [activeTab, setActiveTab] = useState('login'); // 'login' | 'register'

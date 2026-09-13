@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Heart, Bot, ShieldCheck, Mail, Send } from 'lucide-react';
 import { useVisitorStore } from '../stores/visitorStore';
-import logoImg from '../assets/logo.jpeg';
+import logoImg from '../assets/Picture2.png';
 
 export function Footer() {
   const { lifetimeVisits, liveVisitors } = useVisitorStore();
@@ -23,16 +23,12 @@ export function Footer() {
           
           {/* Col 1 Brand Info */}
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '12px' }}>
               <img
                 src={logoImg}
                 alt="Buttercup Logo"
-                style={{ height: '56px', width: 'auto', maxHeight: '56px', objectFit: 'contain', flexShrink: 0 }}
+                style={{ height: '70px', width: 'auto', maxHeight: '70px', objectFit: 'contain', flexShrink: 0 }}
               />
-              <div>
-                <span style={{ fontSize: '18px', fontWeight: 800, fontFamily: 'var(--font-heading)' }}>Buttercup</span>
-                <div style={{ fontSize: '10px', color: '#e05297', fontWeight: 800, letterSpacing: '0.1em' }}>BAKERY • SUPPLY • ACADEMY</div>
-              </div>
             </div>
             <p style={{ fontSize: '13px', color: '#f4ede4', lineHeight: 1.6, marginBottom: '16px', opacity: 0.85 }}>
               One stop destination for baking ingredients, professional tools, bakery packaging, fresh cakes, donuts, and certified video masterclasses.

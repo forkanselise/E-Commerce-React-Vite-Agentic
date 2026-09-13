@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { X, Award, ShieldCheck, Heart, Camera, Video, Sparkles, CheckCircle2, FileText, Coffee, Package, Users } from 'lucide-react';
-import logoImg from '../assets/logo.jpeg';
+import logoImg from '../assets/Picture2.png';
 
 export function AboutModal({ isOpen, onClose, initialTab = 'about' }) {
   const [activeTab, setActiveTab] = useState(initialTab); // 'about' | 'services' | 'gallery' | 'license'
