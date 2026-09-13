@@ -18,8 +18,15 @@ export function BakeryCoffeeSection({ onSelectProduct, initialSubCategory = 'All
   useEffect(() => {
     async function loadBakeryItems() {
       const allProds = await fetchProducts();
-      const bakeryItems = allProds.filter(p => p.category === 'Bakery & Coffee' || p.category === 'Bakery');
-      setItems(bakeryItems);
+      const bakeryItems = allProds.filter(p => 
+        p.category === 'Bakery & Coffee' || 
+        p.category === 'Bakery' ||
+        ['Cakes', 'Donuts', 'Cookies', 'Brownies', 'Coffee', 'Chocolate', 'Drinks'].some(c => 
+          p.subCategory?.toLowerCase().includes(c.toLowerCase()) || 
+          p.tags?.some(t => t.toLowerCase().includes(c.toLowerCase()))
+        )
+      );
+      setItems(bakeryItems.length > 0 ? bakeryItems : allProds);
     }
     loadBakeryItems();
   }, []);
@@ -28,11 +35,17 @@ export function BakeryCoffeeSection({ onSelectProduct, initialSubCategory = 'All
 
   const filteredItems = items.filter(item => {
     if (selectedSub === 'All') return true;
-    const subLower = selectedSub.toLowerCase();
+    const cat = selectedSub.toLowerCase();
+    const singular = cat.endsWith('s') ? cat.slice(0, -1) : cat;
     const itemSub = item.subCategory?.toLowerCase() || '';
     const itemCat = item.category?.toLowerCase() || '';
     const itemTitle = item.title?.toLowerCase() || '';
-    return itemSub.includes(subLower) || itemCat.includes(subLower) || itemTitle.includes(subLower);
+    const itemTags = item.tags?.join(' ').toLowerCase() || '';
+    
+    return itemSub.includes(cat) || itemSub.includes(singular) ||
+           itemCat.includes(cat) || itemCat.includes(singular) ||
+           itemTitle.includes(cat) || itemTitle.includes(singular) ||
+           itemTags.includes(cat) || itemTags.includes(singular);
   });
 
   const handleAddToCart = (e, product) => {

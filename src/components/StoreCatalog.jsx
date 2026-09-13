@@ -48,15 +48,17 @@ export function StoreCatalog({ onSelectProduct, initialCategory = 'All' }) {
       // Category match
       if (selectedCategory !== 'All') {
         const cat = selectedCategory.toLowerCase();
+        const singular = cat.endsWith('s') ? cat.slice(0, -1) : cat;
         const pCat = p.category?.toLowerCase() || '';
         const pSub = p.subCategory?.toLowerCase() || '';
         const pTitle = p.title?.toLowerCase() || '';
+        const pTags = p.tags?.join(' ').toLowerCase() || '';
         
-        if (cat === 'chocolate' && !pCat.includes('chocolate') && !pSub.includes('chocolate') && !pTitle.includes('chocolate')) {
-          return false;
-        } else if (cat !== 'chocolate' && !pCat.includes(cat) && !pSub.includes(cat) && !pTitle.includes(cat)) {
-          return false;
-        }
+        const isMatch = pCat.includes(cat) || pCat.includes(singular) ||
+                        pSub.includes(cat) || pSub.includes(singular) ||
+                        pTitle.includes(cat) || pTitle.includes(singular) ||
+                        pTags.includes(cat) || pTags.includes(singular);
+        if (!isMatch) return false;
       }
 
       // Search match

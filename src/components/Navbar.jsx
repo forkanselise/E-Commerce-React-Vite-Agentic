@@ -227,12 +227,13 @@ export function Navbar({ activeTab, setActiveTab, onOpenAboutModal, onSelectCate
                   animation: 'fadeIn 0.2s ease'
                 }}>
                   {[
+                    { label: '🎂 Cakes', val: 'Cakes' },
                     { label: '🍩 Donuts', val: 'Donuts' },
-                    { label: '🎂 Cake', val: 'Cake' },
-                    { label: '🍫 Chocolate', val: 'Chocolate' },
+                    { label: '🍪 Cookies', val: 'Cookies' },
+                    { label: '🍫 Brownies', val: 'Brownies' },
                     { label: '☕ Coffee', val: 'Coffee' },
-                    { label: '🥤 Drinks', val: 'Drinks' },
-                    { label: '🍪 Cookies', val: 'Cookies' }
+                    { label: '🍫 Chocolate', val: 'Chocolate' },
+                    { label: '🥤 Drinks', val: 'Drinks' }
                   ].map((item) => (
                     <button
                       key={item.val}
@@ -296,7 +297,7 @@ export function Navbar({ activeTab, setActiveTab, onOpenAboutModal, onSelectCate
             {activeDropdown === 'homeTools' && (
               <div style={{ position: 'absolute', top: '100%', left: 0, paddingTop: '6px', zIndex: 9999 }}>
                 <div style={{
-                  width: '200px',
+                  width: '210px',
                   background: '#ffffff',
                   borderRadius: '14px',
                   boxShadow: '0 14px 40px rgba(61, 35, 20, 0.18)',
@@ -309,9 +310,12 @@ export function Navbar({ activeTab, setActiveTab, onOpenAboutModal, onSelectCate
                   animation: 'fadeIn 0.2s ease'
                 }}>
                   {[
-                    { label: '🥣 Mixers & Pans', val: 'Tools' },
-                    { label: '🧁 Decorating Tools', val: 'Decorations' },
-                    { label: '✨ Silicone Moulds', val: 'Moulds' }
+                    { label: '🥣 Tools & Equipment', val: 'Tools' },
+                    { label: '🧁 Moulds & Forms', val: 'Moulds' },
+                    { label: '✨ Decorating Tools', val: 'Decorations' },
+                    { label: '📦 Packaging & Boxes', val: 'Packaging' },
+                    { label: '🥛 Ingredients', val: 'Ingredients' },
+                    { label: '🍓 Flavours & Powders', val: 'Flavours' }
                   ].map((item) => (
                     <button
                       key={item.val}
