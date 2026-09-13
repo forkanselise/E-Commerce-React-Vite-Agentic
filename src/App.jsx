@@ -23,6 +23,7 @@ export function App() {
   const [activeTab, setActiveTab] = useState('home'); // 'home' | 'store' | 'bakery' | 'masterclass' | 'blog' | 'contact' | 'warehouse'
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [storeCategoryFilter, setStoreCategoryFilter] = useState('All');
+  const [bakeryCategoryFilter, setBakeryCategoryFilter] = useState('All');
   
   // About Modal state
   const [isAboutModalOpen, setIsAboutModalOpen] = useState(false);
@@ -46,6 +47,7 @@ export function App() {
 
   const handleSelectCategoryFilter = (catId) => {
     setStoreCategoryFilter(catId);
+    setBakeryCategoryFilter(catId);
   };
 
   return (
@@ -73,7 +75,7 @@ export function App() {
               initialCategory={storeCategoryFilter}
               onSelectProduct={(p) => setSelectedProduct(p)}
             />
-            <BakeryCoffeeSection onSelectProduct={(p) => setSelectedProduct(p)} />
+            <BakeryCoffeeSection initialSubCategory={bakeryCategoryFilter} onSelectProduct={(p) => setSelectedProduct(p)} />
             <MasterclassHub />
             <BlogRecipesSection />
             <ContactSection />
@@ -88,7 +90,7 @@ export function App() {
         )}
 
         {activeTab === 'bakery' && (
-          <BakeryCoffeeSection onSelectProduct={(p) => setSelectedProduct(p)} />
+          <BakeryCoffeeSection initialSubCategory={bakeryCategoryFilter} onSelectProduct={(p) => setSelectedProduct(p)} />
         )}
 
         {activeTab === 'masterclass' && (

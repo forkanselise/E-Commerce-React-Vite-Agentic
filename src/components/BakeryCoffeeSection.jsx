@@ -3,11 +3,17 @@ import { ShoppingBag, Star, Check, Coffee, Heart, Gift } from 'lucide-react';
 import { useCartStore } from '../stores/cartStore';
 import { fetchProducts } from '../services/api';
 
-export function BakeryCoffeeSection({ onSelectProduct }) {
+export function BakeryCoffeeSection({ onSelectProduct, initialSubCategory = 'All' }) {
   const [items, setItems] = useState([]);
-  const [selectedSub, setSelectedSub] = useState('All');
+  const [selectedSub, setSelectedSub] = useState(initialSubCategory);
   const [addedId, setAddedId] = useState(null);
   const { addItem } = useCartStore();
+
+  useEffect(() => {
+    if (initialSubCategory) {
+      setSelectedSub(initialSubCategory);
+    }
+  }, [initialSubCategory]);
 
   useEffect(() => {
     async function loadBakeryItems() {
@@ -18,11 +24,15 @@ export function BakeryCoffeeSection({ onSelectProduct }) {
     loadBakeryItems();
   }, []);
 
-  const subCategories = ['All', 'Cakes', 'Donuts', 'Cookies', 'Brownies', 'Coffee'];
+  const subCategories = ['All', 'Cakes', 'Donuts', 'Cookies', 'Brownies', 'Coffee', 'Chocolate', 'Drinks'];
 
   const filteredItems = items.filter(item => {
     if (selectedSub === 'All') return true;
-    return item.subCategory === selectedSub || item.tags?.includes(selectedSub.toLowerCase());
+    const subLower = selectedSub.toLowerCase();
+    const itemSub = item.subCategory?.toLowerCase() || '';
+    const itemCat = item.category?.toLowerCase() || '';
+    const itemTitle = item.title?.toLowerCase() || '';
+    return itemSub.includes(subLower) || itemCat.includes(subLower) || itemTitle.includes(subLower);
   });
 
   const handleAddToCart = (e, product) => {
