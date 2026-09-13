@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Heart, Bot, ShieldCheck, Mail, Send } from 'lucide-react';
 import { useVisitorStore } from '../stores/visitorStore';
+import logoImg from '../assets/logo.jpeg';
 
 export function Footer() {
   const { lifetimeVisits, liveVisitors } = useVisitorStore();
@@ -23,9 +24,13 @@ export function Footer() {
           {/* Col 1 Brand Info */}
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px' }}>
-              <span style={{ fontSize: '24px' }}>🧁</span>
+              <img
+                src={logoImg}
+                alt="Buttercup Logo"
+                style={{ height: '56px', width: 'auto', maxHeight: '56px', objectFit: 'contain', flexShrink: 0 }}
+              />
               <div>
-                <span style={{ fontSize: '18px', fontWeight: 800, fontFamily: 'var(--font-heading)' }}>Smart Bakery</span>
+                <span style={{ fontSize: '18px', fontWeight: 800, fontFamily: 'var(--font-heading)' }}>Buttercup</span>
                 <div style={{ fontSize: '10px', color: '#e05297', fontWeight: 800, letterSpacing: '0.1em' }}>BAKERY • SUPPLY • ACADEMY</div>
               </div>
             </div>
@@ -71,7 +76,7 @@ export function Footer() {
 
             {subscribed ? (
               <div style={{ fontSize: '12px', color: '#34d399', fontWeight: 700 }}>
-                ✓ Thank you for subscribing to Smart Bakery!
+                ✓ Thank you for subscribing to Buttercup!
               </div>
             ) : (
               <form onSubmit={handleSubscribe} style={{ display: 'flex', gap: '6px' }}>
@@ -108,7 +113,7 @@ export function Footer() {
 
         {/* Bottom Payment Icons & Copyright */}
         <div style={{ borderTop: '1px solid rgba(255, 255, 255, 0.1)', paddingTop: '24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px', fontSize: '12px', opacity: 0.85 }}>
-          <div>© 2026 Smart Bakery Hub Ltd. All rights reserved.</div>
+          <div>© 2026 Buttercup Hub Ltd. All rights reserved.</div>
 
           {/* Payment Method Badges (bKash, Nagad, Visa, Mastercard, COD) */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '11px', fontWeight: 700 }}>

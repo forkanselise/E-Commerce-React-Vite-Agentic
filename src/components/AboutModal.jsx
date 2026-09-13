@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { X, Award, ShieldCheck, Heart, Camera, Video, Sparkles, CheckCircle2, FileText, Coffee, Package, Users } from 'lucide-react';
+import logoImg from '../assets/logo.jpeg';
 
 export function AboutModal({ isOpen, onClose, initialTab = 'about' }) {
   const [activeTab, setActiveTab] = useState(initialTab); // 'about' | 'services' | 'gallery' | 'license'
@@ -42,10 +43,10 @@ export function AboutModal({ isOpen, onClose, initialTab = 'about' }) {
         }}>
           <div>
             <div style={{ fontSize: '12px', fontWeight: 800, color: '#fcd34d', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
-              Butter Cup • Bakery & Tech
+              Buttercup • Bakery & Tech
             </div>
             <h2 style={{ fontSize: '24px', fontWeight: 800, fontFamily: 'var(--font-heading)', marginTop: '4px' }}>
-              About Butter Cup
+              About Buttercup
             </h2>
           </div>
           <button
@@ -140,17 +141,19 @@ export function AboutModal({ isOpen, onClose, initialTab = 'about' }) {
           {activeTab === 'about' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                <div style={{ width: '48px', height: '48px', borderRadius: '16px', background: '#fdf2f8', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '24px' }}>
-                  🧁
-                </div>
+                <img
+                  src={logoImg}
+                  alt="Buttercup Logo"
+                  style={{ height: '58px', width: 'auto', maxHeight: '58px', objectFit: 'contain' }}
+                />
                 <div>
-                  <h3 style={{ fontSize: '20px', fontWeight: 800, color: '#3d2314' }}>Welcome to Butter Cup</h3>
+                  <h3 style={{ fontSize: '20px', fontWeight: 800, color: '#3d2314' }}>Welcome to Buttercup</h3>
                   <p style={{ fontSize: '13px', color: '#e05297', fontWeight: 600 }}>Artisanal Bakery • Professional Baking Supplies • Masterclass Academy</p>
                 </div>
               </div>
 
               <p style={{ fontSize: '14px', lineHeight: 1.7, color: '#554236' }}>
-                Butter Cup is your ultimate destination for everything artisanal baking and high-grade baking tech.
+                Buttercup is your ultimate destination for everything artisanal baking and high-grade baking tech.
                 Whether you are a home baker crafting weekend treats or a commercial bakery owner sourcing premium chocolate (Callebaut, Valrhona), dairy (Anchor, Elle & Vire), or professional deck ovens, we provide end-to-end support with guaranteed origin quality.
               </p>
 

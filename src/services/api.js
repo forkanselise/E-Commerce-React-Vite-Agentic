@@ -412,7 +412,7 @@ export async function sendAgentMessage(prompt, conversationHistory = []) {
     });
   } catch (err) {
     return {
-      reply: `Welcome to Butter Cup! I'm your AI Concierge. I can help you select Callebaut chocolates, Anchor dairy, baking tools, or enroll in baking classes. How may I assist your baking journey today?`,
+      reply: `Welcome to Buttercup! I'm your AI Concierge. I can help you select Callebaut chocolates, Anchor dairy, baking tools, or enroll in baking classes. How may I assist your baking journey today?`,
       delegatedAgent: 'RouterConcierge'
     };
   }

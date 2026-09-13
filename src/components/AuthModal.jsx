@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X, Lock, Mail, User, AlertCircle, Loader2 } from 'lucide-react';
 import { useAuthStore } from '../stores/authStore';
+import logoImg from '../assets/logo.jpeg';
 
 export function AuthModal() {
   const [activeTab, setActiveTab] = useState('login'); // 'login' | 'register'
@@ -85,9 +86,13 @@ export function AuthModal() {
 
         {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: '24px' }}>
-          <div style={{ fontSize: '36px', marginBottom: '6px' }}>🧁</div>
+          <img
+            src={logoImg}
+            alt="Buttercup Logo"
+            style={{ height: '64px', width: 'auto', maxHeight: '64px', objectFit: 'contain', margin: '0 auto 10px auto' }}
+          />
           <h3 style={{ fontSize: '22px', fontWeight: 800, color: '#3d2314', fontFamily: 'var(--font-heading)' }}>
-            {activeTab === 'login' ? 'Sign In to Butter Cup' : 'Create Butter Cup Account'}
+            {activeTab === 'login' ? 'Sign In to Buttercup' : 'Create Buttercup Account'}
           </h3>
           <p style={{ fontSize: '13px', color: '#6e5849', marginTop: '4px' }}>
             {activeTab === 'login' ? 'Enter your credentials to access your account' : 'Fill in your details below to register'}

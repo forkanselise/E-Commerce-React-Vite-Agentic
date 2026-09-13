@@ -117,7 +117,7 @@ export function HeroSection({ setActiveTab, onSelectCategoryFilter }) {
             </h1>
 
             <p style={{ fontSize: '16px', color: '#6e5849', lineHeight: 1.65, marginBottom: '32px', maxWidth: '560px' }}>
-              Welcome to <strong>Butter Cup</strong>, your ultimate destination for artisanal cakes, premium baking supplies, and professional baking masterclasses. Whether you're craving a rich decadent treat or stocking up on top tier ingredients for your next creation, we’ve got you covered.
+              Welcome to <strong>Buttercup</strong>, your ultimate destination for artisanal cakes, premium baking supplies, and professional baking masterclasses. Whether you're craving a rich decadent treat or stocking up on top tier ingredients for your next creation, we’ve got you covered.
             </p>
 
             {/* Stage-03 Call-to-Action (CTA) Buttons */}

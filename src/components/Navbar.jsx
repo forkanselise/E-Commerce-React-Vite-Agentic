@@ -4,6 +4,7 @@ import { useCartStore } from '../stores/cartStore';
 import { useVisitorStore } from '../stores/visitorStore';
 import { useAiDrawerStore } from '../stores/aiDrawerStore';
 import { useAuthStore } from '../stores/authStore';
+import logoImg from '../assets/logo.jpeg';
 
 export function Navbar({ activeTab, setActiveTab, onOpenAboutModal, onSelectCategoryFilter }) {
   const { getTotalItemCount, openCart } = useCartStore();
@@ -115,40 +116,39 @@ export function Navbar({ activeTab, setActiveTab, onOpenAboutModal, onSelectCate
       </div>
 
       {/* Stage-02: Header Container */}
-      <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '76px', gap: '16px', position: 'relative' }}>
+      <div className="container navbar-header-row" style={{ position: 'relative' }}>
         
         {/* Left Adjust : Name Logo (Home Page Link) */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer', flexShrink: 0 }} onClick={() => setActiveTab('home')}>
-          <div style={{
-            width: '44px',
-            height: '44px',
-            borderRadius: '14px',
-            background: 'linear-gradient(135deg, #e05297 0%, #3d2314 100%)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontSize: '22px',
-            boxShadow: '0 4px 14px rgba(224, 82, 151, 0.3)'
-          }}>
-            🧁
-          </div>
-          <div>
+          <img
+            src={logoImg}
+            alt="Buttercup Logo"
+            style={{
+              height: '60px',
+              width: 'auto',
+              maxHeight: '60px',
+              objectFit: 'contain',
+              flexShrink: 0
+            }}
+          />
+          <div style={{ flexShrink: 0 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <span style={{ fontSize: '20px', fontWeight: 800, letterSpacing: '-0.02em', color: '#3d2314', fontFamily: 'var(--font-heading)' }}>
-                Butter Cup
+              <span style={{ fontSize: '20px', fontWeight: 800, letterSpacing: '-0.02em', color: '#3d2314', fontFamily: 'var(--font-heading)', whiteSpace: 'nowrap' }}>
+                Buttercup
               </span>
               <span style={{ fontSize: '10px', fontWeight: 800, padding: '2px 6px', background: '#3d2314', color: '#fcd34d', borderRadius: '6px' }}>
                 HUB
               </span>
             </div>
-            <div className="hide-on-mobile" style={{ fontSize: '10px', fontWeight: 700, color: '#e05297', letterSpacing: '0.12em', textTransform: 'uppercase' }}>
+            <div className="hide-on-mobile" style={{ fontSize: '10px', fontWeight: 700, color: '#e05297', letterSpacing: '0.12em', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>
               BAKERY • SUPPLY • ACADEMY
             </div>
           </div>
         </div>
 
         {/* Center Navigation Menu Bar with Hover Dropdowns */}
-        <nav style={{ display: 'flex', alignItems: 'center', gap: '4px', background: '#faf6f0', padding: '5px', borderRadius: '14px', border: '1px solid rgba(61, 35, 20, 0.08)', position: 'relative' }}>
+        <div className="navbar-nav-wrapper nav-scroll-container">
+          <nav style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', background: '#faf6f0', padding: '5px', borderRadius: '14px', border: '1px solid rgba(61, 35, 20, 0.08)', position: 'relative' }}>
           
           {/* 1. Home Button */}
           <button
@@ -554,7 +554,7 @@ export function Navbar({ activeTab, setActiveTab, onOpenAboutModal, onSelectCate
                   onMouseEnter={(e) => e.currentTarget.style.background = '#fdf2f8'}
                   onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
                 >
-                  ℹ️ About Butter Cup
+                  ℹ️ About Buttercup
                 </button>
                 <button
                   onClick={() => handleAboutSelect('license')}
@@ -591,9 +591,10 @@ export function Navbar({ activeTab, setActiveTab, onOpenAboutModal, onSelectCate
           )}
 
         </nav>
+        </div>
 
         {/* Right Action Icons (Live Visitors, Profile Avatar, Cart, Sign Out) */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexShrink: 0 }}>
           
           {/* Live Visitor Counter */}
           <div className="badge hide-on-mobile" style={{ background: '#ecfdf5', border: '1px solid #a7f3d0', color: '#047857', fontSize: '12px' }} title="Connected Live via ASP.NET Core SignalR">

@@ -93,7 +93,7 @@ export function StoreCatalog({ onSelectProduct, initialCategory = 'All' }) {
         <div style={{ marginBottom: '32px' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px', marginBottom: '24px' }}>
             <div>
-              <div style={{ fontSize: '12px', fontWeight: 800, color: '#e05297', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Butter Cup Store</div>
+              <div style={{ fontSize: '12px', fontWeight: 800, color: '#e05297', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Buttercup Store</div>
               <h2 style={{ fontSize: '28px', fontWeight: 800, color: '#3d2314', fontFamily: 'var(--font-heading)' }}>Product Catalog</h2>
               <p style={{ fontSize: '14px', color: '#6e5849' }}>Showing {filteredProducts.length} premium baking ingredients, supplies & tools</p>
             </div>
@@ -182,7 +182,7 @@ export function StoreCatalog({ onSelectProduct, initialCategory = 'All' }) {
         {loading ? (
           <div style={{ padding: '60px', textAlign: 'center', color: '#9e8c80' }}>
             <div style={{ fontSize: '24px', marginBottom: '12px' }}>🧁</div>
-            <div>Loading Butter Cup Catalog...</div>
+            <div>Loading Buttercup Catalog...</div>
           </div>
         ) : filteredProducts.length === 0 ? (
           <div style={{ padding: '60px', textAlign: 'center', background: '#ffffff', borderRadius: '18px', border: '1px solid rgba(61, 35, 20, 0.08)' }}>
