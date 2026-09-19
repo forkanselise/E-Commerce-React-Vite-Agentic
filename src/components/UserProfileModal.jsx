@@ -95,7 +95,7 @@ export function UserProfileModal() {
     }} onClick={closeProfileModal}>
       
       <div
-        className="animate-fade-in"
+        className="animate-fade-in mobile-modal-content"
         style={{
           width: '100%',
           maxWidth: '540px',

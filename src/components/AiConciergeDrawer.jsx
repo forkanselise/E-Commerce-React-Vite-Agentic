@@ -64,7 +64,7 @@ export function AiConciergeDrawer() {
     }} onClick={closeDrawer}>
       
       <div
-        className="animate-fade-in"
+        className="animate-fade-in mobile-drawer-full"
         style={{
           width: '100%',
           maxWidth: '460px',

@@ -82,7 +82,7 @@ export function CartDrawer() {
     }} onClick={closeCart}>
       
       <div
-        className="animate-fade-in"
+        className="animate-fade-in mobile-drawer-full"
         style={{
           width: '100%',
           maxWidth: '440px',

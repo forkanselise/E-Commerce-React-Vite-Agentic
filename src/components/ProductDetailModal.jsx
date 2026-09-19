@@ -41,7 +41,7 @@ export function ProductDetailModal({ product, onClose }) {
     }} onClick={onClose}>
       
       <div
-        className="animate-fade-in"
+        className="animate-fade-in mobile-modal-content"
         style={{
           width: '100%',
           maxWidth: '850px',
@@ -77,7 +77,7 @@ export function ProductDetailModal({ product, onClose }) {
           <X size={18} />
         </button>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: '36px' }}>
+        <div className="responsive-grid-2" style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: '24px' }}>
           
           {/* Left Image & AI Assistant button */}
           <div>

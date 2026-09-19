@@ -56,7 +56,7 @@ export function MasterclassHub() {
         </div>
 
         {/* Skill Level Filter Tabs */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap', marginBottom: '32px' }}>
+        <div className="horizontal-scroll-container" style={{ marginBottom: '32px' }}>
           {levels.map(lvl => (
             <button
               key={lvl}

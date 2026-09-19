@@ -16,7 +16,7 @@ export function ContactSection() {
       <div className="container">
         
         {/* Section 07 Classroom & Packing Showcase Banner */}
-        <div style={{
+        <div className="mobile-card-padding" style={{
           background: 'linear-gradient(135deg, #420404 0%, #260000 100%)',
           borderRadius: '24px',
           padding: '40px 48px',

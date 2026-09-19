@@ -101,7 +101,7 @@ export function StoreCatalog({ onSelectProduct, initialCategory = 'All' }) {
             </div>
 
             {/* Search Box */}
-            <div style={{ position: 'relative', minWidth: '300px' }}>
+            <div className="mobile-search-input" style={{ position: 'relative', minWidth: '260px', flex: 1 }}>
               <Search size={16} style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', color: '#9e8c80' }} />
               <input
                 type="text"
@@ -127,7 +127,7 @@ export function StoreCatalog({ onSelectProduct, initialCategory = 'All' }) {
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px', background: '#ffffff', padding: '12px 18px', borderRadius: '16px', border: '1px solid rgba(61, 35, 20, 0.08)', boxShadow: '0 4px 14px rgba(61, 35, 20, 0.04)' }}>
             
             {/* Category Filter Pills */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+            <div className="horizontal-scroll-container">
               {categories.map(c => (
                 <button
                   key={c.id}

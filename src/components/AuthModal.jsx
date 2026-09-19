@@ -50,7 +50,7 @@ export function AuthModal() {
     }} onClick={closeAuthModal}>
       
       <div
-        className="animate-fade-in"
+        className="animate-fade-in mobile-modal-content"
         style={{
           width: '100%',
           maxWidth: '440px',

@@ -32,7 +32,7 @@ export function BlogRecipesSection() {
         </div>
 
         {/* Category Pills */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap', marginBottom: '32px' }}>
+        <div className="horizontal-scroll-container" style={{ marginBottom: '32px' }}>
           {categories.map(cat => (
             <button
               key={cat}

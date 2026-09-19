@@ -109,7 +109,7 @@ export function HeroSection({ setActiveTab, onSelectCategoryFilter }) {
               <span style={{ fontSize: '13px', fontWeight: 700, color: '#7B0505' }}>Bake • Make • Learn</span>
             </div>
 
-            <h1 style={{ fontSize: '44px', lineHeight: 1.18, fontWeight: 800, color: '#3d2314', marginBottom: '20px', fontFamily: 'var(--font-heading)' }}>
+            <h1 style={{ fontSize: 'clamp(26px, 5vw, 44px)', lineHeight: 1.18, fontWeight: 800, color: '#3d2314', marginBottom: '20px', fontFamily: 'var(--font-heading)' }}>
               Everything You Need to Bake, Learn & Indulge — <br />
               <span style={{ color: '#7B0505', background: 'linear-gradient(135deg, #7B0505 0%, #590303 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
                 All Under One Roof!
@@ -304,7 +304,7 @@ export function HeroSection({ setActiveTab, onSelectCategoryFilter }) {
               </div>
 
               {/* Floating Signature Item Detail Box */}
-              <div style={{
+              <div className="mobile-card-padding" style={{
                 marginTop: '16px',
                 background: 'linear-gradient(135deg, #420404 0%, #260000 100%)',
                 borderRadius: '20px',

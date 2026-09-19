@@ -19,7 +19,7 @@ export function AboutModal({ isOpen, onClose, initialTab = 'about' }) {
       backdropFilter: 'blur(8px)',
       padding: '20px'
     }}>
-      <div style={{
+      <div className="mobile-modal-content" style={{
         background: '#ffffff',
         width: '100%',
         maxWidth: '850px',
@@ -72,7 +72,7 @@ export function AboutModal({ isOpen, onClose, initialTab = 'about' }) {
         </div>
 
         {/* Modal Navigation Tabs */}
-        <div style={{ display: 'flex', borderBottom: '1px solid rgba(61, 35, 20, 0.08)', background: '#faf6f0', padding: '0 24px' }}>
+        <div className="horizontal-scroll-container" style={{ borderBottom: '1px solid rgba(61, 35, 20, 0.08)', background: '#faf6f0', padding: '0 24px' }}>
           <button
             onClick={() => setActiveTab('about')}
             style={{
