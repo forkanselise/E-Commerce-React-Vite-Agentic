@@ -92,9 +92,9 @@ export function ProductDetailModal({ product, onClose }) {
             <button
               onClick={handleAskAiAboutThis}
               className="btn btn-secondary"
-              style={{ width: '100%', marginTop: '16px', borderColor: '#e05297', color: '#e05297' }}
+              style={{ width: '100%', marginTop: '16px', borderColor: '#7B0505', color: '#7B0505' }}
             >
-              <Bot size={16} color="#e05297" />
+              <Bot size={16} color="#7B0505" />
               <span>Ask AI Concierge About This Item</span>
             </button>
           </div>
@@ -102,7 +102,7 @@ export function ProductDetailModal({ product, onClose }) {
           {/* Right Product Details (Matching Mockup Section 03 Product Detail) */}
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-              <span style={{ fontSize: '11px', fontWeight: 800, padding: '3px 10px', background: '#fdf2f8', color: '#e05297', borderRadius: '9999px' }}>
+              <span style={{ fontSize: '11px', fontWeight: 800, padding: '3px 10px', background: '#fdf2f2', color: '#7B0505', borderRadius: '9999px' }}>
                 {product.category}
               </span>
               {product.warehouseStock > 0 ? (
@@ -184,7 +184,7 @@ export function ProductDetailModal({ product, onClose }) {
             {/* Guarantees */}
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', paddingTop: '16px', borderTop: '1px solid rgba(61, 35, 20, 0.08)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12px', color: '#6e5849', fontWeight: 600 }}>
-                <Truck size={16} color="#e05297" />
+                <Truck size={16} color="#7B0505" />
                 <span>Fast Express Delivery</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12px', color: '#6e5849', fontWeight: 600 }}>

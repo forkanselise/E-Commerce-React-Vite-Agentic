@@ -95,7 +95,7 @@ export function StoreCatalog({ onSelectProduct, initialCategory = 'All' }) {
         <div style={{ marginBottom: '32px' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px', marginBottom: '24px' }}>
             <div>
-              <div style={{ fontSize: '12px', fontWeight: 800, color: '#e05297', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Buttercup Store</div>
+              <div style={{ fontSize: '12px', fontWeight: 800, color: '#7B0505', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Buttercup Store</div>
               <h2 style={{ fontSize: '28px', fontWeight: 800, color: '#3d2314', fontFamily: 'var(--font-heading)' }}>Product Catalog</h2>
               <p style={{ fontSize: '14px', color: '#6e5849' }}>Showing {filteredProducts.length} premium baking ingredients, supplies & tools</p>
             </div>
@@ -133,7 +133,7 @@ export function StoreCatalog({ onSelectProduct, initialCategory = 'All' }) {
                   key={c.id}
                   onClick={() => setSelectedCategory(c.id)}
                   style={{
-                    background: selectedCategory === c.id ? '#e05297' : '#faf6f0',
+                    background: selectedCategory === c.id ? '#7B0505' : '#faf6f0',
                     color: selectedCategory === c.id ? '#ffffff' : '#3d2314',
                     border: 'none',
                     borderRadius: '9999px',
@@ -162,7 +162,7 @@ export function StoreCatalog({ onSelectProduct, initialCategory = 'All' }) {
                   step="200"
                   value={maxPrice}
                   onChange={(e) => setMaxPrice(Number(e.target.value))}
-                  style={{ accentColor: '#e05297', cursor: 'pointer', width: '90px' }}
+                  style={{ accentColor: '#7B0505', cursor: 'pointer', width: '90px' }}
                 />
               </div>
 
@@ -171,7 +171,7 @@ export function StoreCatalog({ onSelectProduct, initialCategory = 'All' }) {
                   type="checkbox"
                   checked={inStockOnly}
                   onChange={(e) => setInStockOnly(e.target.checked)}
-                  style={{ accentColor: '#e05297' }}
+                  style={{ accentColor: '#7B0505' }}
                 />
                 In Stock Only
               </label>
@@ -220,7 +220,7 @@ export function StoreCatalog({ onSelectProduct, initialCategory = 'All' }) {
                   onMouseEnter={(e) => {
                     e.currentTarget.style.transform = 'translateY(-4px)';
                     e.currentTarget.style.boxShadow = '0 12px 30px rgba(224, 82, 151, 0.15)';
-                    e.currentTarget.style.borderColor = '#e05297';
+                    e.currentTarget.style.borderColor = '#7B0505';
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.transform = 'translateY(0)';
@@ -261,7 +261,7 @@ export function StoreCatalog({ onSelectProduct, initialCategory = 'All' }) {
                     
                     {/* Rating & Category */}
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '6px' }}>
-                      <span style={{ fontSize: '11px', fontWeight: 700, color: '#e05297', textTransform: 'uppercase' }}>
+                      <span style={{ fontSize: '11px', fontWeight: 700, color: '#7B0505', textTransform: 'uppercase' }}>
                         {product.category}
                       </span>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>

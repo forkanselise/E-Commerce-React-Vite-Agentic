@@ -61,7 +61,7 @@ export function BakeryCoffeeSection({ onSelectProduct, initialSubCategory = 'All
         
         {/* Header Showcase Banner */}
         <div style={{
-          background: 'linear-gradient(135deg, #3d2314 0%, #2a170d 100%)',
+          background: 'linear-gradient(135deg, #420404 0%, #260000 100%)',
           borderRadius: '24px',
           padding: '40px 48px',
           color: '#ffffff',
@@ -71,13 +71,13 @@ export function BakeryCoffeeSection({ onSelectProduct, initialSubCategory = 'All
           justifyContent: 'space-between',
           flexWrap: 'wrap',
           gap: '24px',
-          boxShadow: '0 12px 35px rgba(61, 35, 20, 0.15)'
+          boxShadow: '0 12px 35px rgba(123, 5, 5, 0.15)'
         }}>
           <div>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: 'rgba(224, 82, 151, 0.2)', color: '#f472b6', padding: '4px 14px', borderRadius: '9999px', fontSize: '12px', fontWeight: 800, marginBottom: '12px' }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: 'rgba(253, 211, 77, 0.15)', color: '#fcd34d', padding: '4px 14px', borderRadius: '9999px', fontSize: '12px', fontWeight: 800, marginBottom: '12px' }}>
               <Coffee size={14} /> Freshly Baked & Brewed Daily
             </div>
-            <h1 style={{ fontSize: '36px', fontWeight: 800, fontFamily: 'var(--font-heading)', marginBottom: '8px' }}>
+            <h1 style={{ fontSize: '36px', fontWeight: 800, fontFamily: 'var(--font-heading)', marginBottom: '8px', color: '#ffffff' }}>
               Smart Bakery & Coffee
             </h1>
             <p style={{ fontSize: '15px', color: '#f4ede4', maxWidth: '500px' }}>
@@ -109,7 +109,7 @@ export function BakeryCoffeeSection({ onSelectProduct, initialSubCategory = 'All
               key={sub}
               onClick={() => setSelectedSub(sub)}
               style={{
-                background: selectedSub === sub ? '#e05297' : '#ffffff',
+                background: selectedSub === sub ? '#7B0505' : '#ffffff',
                 color: selectedSub === sub ? '#ffffff' : '#3d2314',
                 border: '1px solid rgba(61, 35, 20, 0.1)',
                 borderRadius: '9999px',
@@ -150,7 +150,7 @@ export function BakeryCoffeeSection({ onSelectProduct, initialSubCategory = 'All
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = 'translateY(-4px)';
-                  e.currentTarget.style.borderColor = '#e05297';
+                  e.currentTarget.style.borderColor = '#7B0505';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = 'translateY(0)';

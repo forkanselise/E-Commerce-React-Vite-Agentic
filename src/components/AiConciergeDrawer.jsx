@@ -39,13 +39,13 @@ export function AiConciergeDrawer() {
   const getAgentBadge = (agentName) => {
     switch (agentName) {
       case 'StorefrontInventory':
-        return { label: 'Storefront Assistant', icon: <Layers size={13} />, color: '#e05297' };
+        return { label: 'Storefront Assistant', icon: <Layers size={13} />, color: '#7B0505' };
       case 'BakingMasterclass':
         return { label: 'Academy Instructor', icon: <BookOpen size={13} />, color: '#d97706' };
       case 'WarehouseOps':
         return { label: 'Warehouse Admin Ops', icon: <ShieldAlert size={13} />, color: '#dc2626' };
       default:
-        return { label: 'Smart Concierge Router', icon: <Sparkles size={13} />, color: '#3d2314' };
+        return { label: 'Smart Concierge Router', icon: <Sparkles size={13} />, color: '#7B0505' };
     }
   };
 
@@ -91,11 +91,11 @@ export function AiConciergeDrawer() {
               width: '38px',
               height: '38px',
               borderRadius: '10px',
-              background: 'linear-gradient(135deg, #e05297 0%, #3d2314 100%)',
+              background: 'linear-gradient(135deg, #7B0505 0%, #590303 100%)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              boxShadow: '0 2px 10px rgba(224, 82, 151, 0.3)'
+              boxShadow: '0 2px 10px rgba(123, 5, 5, 0.3)'
             }}>
               <Bot size={20} color="#ffffff" />
             </div>
@@ -138,7 +138,7 @@ export function AiConciergeDrawer() {
             alignItems: 'center',
             gap: '10px',
             fontSize: '12px',
-            color: '#e05297'
+            color: '#7B0505'
           }}>
             <Cpu size={15} className="animate-spin" />
             <div style={{ flex: 1, fontWeight: 600 }}>
@@ -146,7 +146,7 @@ export function AiConciergeDrawer() {
               <span>{currentThought || 'Searching inventory & courses...'}</span>
             </div>
             {activeToolName && (
-              <span style={{ fontSize: '10px', fontWeight: 800, padding: '2px 8px', background: '#e05297', color: '#ffffff', borderRadius: '4px' }}>
+              <span style={{ fontSize: '10px', fontWeight: 800, padding: '2px 8px', background: '#7B0505', color: '#ffffff', borderRadius: '4px' }}>
                 Tool: {activeToolName}
               </span>
             )}
@@ -182,7 +182,7 @@ export function AiConciergeDrawer() {
                     maxWidth: '85%',
                     padding: '12px 16px',
                     borderRadius: isUser ? '16px 16px 4px 16px' : '16px 16px 16px 4px',
-                    background: isUser ? '#e05297' : '#ffffff',
+                    background: isUser ? '#7B0505' : '#ffffff',
                     color: isUser ? '#ffffff' : '#3d2314',
                     border: isUser ? 'none' : '1px solid rgba(61, 35, 20, 0.08)',
                     fontSize: '13px',
@@ -213,7 +213,7 @@ export function AiConciergeDrawer() {
         <div style={{ padding: '10px 16px', display: 'flex', gap: '8px', overflowX: 'auto', borderTop: '1px solid rgba(61, 35, 20, 0.08)', background: '#ffffff' }}>
           <button
             onClick={() => handleQuickPrompt('Do you have Callebaut dark chocolate in stock?')}
-            style={{ padding: '6px 12px', background: '#fdf2f8', border: '1px solid #f472b6', borderRadius: '9999px', fontSize: '11px', color: '#e05297', fontWeight: 700, cursor: 'pointer', whiteSpace: 'nowrap' }}
+            style={{ padding: '6px 12px', background: '#fdf2f2', border: '1px solid #7B0505', borderRadius: '9999px', fontSize: '11px', color: '#7B0505', fontWeight: 700, cursor: 'pointer', whiteSpace: 'nowrap' }}
           >
             🍫 Check Callebaut Stock
           </button>

@@ -112,14 +112,14 @@ export function Navbar({ activeTab, setActiveTab, onOpenAboutModal, onSelectCate
   };
 
   return (
-    <header ref={navRef} className="sticky top-0 z-40 w-full" style={{ background: '#ffffff', borderBottom: '1px solid rgba(61, 35, 20, 0.1)', boxShadow: '0 2px 10px rgba(61, 35, 20, 0.04)' }}>
+    <header ref={navRef} className="sticky top-0 z-40 w-full" style={{ background: '#7B0505', borderBottom: '1px solid rgba(255, 255, 255, 0.12)', boxShadow: '0 4px 20px rgba(0, 0, 0, 0.25)' }}>
       
       {/* Stage-01: Top Container (Matching PDF Page 1 Stage-01) */}
-      <div style={{ background: '#3d2314', color: '#fdfbf7', padding: '6px 24px', fontSize: '12px', fontWeight: 500 }}>
+      <div style={{ background: '#590303', color: '#fdfbf7', padding: '6px 24px', fontSize: '12px', fontWeight: 500, borderBottom: '1px solid rgba(255, 255, 255, 0.08)' }}>
         <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-            <Heart size={13} color="#e05297" fill="#e05297" />
-            <span style={{ fontWeight: 700, color: '#f472b6' }}>Bake • Make • Learn</span>
+            <Heart size={13} color="#ffffff" fill="#ffffff" />
+            <span style={{ fontWeight: 700, color: '#fcd34d' }}>Bake • Make • Learn</span>
             <span className="hide-on-mobile" style={{ opacity: 0.85, marginLeft: '6px' }}>
               || One Stop Destination for Bakery, Coffee, Tools, Banking Ingredients, Packaging, and Professional Baking Classes
             </span>
@@ -159,14 +159,14 @@ export function Navbar({ activeTab, setActiveTab, onOpenAboutModal, onSelectCate
 
         {/* Center Navigation Menu Bar with Hover Dropdowns */}
         <div className="navbar-nav-wrapper nav-scroll-container">
-          <nav style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', background: '#faf6f0', padding: '5px', borderRadius: '14px', border: '1px solid rgba(61, 35, 20, 0.08)', position: 'relative' }}>
+          <nav style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', background: 'rgba(255, 255, 255, 0.15)', padding: '5px', borderRadius: '14px', border: '1px solid rgba(255, 255, 255, 0.2)', position: 'relative' }}>
           
           {/* 1. Home Button */}
           <button
             onClick={() => { setActiveTab('home'); setActiveDropdown(null); }}
             style={{
               background: activeTab === 'home' ? '#ffffff' : 'transparent',
-              color: activeTab === 'home' ? '#e05297' : '#6e5849',
+              color: activeTab === 'home' ? '#7B0505' : '#ffffff',
               boxShadow: activeTab === 'home' ? '0 2px 8px rgba(61, 35, 20, 0.08)' : 'none',
               borderRadius: '9px',
               padding: '8px 14px',
@@ -194,7 +194,7 @@ export function Navbar({ activeTab, setActiveTab, onOpenAboutModal, onSelectCate
               onClick={(e) => handleNavButtonClick(e, 'bakes', 'bakery', 'All')}
               style={{
                 background: (activeTab === 'bakery' || activeDropdown === 'bakes') ? '#ffffff' : 'transparent',
-                color: (activeTab === 'bakery' || activeDropdown === 'bakes') ? '#e05297' : '#6e5849',
+                color: (activeTab === 'bakery' || activeDropdown === 'bakes') ? '#7B0505' : '#ffffff',
                 boxShadow: (activeTab === 'bakery' || activeDropdown === 'bakes') ? '0 2px 8px rgba(61, 35, 20, 0.08)' : 'none',
                 borderRadius: '9999px',
                 padding: '8px 16px',
@@ -277,7 +277,7 @@ export function Navbar({ activeTab, setActiveTab, onOpenAboutModal, onSelectCate
               onClick={(e) => handleNavButtonClick(e, 'homeTools', 'store', 'All')}
               style={{
                 background: (activeTab === 'store' || activeDropdown === 'homeTools') ? '#ffffff' : 'transparent',
-                color: (activeTab === 'store' || activeDropdown === 'homeTools') ? '#e05297' : '#6e5849',
+                color: (activeTab === 'store' || activeDropdown === 'homeTools') ? '#7B0505' : '#ffffff',
                 boxShadow: (activeTab === 'store' || activeDropdown === 'homeTools') ? '0 2px 8px rgba(61, 35, 20, 0.08)' : 'none',
                 borderRadius: '9999px',
                 padding: '8px 16px',
@@ -354,7 +354,7 @@ export function Navbar({ activeTab, setActiveTab, onOpenAboutModal, onSelectCate
             onClick={() => { setActiveTab('masterclass'); setActiveDropdown(null); }}
             style={{
               background: activeTab === 'masterclass' ? '#ffffff' : 'transparent',
-              color: activeTab === 'masterclass' ? '#e05297' : '#6e5849',
+              color: activeTab === 'masterclass' ? '#7B0505' : '#ffffff',
               boxShadow: activeTab === 'masterclass' ? '0 2px 8px rgba(61, 35, 20, 0.08)' : 'none',
               borderRadius: '9999px',
               padding: '8px 16px',
@@ -382,7 +382,7 @@ export function Navbar({ activeTab, setActiveTab, onOpenAboutModal, onSelectCate
               onClick={(e) => handleNavButtonClick(e, 'order', 'bakery')}
               style={{
                 background: activeDropdown === 'order' ? '#ffffff' : 'transparent',
-                color: activeDropdown === 'order' ? '#e05297' : '#6e5849',
+                color: activeDropdown === 'order' ? '#7B0505' : '#ffffff',
                 boxShadow: activeDropdown === 'order' ? '0 2px 8px rgba(61, 35, 20, 0.08)' : 'none',
                 borderRadius: '9999px',
                 padding: '8px 16px',
@@ -457,7 +457,7 @@ export function Navbar({ activeTab, setActiveTab, onOpenAboutModal, onSelectCate
               onClick={(e) => handleNavButtonClick(e, 'contact', 'contact')}
               style={{
                 background: (activeTab === 'contact' || activeDropdown === 'contact') ? '#ffffff' : 'transparent',
-                color: (activeTab === 'contact' || activeDropdown === 'contact') ? '#e05297' : '#6e5849',
+                color: (activeTab === 'contact' || activeDropdown === 'contact') ? '#7B0505' : '#ffffff',
                 boxShadow: (activeTab === 'contact' || activeDropdown === 'contact') ? '0 2px 8px rgba(61, 35, 20, 0.08)' : 'none',
                 borderRadius: '9999px',
                 padding: '8px 16px',
@@ -492,7 +492,7 @@ export function Navbar({ activeTab, setActiveTab, onOpenAboutModal, onSelectCate
                   <button
                     type="button"
                     onClick={() => handleContactSelect('mrbutter')}
-                    style={{ width: '100%', textAlign: 'left', padding: '9px 12px', fontSize: '13px', fontWeight: 700, color: '#e05297', background: '#fdf2f8', border: 'none', borderRadius: '8px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px', whiteSpace: 'nowrap' }}
+                    style={{ width: '100%', textAlign: 'left', padding: '9px 12px', fontSize: '13px', fontWeight: 700, color: '#7B0505', background: '#fdf2f8', border: 'none', borderRadius: '8px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px', whiteSpace: 'nowrap' }}
                   >
                     🤖 Mr. Butter (//chatbot//)
                   </button>
@@ -539,7 +539,7 @@ export function Navbar({ activeTab, setActiveTab, onOpenAboutModal, onSelectCate
               onClick={(e) => handleNavButtonClick(e, 'about', 'about')}
               style={{
                 background: activeDropdown === 'about' ? '#ffffff' : 'transparent',
-                color: activeDropdown === 'about' ? '#e05297' : '#6e5849',
+                color: activeDropdown === 'about' ? '#7B0505' : '#ffffff',
                 boxShadow: activeDropdown === 'about' ? '0 2px 8px rgba(61, 35, 20, 0.08)' : 'none',
                 borderRadius: '9999px',
                 padding: '8px 16px',
@@ -650,8 +650,8 @@ export function Navbar({ activeTab, setActiveTab, onOpenAboutModal, onSelectCate
           {/* Cart Button */}
           <button
             onClick={openCart}
-            className="btn btn-rose btn-sm"
-            style={{ position: 'relative', fontWeight: 700 }}
+            className="btn btn-sm"
+            style={{ position: 'relative', fontWeight: 800, background: '#ffffff', color: '#7B0505', border: 'none', boxShadow: '0 2px 8px rgba(0,0,0,0.2)' }}
           >
             <ShoppingBag size={15} />
             <span className="hide-on-mobile">Cart</span>
@@ -660,7 +660,7 @@ export function Navbar({ activeTab, setActiveTab, onOpenAboutModal, onSelectCate
                 position: 'absolute',
                 top: '-6px',
                 right: '-6px',
-                background: '#3d2314',
+                background: '#590303',
                 color: '#ffffff',
                 borderRadius: '50%',
                 width: '20px',
@@ -670,7 +670,7 @@ export function Navbar({ activeTab, setActiveTab, onOpenAboutModal, onSelectCate
                 justifyContent: 'center',
                 fontSize: '11px',
                 fontWeight: 800,
-                boxShadow: '0 2px 6px rgba(0,0,0,0.2)'
+                boxShadow: '0 2px 6px rgba(0,0,0,0.3)'
               }}>
                 {cartCount}
               </span>
@@ -687,28 +687,28 @@ export function Navbar({ activeTab, setActiveTab, onOpenAboutModal, onSelectCate
                   alignItems: 'center',
                   gap: '8px',
                   cursor: 'pointer',
-                  padding: '4px 8px',
+                  padding: '4px 10px',
                   borderRadius: '12px',
-                  background: '#faf6f0',
-                  border: '1px solid rgba(61, 35, 20, 0.1)',
+                  background: 'rgba(255, 255, 255, 0.15)',
+                  border: '1px solid rgba(255, 255, 255, 0.25)',
                   transition: 'all 0.2s ease'
                 }}
                 title="Click to view & update your Profile"
-                onMouseEnter={(e) => e.currentTarget.style.borderColor = '#e05297'}
-                onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(61, 35, 20, 0.1)'}
+                onMouseEnter={(e) => e.currentTarget.style.borderColor = '#ffffff'}
+                onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.25)'}
               >
                 <img
                   src={user.avatarUrl || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100'}
                   alt={user.fullName}
-                  style={{ width: '32px', height: '32px', borderRadius: '50%', border: '2px solid #e05297', objectFit: 'cover' }}
+                  style={{ width: '32px', height: '32px', borderRadius: '50%', border: '2px solid #ffffff', objectFit: 'cover' }}
                 />
-                <span className="hide-on-mobile" style={{ fontSize: '13px', fontWeight: 700, color: '#3d2314' }}>
+                <span className="hide-on-mobile" style={{ fontSize: '13px', fontWeight: 700, color: '#ffffff' }}>
                   {user.fullName?.split(' ')[0] || 'Profile'}
                 </span>
               </div>
               <button
                 onClick={logout}
-                style={{ background: 'transparent', border: 'none', color: '#9e8c80', cursor: 'pointer', fontSize: '12px', fontWeight: 600 }}
+                style={{ background: 'transparent', border: 'none', color: '#fca5a5', cursor: 'pointer', fontSize: '12px', fontWeight: 600 }}
               >
                 Sign out
               </button>
@@ -716,8 +716,8 @@ export function Navbar({ activeTab, setActiveTab, onOpenAboutModal, onSelectCate
           ) : (
             <button
               onClick={openAuthModal}
-              className="btn btn-secondary btn-sm"
-              style={{ fontWeight: 700 }}
+              className="btn btn-sm"
+              style={{ fontWeight: 800, background: '#ffffff', color: '#7B0505', border: 'none', boxShadow: '0 2px 8px rgba(0,0,0,0.2)' }}
             >
               <User size={14} />
               <span>Login</span>

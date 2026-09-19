@@ -44,8 +44,8 @@ export function MasterclassHub() {
         {/* Title Header (Matching Mockup Section 05 Academy Page) */}
         <div style={{ marginBottom: '32px' }}>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 16px', borderRadius: '9999px', background: '#fdf2f8', border: '1px solid #f472b6', marginBottom: '14px' }}>
-            <GraduationCap size={14} color="#e05297" />
-            <span style={{ fontSize: '12px', fontWeight: 800, color: '#e05297' }}>Smart Bakery Academy</span>
+            <GraduationCap size={14} color="#7B0505" />
+            <span style={{ fontSize: '12px', fontWeight: 800, color: '#7B0505' }}>Smart Bakery Academy</span>
           </div>
           <h1 style={{ fontSize: '32px', fontWeight: 800, color: '#3d2314', fontFamily: 'var(--font-heading)' }}>
             Baking Classes For All Skill Levels
@@ -96,7 +96,7 @@ export function MasterclassHub() {
               </div>
 
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px' }}>
-                <span style={{ fontSize: '11px', fontWeight: 800, padding: '4px 12px', background: '#e05297', color: '#ffffff', borderRadius: '9999px' }}>
+                <span style={{ fontSize: '11px', fontWeight: 800, padding: '4px 12px', background: '#7B0505', color: '#ffffff', borderRadius: '9999px' }}>
                   {selectedTutorial.category}
                 </span>
                 <span style={{ fontSize: '11px', fontWeight: 800, padding: '4px 12px', background: '#3d2314', color: '#fcd34d', borderRadius: '9999px' }}>
@@ -111,7 +111,7 @@ export function MasterclassHub() {
                 <h2 style={{ fontSize: '24px', fontWeight: 800, color: '#3d2314' }}>
                   {selectedTutorial.title}
                 </h2>
-                <div style={{ fontSize: '22px', fontWeight: 800, color: '#e05297' }}>
+                <div style={{ fontSize: '22px', fontWeight: 800, color: '#7B0505' }}>
                   ৳ {selectedTutorial.price?.toLocaleString()}
                 </div>
               </div>
@@ -125,7 +125,7 @@ export function MasterclassHub() {
                 <img
                   src={selectedTutorial.instructor?.avatarUrl || 'https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=150'}
                   alt={selectedTutorial.instructor?.name}
-                  style={{ width: '50px', height: '50px', borderRadius: '50%', objectFit: 'cover', border: '2px solid #e05297' }}
+                  style={{ width: '50px', height: '50px', borderRadius: '50%', objectFit: 'cover', border: '2px solid #7B0505' }}
                 />
                 <div>
                   <div style={{ fontSize: '14px', fontWeight: 800, color: '#3d2314' }}>{selectedTutorial.instructor?.name}</div>
@@ -141,7 +141,7 @@ export function MasterclassHub() {
               <div style={{ background: '#ffffff', padding: '24px', borderRadius: '20px', border: '1px solid rgba(61, 35, 20, 0.08)', boxShadow: '0 4px 14px rgba(61, 35, 20, 0.04)', marginBottom: '24px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
                   <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#3d2314', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <BookOpen size={16} color="#e05297" />
+                    <BookOpen size={16} color="#7B0505" />
                     <span>Course Chapters</span>
                   </h3>
                   <span style={{ fontSize: '12px', color: '#9e8c80' }}>{selectedTutorial.chapters?.length || 0} Modules</span>
@@ -159,7 +159,7 @@ export function MasterclassHub() {
                           padding: '12px 14px',
                           borderRadius: '12px',
                           background: isActive ? '#fdf2f8' : '#faf6f0',
-                          border: isActive ? '1px solid #e05297' : '1px solid rgba(61, 35, 20, 0.05)',
+                          border: isActive ? '1px solid #7B0505' : '1px solid rgba(61, 35, 20, 0.05)',
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'space-between',
@@ -168,8 +168,8 @@ export function MasterclassHub() {
                         }}
                       >
                         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                          <Play size={14} color={isActive ? '#e05297' : '#6e5849'} fill={isActive ? '#e05297' : 'none'} />
-                          <span style={{ fontSize: '13px', fontWeight: isActive ? 800 : 600, color: isActive ? '#e05297' : '#3d2314' }}>
+                          <Play size={14} color={isActive ? '#7B0505' : '#6e5849'} fill={isActive ? '#7B0505' : 'none'} />
+                          <span style={{ fontSize: '13px', fontWeight: isActive ? 800 : 600, color: isActive ? '#7B0505' : '#3d2314' }}>
                             {chapter.title}
                           </span>
                         </div>
@@ -219,7 +219,7 @@ export function MasterclassHub() {
                 style={{
                   background: '#ffffff',
                   borderRadius: '20px',
-                  border: selectedTutorial?.id === t.id ? '2px solid #e05297' : '1px solid rgba(61, 35, 20, 0.08)',
+                  border: selectedTutorial?.id === t.id ? '2px solid #7B0505' : '1px solid rgba(61, 35, 20, 0.08)',
                   boxShadow: '0 6px 20px rgba(61, 35, 20, 0.05)',
                   cursor: 'pointer',
                   overflow: 'hidden',
@@ -235,7 +235,7 @@ export function MasterclassHub() {
 
                 <div style={{ padding: '18px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
-                    <span style={{ fontSize: '11px', fontWeight: 800, color: '#e05297' }}>{t.category}</span>
+                    <span style={{ fontSize: '11px', fontWeight: 800, color: '#7B0505' }}>{t.category}</span>
                     <span style={{ fontSize: '14px', fontWeight: 800, color: '#3d2314' }}>৳ {t.price?.toLocaleString()}</span>
                   </div>
                   <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#3d2314', marginBottom: '8px' }}>{t.title}</h3>

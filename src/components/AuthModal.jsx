@@ -188,9 +188,9 @@ export function AuthModal() {
         {/* Tab Switcher Link */}
         <div style={{ textAlign: 'center', marginTop: '20px', fontSize: '13px', color: '#6e5849' }}>
           {activeTab === 'login' ? (
-            <span>Don't have an account? <a href="#register" onClick={(e) => { e.preventDefault(); setActiveTab('register'); }} style={{ color: '#e05297', fontWeight: 800 }}>Sign up now</a></span>
+            <span>Don't have an account? <a href="#register" onClick={(e) => { e.preventDefault(); setActiveTab('register'); }} style={{ color: '#7B0505', fontWeight: 800 }}>Sign up now</a></span>
           ) : (
-            <span>Already have an account? <a href="#login" onClick={(e) => { e.preventDefault(); setActiveTab('login'); }} style={{ color: '#e05297', fontWeight: 800 }}>Log in here</a></span>
+            <span>Already have an account? <a href="#login" onClick={(e) => { e.preventDefault(); setActiveTab('login'); }} style={{ color: '#7B0505', fontWeight: 800 }}>Log in here</a></span>
           )}
         </div>
 

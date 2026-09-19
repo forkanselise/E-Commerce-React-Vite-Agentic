@@ -109,7 +109,7 @@ export function UserProfileModal() {
       >
         {/* Header Banner with Profile Avatar & Cloudinary Badge */}
         <div style={{
-          background: 'linear-gradient(135deg, #3d2314 0%, #2a170d 100%)',
+          background: 'linear-gradient(135deg, #7B0505 0%, #590303 100%)',
           color: '#ffffff',
           padding: '28px 32px 22px 32px',
           position: 'relative',
@@ -151,7 +151,7 @@ export function UserProfileModal() {
                 width: '84px',
                 height: '84px',
                 borderRadius: '50%',
-                border: '3px solid #e05297',
+                border: '3px solid #7B0505',
                 objectFit: 'cover',
                 boxShadow: '0 4px 14px rgba(0,0,0,0.3)',
                 opacity: isUploading ? 0.6 : 1,
@@ -162,7 +162,7 @@ export function UserProfileModal() {
               position: 'absolute',
               bottom: '2px',
               right: '2px',
-              background: '#e05297',
+              background: '#7B0505',
               color: '#ffffff',
               borderRadius: '50%',
               width: '26px',
@@ -186,7 +186,7 @@ export function UserProfileModal() {
                 fontWeight: 800,
                 padding: '2px 8px',
                 borderRadius: '9999px',
-                background: user.role === 'Admin' || user.role === 'SystemAdmin' ? '#dc2626' : '#e05297',
+                background: user.role === 'Admin' || user.role === 'SystemAdmin' ? '#dc2626' : '#7B0505',
                 color: '#ffffff'
               }}>
                 {user.role || 'Member'}
@@ -273,7 +273,7 @@ export function UserProfileModal() {
                 justifyContent: 'center',
                 gap: '12px'
               }}
-              onMouseEnter={(e) => e.currentTarget.style.borderColor = '#e05297'}
+              onMouseEnter={(e) => e.currentTarget.style.borderColor = '#7B0505'}
               onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(224, 82, 151, 0.4)'}
             >
               <div style={{
@@ -281,7 +281,7 @@ export function UserProfileModal() {
                 height: '38px',
                 borderRadius: '50%',
                 background: '#fdf2f8',
-                color: '#e05297',
+                color: '#7B0505',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center'
@@ -293,7 +293,7 @@ export function UserProfileModal() {
                   {isUploading ? 'Uploading to Cloudinary...' : 'Upload Profile Photo from Computer'}
                 </div>
                 <div style={{ fontSize: '11px', color: '#8e796c' }}>
-                  Supports PNG, JPG, WEBP • Auto-hosted on Cloudinary <strong style={{ color: '#e05297' }}>dnt43ugtr</strong>
+                  Supports PNG, JPG, WEBP • Auto-hosted on Cloudinary <strong style={{ color: '#7B0505' }}>dnt43ugtr</strong>
                 </div>
               </div>
             </div>
@@ -352,12 +352,12 @@ export function UserProfileModal() {
                     onClick={() => setAvatarUrl(preset.url)}
                     style={{
                       background: avatarUrl === preset.url ? '#fdf2f8' : '#ffffff',
-                      border: avatarUrl === preset.url ? '1px solid #e05297' : '1px solid rgba(61, 35, 20, 0.12)',
+                      border: avatarUrl === preset.url ? '1px solid #7B0505' : '1px solid rgba(61, 35, 20, 0.12)',
                       borderRadius: '9999px',
                       padding: '4px 10px',
                       fontSize: '11px',
                       fontWeight: 700,
-                      color: avatarUrl === preset.url ? '#e05297' : '#6e5849',
+                      color: avatarUrl === preset.url ? '#7B0505' : '#6e5849',
                       cursor: 'pointer',
                       display: 'flex',
                       alignItems: 'center',
@@ -379,7 +379,7 @@ export function UserProfileModal() {
               </div>
               <div>
                 <div style={{ fontSize: '11px', color: '#9e8c80', fontWeight: 600 }}>Subscription Tier</div>
-                <div style={{ fontSize: '13px', fontWeight: 700, color: '#e05297' }}>
+                <div style={{ fontSize: '13px', fontWeight: 700, color: '#7B0505' }}>
                   {user.subscription?.tier || 'Free Learner'}
                 </div>
               </div>

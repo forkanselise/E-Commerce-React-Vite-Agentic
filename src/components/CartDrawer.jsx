@@ -98,9 +98,9 @@ export function CartDrawer() {
         {/* Drawer Header */}
         <div style={{ padding: '20px', borderBottom: '1px solid rgba(61, 35, 20, 0.08)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: '#faf6f0' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <ShoppingBag size={20} color="#e05297" />
+            <ShoppingBag size={20} color="#7B0505" />
             <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#3d2314' }}>Smart Bakery Cart</h3>
-            <span style={{ fontSize: '11px', fontWeight: 800, padding: '2px 8px', background: '#e05297', color: '#ffffff', borderRadius: '9999px' }}>
+            <span style={{ fontSize: '11px', fontWeight: 800, padding: '2px 8px', background: '#7B0505', color: '#ffffff', borderRadius: '9999px' }}>
               {items.length} items
             </span>
           </div>
@@ -184,7 +184,7 @@ export function CartDrawer() {
                     <h4 style={{ fontSize: '13px', fontWeight: 800, color: '#3d2314', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                       {item.title}
                     </h4>
-                    <div style={{ fontSize: '13px', fontWeight: 800, color: '#e05297', marginTop: '2px' }}>
+                    <div style={{ fontSize: '13px', fontWeight: 800, color: '#7B0505', marginTop: '2px' }}>
                       ৳ {item.price?.toLocaleString()}
                     </div>
 
@@ -271,7 +271,7 @@ export function CartDrawer() {
 
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '16px', fontWeight: 800, color: '#3d2314', paddingTop: '8px', borderTop: '1px solid rgba(61, 35, 20, 0.1)' }}>
                 <span>Total Payable</span>
-                <span style={{ color: '#e05297' }}>৳ {getTotal().toLocaleString()}</span>
+                <span style={{ color: '#7B0505' }}>৳ {getTotal().toLocaleString()}</span>
               </div>
             </div>
 
@@ -285,7 +285,7 @@ export function CartDrawer() {
                     style={{
                       padding: '8px',
                       borderRadius: '8px',
-                      background: paymentMethod === 'cod' ? '#e05297' : '#ffffff',
+                      background: paymentMethod === 'cod' ? '#7B0505' : '#ffffff',
                       color: paymentMethod === 'cod' ? '#ffffff' : '#3d2314',
                       border: '1px solid rgba(61, 35, 20, 0.15)',
                       fontSize: '12px',
@@ -301,7 +301,7 @@ export function CartDrawer() {
                     style={{
                       padding: '8px',
                       borderRadius: '8px',
-                      background: paymentMethod === 'bkash' ? '#e05297' : '#ffffff',
+                      background: paymentMethod === 'bkash' ? '#7B0505' : '#ffffff',
                       color: paymentMethod === 'bkash' ? '#ffffff' : '#3d2314',
                       border: '1px solid rgba(61, 35, 20, 0.15)',
                       fontSize: '12px',

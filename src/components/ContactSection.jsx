@@ -17,15 +17,15 @@ export function ContactSection() {
         
         {/* Section 07 Classroom & Packing Showcase Banner */}
         <div style={{
-          background: 'linear-gradient(135deg, #3d2314 0%, #2a170d 100%)',
+          background: 'linear-gradient(135deg, #420404 0%, #260000 100%)',
           borderRadius: '24px',
           padding: '40px 48px',
           color: '#ffffff',
           marginBottom: '48px',
-          boxShadow: '0 12px 35px rgba(61, 35, 20, 0.12)'
+          boxShadow: '0 12px 35px rgba(123, 5, 5, 0.12)'
         }}>
           <div style={{ fontSize: '12px', fontWeight: 800, color: '#fcd34d', textTransform: 'uppercase', marginBottom: '8px' }}>Classroom & Packing Center</div>
-          <h1 style={{ fontSize: '32px', fontWeight: 800, fontFamily: 'var(--font-heading)', marginBottom: '12px' }}>
+          <h1 style={{ fontSize: '32px', fontWeight: 800, fontFamily: 'var(--font-heading)', marginBottom: '12px', color: '#ffffff' }}>
             Learn, Create & Grow With Us
           </h1>
           <p style={{ fontSize: '15px', color: '#f4ede4', maxWidth: '650px', marginBottom: '28px' }}>
@@ -58,7 +58,7 @@ export function ContactSection() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
               <div style={{ display: 'flex', alignItems: 'flex-start', gap: '14px' }}>
                 <div style={{ width: '40px', height: '40px', borderRadius: '12px', background: '#fdf2f8', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <MapPin size={20} color="#e05297" />
+                  <MapPin size={20} color="#7B0505" />
                 </div>
                 <div>
                   <div style={{ fontSize: '14px', fontWeight: 800, color: '#3d2314' }}>Our Store & Academy</div>
@@ -68,7 +68,7 @@ export function ContactSection() {
 
               <div style={{ display: 'flex', alignItems: 'flex-start', gap: '14px' }}>
                 <div style={{ width: '40px', height: '40px', borderRadius: '12px', background: '#fdf2f8', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <Phone size={20} color="#e05297" />
+                  <Phone size={20} color="#7B0505" />
                 </div>
                 <div>
                   <div style={{ fontSize: '14px', fontWeight: 800, color: '#3d2314' }}>Call Us</div>
@@ -78,7 +78,7 @@ export function ContactSection() {
 
               <div style={{ display: 'flex', alignItems: 'flex-start', gap: '14px' }}>
                 <div style={{ width: '40px', height: '40px', borderRadius: '12px', background: '#fdf2f8', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <Mail size={20} color="#e05297" />
+                  <Mail size={20} color="#7B0505" />
                 </div>
                 <div>
                   <div style={{ fontSize: '14px', fontWeight: 800, color: '#3d2314' }}>Email Us</div>
@@ -88,7 +88,7 @@ export function ContactSection() {
 
               <div style={{ display: 'flex', alignItems: 'flex-start', gap: '14px' }}>
                 <div style={{ width: '40px', height: '40px', borderRadius: '12px', background: '#fdf2f8', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <Clock size={20} color="#e05297" />
+                  <Clock size={20} color="#7B0505" />
                 </div>
                 <div>
                   <div style={{ fontSize: '14px', fontWeight: 800, color: '#3d2314' }}>Open Hours</div>

@@ -104,14 +104,14 @@ export function HeroSection({ setActiveTab, onSelectCategoryFilter }) {
           {/* Left Adjust: Stage-03 Hero Content */}
           <div>
             {/* Stage-03 Hero Pill Tags */}
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 16px', borderRadius: '9999px', background: '#fdf2f8', border: '1px solid #f472b6', marginBottom: '20px' }}>
-              <Heart size={14} color="#e05297" fill="#e05297" />
-              <span style={{ fontSize: '13px', fontWeight: 700, color: '#e05297' }}>Bake • Make • Learn</span>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 16px', borderRadius: '9999px', background: '#fdf2f2', border: '1px solid #7B0505', marginBottom: '20px' }}>
+              <Heart size={14} color="#7B0505" fill="#7B0505" />
+              <span style={{ fontSize: '13px', fontWeight: 700, color: '#7B0505' }}>Bake • Make • Learn</span>
             </div>
 
             <h1 style={{ fontSize: '44px', lineHeight: 1.18, fontWeight: 800, color: '#3d2314', marginBottom: '20px', fontFamily: 'var(--font-heading)' }}>
               Everything You Need to Bake, Learn & Indulge — <br />
-              <span style={{ color: '#e05297', background: 'linear-gradient(135deg, #e05297 0%, #3d2314 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+              <span style={{ color: '#7B0505', background: 'linear-gradient(135deg, #7B0505 0%, #590303 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
                 All Under One Roof!
               </span>
             </h1>
@@ -124,7 +124,7 @@ export function HeroSection({ setActiveTab, onSelectCategoryFilter }) {
                 <button
                   onClick={() => setShowOrderDropdown(!showOrderDropdown)}
                   className="btn btn-rose"
-                  style={{ padding: '14px 28px', fontSize: '15px', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '8px', boxShadow: '0 8px 24px rgba(224, 82, 151, 0.25)' }}
+                  style={{ padding: '14px 28px', fontSize: '15px', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '8px', boxShadow: '0 8px 24px rgba(123, 5, 5, 0.25)' }}
                 >
                   <ShoppingBag size={18} />
                   <span>ORDER NOW</span>
@@ -147,7 +147,7 @@ export function HeroSection({ setActiveTab, onSelectCategoryFilter }) {
                     <button
                       onClick={() => { setShowOrderDropdown(false); setActiveTab('bakery'); }}
                       style={{ width: '100%', textAlign: 'left', padding: '10px 14px', fontSize: '14px', fontWeight: 700, color: '#3d2314', background: 'transparent', border: 'none', borderRadius: '8px', cursor: 'pointer' }}
-                      onMouseEnter={(e) => e.currentTarget.style.background = '#fdf2f8'}
+                      onMouseEnter={(e) => e.currentTarget.style.background = '#fdf2f2'}
                       onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
                     >
                       🍰 Our Bakes Page
@@ -155,7 +155,7 @@ export function HeroSection({ setActiveTab, onSelectCategoryFilter }) {
                     <button
                       onClick={() => { setShowOrderDropdown(false); setActiveTab('store'); }}
                       style={{ width: '100%', textAlign: 'left', padding: '10px 14px', fontSize: '14px', fontWeight: 700, color: '#3d2314', background: 'transparent', border: 'none', borderRadius: '8px', cursor: 'pointer' }}
-                      onMouseEnter={(e) => e.currentTarget.style.background = '#fdf2f8'}
+                      onMouseEnter={(e) => e.currentTarget.style.background = '#fdf2f2'}
                       onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
                     >
                       🥣 Try Your Home Page
@@ -192,7 +192,7 @@ export function HeroSection({ setActiveTab, onSelectCategoryFilter }) {
                     <button
                       onClick={() => { setShowJoinDropdown(false); setActiveTab('masterclass'); }}
                       style={{ width: '100%', textAlign: 'left', padding: '10px 14px', fontSize: '14px', fontWeight: 700, color: '#3d2314', background: 'transparent', border: 'none', borderRadius: '8px', cursor: 'pointer' }}
-                      onMouseEnter={(e) => e.currentTarget.style.background = '#fdf2f8'}
+                      onMouseEnter={(e) => e.currentTarget.style.background = '#fdf2f2'}
                       onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
                     >
                       🎓 Academy Learning Page
@@ -210,10 +210,10 @@ export function HeroSection({ setActiveTab, onSelectCategoryFilter }) {
                   gap: '6px',
                   padding: '13px 20px',
                   borderRadius: '14px',
-                  background: 'linear-gradient(135deg, #ffffff 0%, #fdf2f8 100%)',
-                  border: '1.5px solid #e05297',
-                  boxShadow: '0 4px 14px rgba(224, 82, 151, 0.18)',
-                  color: '#e05297',
+                  background: 'linear-gradient(135deg, #ffffff 0%, #fdf2f2 100%)',
+                  border: '1.5px solid #7B0505',
+                  boxShadow: '0 4px 14px rgba(123, 5, 5, 0.18)',
+                  color: '#7B0505',
                   fontSize: '14px',
                   fontWeight: 800,
                   cursor: 'pointer',
@@ -229,7 +229,7 @@ export function HeroSection({ setActiveTab, onSelectCategoryFilter }) {
                 }}
               >
                 <span style={{ display: 'inline-block', width: '8px', height: '8px', borderRadius: '50%', background: '#10b981', boxShadow: '0 0 8px #10b981' }} />
-                <Bot size={18} color="#e05297" />
+                <Bot size={18} color="#7B0505" />
                 <span>Mr. Butter</span>
                 <Sparkles size={14} color="#f59e0b" />
               </button>
@@ -243,7 +243,7 @@ export function HeroSection({ setActiveTab, onSelectCategoryFilter }) {
             {/* Bottom Badges matching Stage-03 PDF */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '24px', fontSize: '14px', color: '#6e5849', fontWeight: 700 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <Award size={18} color="#e05297" /> 100% Original Product
+                <Award size={18} color="#7B0505" /> 100% Original Product
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <ShieldCheck size={18} color="#34d399" /> Secure Your Desired Items
@@ -306,7 +306,7 @@ export function HeroSection({ setActiveTab, onSelectCategoryFilter }) {
               {/* Floating Signature Item Detail Box */}
               <div style={{
                 marginTop: '16px',
-                background: 'linear-gradient(135deg, #3d2314 0%, #2a170d 100%)',
+                background: 'linear-gradient(135deg, #420404 0%, #260000 100%)',
                 borderRadius: '20px',
                 padding: '20px 24px',
                 color: '#ffffff'
@@ -314,14 +314,14 @@ export function HeroSection({ setActiveTab, onSelectCategoryFilter }) {
                 <div style={{ fontSize: '11px', fontWeight: 800, color: '#fcd34d', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '4px' }}>
                   Signature Item
                 </div>
-                <h3 style={{ fontSize: '20px', fontWeight: 800, marginBottom: '8px' }}>
+                <h3 style={{ fontSize: '20px', fontWeight: 800, marginBottom: '8px', color: '#ffffff' }}>
                   {signatureItem.name}
                 </h3>
 
                 {/* Features list */}
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '16px' }}>
                   {signatureItem.features.map((feat, idx) => (
-                    <span key={idx} style={{ fontSize: '11px', background: 'rgba(255, 255, 255, 0.12)', color: '#f4ede4', padding: '3px 8px', borderRadius: '6px', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                    <span key={idx} style={{ fontSize: '11px', background: 'rgba(255, 255, 255, 0.15)', color: '#ffffff', padding: '4px 10px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '4px', border: '1px solid rgba(255, 255, 255, 0.15)' }}>
                       <Check size={10} color="#fcd34d" /> {feat}
                     </span>
                   ))}
@@ -331,14 +331,14 @@ export function HeroSection({ setActiveTab, onSelectCategoryFilter }) {
                   <div>
                     <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>
                       <span style={{ fontSize: '22px', fontWeight: 800, color: '#fcd34d' }}>৳ {signatureItem.price}</span>
-                      <span style={{ fontSize: '14px', textDecoration: 'line-through', opacity: 0.6 }}>৳ {signatureItem.regularPrice}</span>
+                      <span style={{ fontSize: '14px', textDecoration: 'line-through', color: 'rgba(255, 255, 255, 0.6)' }}>৳ {signatureItem.regularPrice}</span>
                     </div>
                   </div>
 
                   <button
                     onClick={handleOrderSignatureItem}
                     className="btn btn-rose"
-                    style={{ padding: '10px 20px', fontSize: '13px', fontWeight: 800 }}
+                    style={{ padding: '10px 20px', fontSize: '13px', fontWeight: 800, background: '#7B0505', color: '#ffffff', border: 'none' }}
                   >
                     Order Now →
                   </button>
@@ -363,7 +363,7 @@ export function HeroSection({ setActiveTab, onSelectCategoryFilter }) {
             </div>
             <button
               onClick={() => setActiveTab('store')}
-              style={{ background: 'none', border: 'none', color: '#e05297', fontWeight: 800, cursor: 'pointer', fontSize: '14px', display: 'flex', alignItems: 'center', gap: '4px' }}
+              style={{ background: 'none', border: 'none', color: '#7B0505', fontWeight: 800, cursor: 'pointer', fontSize: '14px', display: 'flex', alignItems: 'center', gap: '4px' }}
             >
               View All →
             </button>
@@ -386,7 +386,7 @@ export function HeroSection({ setActiveTab, onSelectCategoryFilter }) {
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = 'translateY(-6px)';
-                  e.currentTarget.style.borderColor = '#e05297';
+                  e.currentTarget.style.borderColor = '#7B0505';
                   e.currentTarget.style.boxShadow = '0 10px 25px rgba(224, 82, 151, 0.15)';
                 }}
                 onMouseLeave={(e) => {

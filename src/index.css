@@ -3,29 +3,29 @@
    ========================================================================== */
 
 :root {
-  /* Surface & Base Backgrounds - Warm Cream & Luxury Cocoa */
+  /* Surface & Base Backgrounds - Warm Cream & Artisanal Crimson */
   --bg-base: #faf6f0;
   --bg-surface: #ffffff;
   --bg-surface-elevated: #f4ede4;
   --bg-surface-translucent: rgba(255, 255, 255, 0.85);
   
-  /* Brand Dark Cocoa & Chocolate Surface */
-  --bg-cocoa-dark: #3d2314;
-  --bg-cocoa-deeper: #2a170d;
+  /* Brand Dark Crimson Surface (Derived from Logo #7B0505) */
+  --bg-cocoa-dark: #7B0505;
+  --bg-cocoa-deeper: #590303;
   
   /* Glassmorphism */
   --glass-bg: rgba(255, 255, 255, 0.92);
   --glass-bg-hover: #ffffff;
-  --glass-border: rgba(61, 35, 20, 0.12);
-  --glass-border-hover: rgba(224, 82, 151, 0.4);
+  --glass-border: rgba(123, 5, 5, 0.12);
+  --glass-border-hover: rgba(123, 5, 5, 0.4);
   --glass-blur: blur(12px);
 
-  /* Warm Rose & Pink Palette (Primary Brand Accents) */
-  --color-rose-300: #f472b6;
-  --color-rose-400: #e05297;
-  --color-rose-500: #d84384;
-  --color-rose-600: #c23b75;
-  --color-rose-glow: rgba(224, 82, 151, 0.25);
+  /* Deep Crimson & Artisanal Red Palette (Primary Brand Theme) */
+  --color-rose-300: #a81313;
+  --color-rose-400: #7B0505;
+  --color-rose-500: #660303;
+  --color-rose-600: #4a0000;
+  --color-rose-glow: rgba(123, 5, 5, 0.25);
 
   /* Artisan Amber & Gold Palettes (Warm Bakery) */
   --color-amber-300: #fcd34d;
@@ -47,16 +47,16 @@
   --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
 
   /* Text Colors */
-  --text-primary: #3d2314;
-  --text-secondary: #6e5849;
-  --text-muted: #9e8c80;
+  --text-primary: #3b0202;
+  --text-secondary: #661e1e;
+  --text-muted: #995555;
   --text-inverted: #ffffff;
 
   /* Shadows */
-  --shadow-sm: 0 2px 8px rgba(61, 35, 20, 0.06);
-  --shadow-md: 0 6px 20px rgba(61, 35, 20, 0.1);
-  --shadow-lg: 0 12px 35px rgba(61, 35, 20, 0.15);
-  --shadow-glow-rose: 0 0 25px rgba(224, 82, 151, 0.25);
+  --shadow-sm: 0 2px 8px rgba(123, 5, 5, 0.06);
+  --shadow-md: 0 6px 20px rgba(123, 5, 5, 0.1);
+  --shadow-lg: 0 12px 35px rgba(123, 5, 5, 0.15);
+  --shadow-glow-rose: 0 0 25px rgba(123, 5, 5, 0.25);
   --shadow-glow-amber: 0 0 25px rgba(245, 158, 11, 0.2);
 
   /* Borders & Radius */
@@ -92,7 +92,7 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
   letter-spacing: -0.02em;
   font-weight: 700;
-  color: var(--text-primary);
+  color: inherit;
 }
 
 a {
@@ -180,25 +180,25 @@ button, input, select, textarea {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--color-rose-400) 0%, var(--color-rose-500) 100%);
+  background: linear-gradient(135deg, #7B0505 0%, #590303 100%);
   color: #ffffff;
-  box-shadow: 0 4px 14px rgba(224, 82, 151, 0.35);
+  box-shadow: 0 4px 14px rgba(123, 5, 5, 0.35);
 }
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(224, 82, 151, 0.5);
-  background: linear-gradient(135deg, var(--color-rose-300) 0%, var(--color-rose-400) 100%);
+  box-shadow: 0 6px 20px rgba(123, 5, 5, 0.5);
+  background: linear-gradient(135deg, #a81313 0%, #7B0505 100%);
 }
 
 .btn-rose {
-  background: linear-gradient(135deg, #e05297 0%, #d84384 100%);
+  background: linear-gradient(135deg, #7B0505 0%, #590303 100%);
   color: #ffffff;
-  box-shadow: 0 4px 14px rgba(224, 82, 151, 0.35);
+  box-shadow: 0 4px 14px rgba(123, 5, 5, 0.35);
 }
 .btn-rose:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(224, 82, 151, 0.5);
-  background: linear-gradient(135deg, #f472b6 0%, #e05297 100%);
+  box-shadow: 0 6px 20px rgba(123, 5, 5, 0.5);
+  background: linear-gradient(135deg, #a81313 0%, #7B0505 100%);
 }
 
 .btn-dark {

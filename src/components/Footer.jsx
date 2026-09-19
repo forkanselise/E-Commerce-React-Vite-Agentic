@@ -15,7 +15,7 @@ export function Footer() {
   };
 
   return (
-    <footer style={{ background: '#3d2314', color: '#fdfbf7', paddingTop: '60px', paddingBottom: '30px', borderTop: '1px solid rgba(255, 255, 255, 0.1)' }}>
+    <footer style={{ background: '#7B0505', color: '#fdfbf7', paddingTop: '60px', paddingBottom: '30px', borderTop: '1px solid rgba(255, 255, 255, 0.1)' }}>
       <div className="container">
         
         {/* Top 4 Columns (Matching Mockup Section 11 Footer) */}
@@ -121,7 +121,7 @@ export function Footer() {
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-            <span>Made with</span> <Heart size={13} fill="#e05297" color="#e05297" /> <span>for Bakers</span>
+            <span>Made with</span> <Heart size={13} fill="#7B0505" color="#7B0505" /> <span>for Bakers</span>
           </div>
         </div>
 

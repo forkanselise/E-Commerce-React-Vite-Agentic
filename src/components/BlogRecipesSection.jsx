@@ -20,8 +20,8 @@ export function BlogRecipesSection() {
         {/* Header (Matching Mockup Section 09 Blog/Recipes) */}
         <div style={{ marginBottom: '32px' }}>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 16px', borderRadius: '9999px', background: '#fdf2f8', border: '1px solid #f472b6', marginBottom: '14px' }}>
-            <Sparkles size={14} color="#e05297" />
-            <span style={{ fontSize: '12px', fontWeight: 800, color: '#e05297' }}>Smart Bakery Journal</span>
+            <Sparkles size={14} color="#7B0505" />
+            <span style={{ fontSize: '12px', fontWeight: 800, color: '#7B0505' }}>Smart Bakery Journal</span>
           </div>
           <h1 style={{ fontSize: '32px', fontWeight: 800, color: '#3d2314', fontFamily: 'var(--font-heading)' }}>
             Baking Tips & Professional Recipes
@@ -38,7 +38,7 @@ export function BlogRecipesSection() {
               key={cat}
               onClick={() => setSelectedCat(cat)}
               style={{
-                background: selectedCat === cat ? '#e05297' : '#ffffff',
+                background: selectedCat === cat ? '#7B0505' : '#ffffff',
                 color: selectedCat === cat ? '#ffffff' : '#3d2314',
                 border: '1px solid rgba(61, 35, 20, 0.1)',
                 borderRadius: '9999px',
@@ -73,7 +73,7 @@ export function BlogRecipesSection() {
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'translateY(-4px)';
-                e.currentTarget.style.borderColor = '#e05297';
+                e.currentTarget.style.borderColor = '#7B0505';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = 'translateY(0)';
@@ -100,7 +100,7 @@ export function BlogRecipesSection() {
                   {recipe.summary}
                 </p>
 
-                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#e05297', fontWeight: 800, fontSize: '14px', paddingTop: '14px', borderTop: '1px solid rgba(61, 35, 20, 0.08)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#7B0505', fontWeight: 800, fontSize: '14px', paddingTop: '14px', borderTop: '1px solid rgba(61, 35, 20, 0.08)' }}>
                   <span>Read Full Article</span>
                   <ArrowRight size={16} />
                 </div>

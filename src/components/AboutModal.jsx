@@ -33,7 +33,7 @@ export function AboutModal({ isOpen, onClose, initialTab = 'about' }) {
       }}>
         {/* Modal Header */}
         <div style={{
-          background: 'linear-gradient(135deg, #3d2314 0%, #2a170d 100%)',
+          background: 'linear-gradient(135deg, #7B0505 0%, #590303 100%)',
           color: '#ffffff',
           padding: '24px 32px',
           display: 'flex',
@@ -45,7 +45,7 @@ export function AboutModal({ isOpen, onClose, initialTab = 'about' }) {
             <div style={{ fontSize: '12px', fontWeight: 800, color: '#fcd34d', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
               Buttercup • Bakery & Tech
             </div>
-            <h2 style={{ fontSize: '24px', fontWeight: 800, fontFamily: 'var(--font-heading)', marginTop: '4px' }}>
+            <h2 style={{ fontSize: '24px', fontWeight: 800, fontFamily: 'var(--font-heading)', marginTop: '4px', color: '#ffffff' }}>
               About Buttercup
             </h2>
           </div>
@@ -81,8 +81,8 @@ export function AboutModal({ isOpen, onClose, initialTab = 'about' }) {
               fontWeight: 700,
               border: 'none',
               background: 'transparent',
-              color: activeTab === 'about' ? '#e05297' : '#6e5849',
-              borderBottom: activeTab === 'about' ? '3px solid #e05297' : '3px solid transparent',
+              color: activeTab === 'about' ? '#7B0505' : '#6e5849',
+              borderBottom: activeTab === 'about' ? '3px solid #7B0505' : '3px solid transparent',
               cursor: 'pointer'
             }}
           >
@@ -96,8 +96,8 @@ export function AboutModal({ isOpen, onClose, initialTab = 'about' }) {
               fontWeight: 700,
               border: 'none',
               background: 'transparent',
-              color: activeTab === 'services' ? '#e05297' : '#6e5849',
-              borderBottom: activeTab === 'services' ? '3px solid #e05297' : '3px solid transparent',
+              color: activeTab === 'services' ? '#7B0505' : '#6e5849',
+              borderBottom: activeTab === 'services' ? '3px solid #7B0505' : '3px solid transparent',
               cursor: 'pointer'
             }}
           >
@@ -111,8 +111,8 @@ export function AboutModal({ isOpen, onClose, initialTab = 'about' }) {
               fontWeight: 700,
               border: 'none',
               background: 'transparent',
-              color: activeTab === 'gallery' ? '#e05297' : '#6e5849',
-              borderBottom: activeTab === 'gallery' ? '3px solid #e05297' : '3px solid transparent',
+              color: activeTab === 'gallery' ? '#7B0505' : '#6e5849',
+              borderBottom: activeTab === 'gallery' ? '3px solid #7B0505' : '3px solid transparent',
               cursor: 'pointer'
             }}
           >
@@ -126,8 +126,8 @@ export function AboutModal({ isOpen, onClose, initialTab = 'about' }) {
               fontWeight: 700,
               border: 'none',
               background: 'transparent',
-              color: activeTab === 'license' ? '#e05297' : '#6e5849',
-              borderBottom: activeTab === 'license' ? '3px solid #e05297' : '3px solid transparent',
+              color: activeTab === 'license' ? '#7B0505' : '#6e5849',
+              borderBottom: activeTab === 'license' ? '3px solid #7B0505' : '3px solid transparent',
               cursor: 'pointer'
             }}
           >
@@ -148,7 +148,7 @@ export function AboutModal({ isOpen, onClose, initialTab = 'about' }) {
                 />
                 <div>
                   <h3 style={{ fontSize: '20px', fontWeight: 800, color: '#3d2314' }}>Welcome to Buttercup</h3>
-                  <p style={{ fontSize: '13px', color: '#e05297', fontWeight: 600 }}>Artisanal Bakery • Professional Baking Supplies • Masterclass Academy</p>
+                  <p style={{ fontSize: '13px', color: '#7B0505', fontWeight: 600 }}>Artisanal Bakery • Professional Baking Supplies • Masterclass Academy</p>
                 </div>
               </div>
 
@@ -159,7 +159,7 @@ export function AboutModal({ isOpen, onClose, initialTab = 'about' }) {
 
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px', marginTop: '10px' }}>
                 <div style={{ background: '#faf6f0', padding: '18px', borderRadius: '16px', border: '1px solid rgba(61, 35, 20, 0.08)' }}>
-                  <Award size={22} color="#e05297" style={{ marginBottom: '8px' }} />
+                  <Award size={22} color="#7B0505" style={{ marginBottom: '8px' }} />
                   <div style={{ fontWeight: 800, fontSize: '15px', color: '#3d2314' }}>60,000+ Bakers</div>
                   <div style={{ fontSize: '12px', color: '#6e5849', marginTop: '4px' }}>Trusted community across Bangladesh and beyond.</div>
                 </div>
@@ -185,19 +185,19 @@ export function AboutModal({ isOpen, onClose, initialTab = 'about' }) {
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '16px' }}>
                 
                 <div style={{ border: '1px solid rgba(61, 35, 20, 0.1)', padding: '20px', borderRadius: '16px' }}>
-                  <Coffee size={24} color="#e05297" style={{ marginBottom: '10px' }} />
+                  <Coffee size={24} color="#7B0505" style={{ marginBottom: '10px' }} />
                   <h4 style={{ fontWeight: 800, fontSize: '16px', color: '#3d2314', marginBottom: '6px' }}>Artisanal Bakery & Coffee</h4>
                   <p style={{ fontSize: '13px', color: '#6e5849', lineHeight: 1.5 }}>Freshly baked sourdough, Belgian ganache gateau, donuts, croissants, and specialty roasted espresso drinks.</p>
                 </div>
 
                 <div style={{ border: '1px solid rgba(61, 35, 20, 0.1)', padding: '20px', borderRadius: '16px' }}>
-                  <Package size={24} color="#e05297" style={{ marginBottom: '10px' }} />
+                  <Package size={24} color="#7B0505" style={{ marginBottom: '10px' }} />
                   <h4 style={{ fontWeight: 800, fontSize: '16px', color: '#3d2314', marginBottom: '6px' }}>Corporate & Wholesale Supply</h4>
                   <p style={{ fontSize: '13px', color: '#6e5849', lineHeight: 1.5 }}>Bulk supply of raw ingredients, custom printed bakery packaging boxes, and commercial equipment for cafes.</p>
                 </div>
 
                 <div style={{ border: '1px solid rgba(61, 35, 20, 0.1)', padding: '20px', borderRadius: '16px' }}>
-                  <Users size={24} color="#e05297" style={{ marginBottom: '10px' }} />
+                  <Users size={24} color="#7B0505" style={{ marginBottom: '10px' }} />
                   <h4 style={{ fontWeight: 800, fontSize: '16px', color: '#3d2314', marginBottom: '6px' }}>Professional Masterclasses</h4>
                   <p style={{ fontSize: '13px', color: '#6e5849', lineHeight: 1.5 }}>Hands-on academy courses taught by pastry chefs with internationally recognized certificates upon completion.</p>
                 </div>
@@ -210,7 +210,7 @@ export function AboutModal({ isOpen, onClose, initialTab = 'about' }) {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#3d2314' }}>Get In Touch — Photo Gallery & Clips</h3>
-                <span style={{ fontSize: '12px', background: '#fdf2f8', color: '#e05297', padding: '4px 10px', borderRadius: '20px', fontWeight: 700 }}>Live Store & Academy</span>
+                <span style={{ fontSize: '12px', background: '#fdf2f8', color: '#7B0505', padding: '4px 10px', borderRadius: '20px', fontWeight: 700 }}>Live Store & Academy</span>
               </div>
 
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }}>

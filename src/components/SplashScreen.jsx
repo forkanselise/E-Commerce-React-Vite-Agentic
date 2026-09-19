@@ -34,7 +34,7 @@ export function SplashScreen({ onFinish, duration = 2000 }) {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        background: 'radial-gradient(circle at 50% 50%, #ffffff 0%, #faf6f0 55%, #3d2314 180%)',
+        background: 'radial-gradient(circle at 50% 50%, #ffffff 0%, #faf6f0 55%, #7B0505 180%)',
         opacity: isFadingOut ? 0 : 1,
         transition: 'opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
         pointerEvents: isFadingOut ? 'none' : 'auto',
@@ -47,7 +47,7 @@ export function SplashScreen({ onFinish, duration = 2000 }) {
           width: '320px',
           height: '320px',
           borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(224, 82, 151, 0.12) 0%, rgba(255,255,255,0) 70%)',
+          background: 'radial-gradient(circle, rgba(123, 5, 5, 0.12) 0%, rgba(255,255,255,0) 70%)',
           animation: 'pulseGlow 2s infinite ease-in-out',
         }}
       />
@@ -62,8 +62,8 @@ export function SplashScreen({ onFinish, duration = 2000 }) {
           padding: '40px 48px',
           background: '#ffffff',
           borderRadius: '28px',
-          boxShadow: '0 24px 60px rgba(61, 35, 20, 0.14), 0 4px 20px rgba(224, 82, 151, 0.08)',
-          border: '1px solid rgba(61, 35, 20, 0.08)',
+          boxShadow: '0 24px 60px rgba(123, 5, 5, 0.14), 0 4px 20px rgba(123, 5, 5, 0.08)',
+          border: '1px solid rgba(123, 5, 5, 0.08)',
           transform: isFadingOut ? 'scale(1.05)' : 'scale(1)',
           transition: 'transform 0.5s ease-out',
           animation: 'splashScale 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
@@ -78,7 +78,7 @@ export function SplashScreen({ onFinish, duration = 2000 }) {
             maxHeight: '110px',
             objectFit: 'contain',
             marginBottom: '16px',
-            filter: 'drop-shadow(0 6px 16px rgba(61, 35, 20, 0.1))',
+            filter: 'drop-shadow(0 6px 16px rgba(123, 5, 5, 0.1))',
           }}
         />
 
@@ -87,7 +87,7 @@ export function SplashScreen({ onFinish, duration = 2000 }) {
           style={{
             width: '160px',
             height: '4px',
-            background: 'rgba(61, 35, 20, 0.08)',
+            background: 'rgba(123, 5, 5, 0.08)',
             borderRadius: '9999px',
             overflow: 'hidden',
             marginTop: '8px',
@@ -97,14 +97,14 @@ export function SplashScreen({ onFinish, duration = 2000 }) {
           <div
             style={{
               height: '100%',
-              background: 'linear-gradient(90deg, #e05297 0%, #3d2314 100%)',
+              background: 'linear-gradient(90deg, #7B0505 0%, #590303 100%)',
               borderRadius: '9999px',
               animation: 'splashProgress 1.8s ease-in-out forwards',
             }}
           />
         </div>
 
-        <p style={{ marginTop: '14px', fontSize: '13px', fontWeight: 700, color: '#e05297', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+        <p style={{ marginTop: '14px', fontSize: '13px', fontWeight: 700, color: '#7B0505', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
           Bake • Make • Learn
         </p>
       </div>
