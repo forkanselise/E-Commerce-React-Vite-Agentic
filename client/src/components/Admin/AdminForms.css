@@ -1,0 +1,197 @@
+/* AdminForms.css - Glassmorphic Artisan + Tech Aesthetic */
+.glass-card {
+  background: var(--glass-bg, rgba(255, 255, 255, 0.03));
+  backdrop-filter: var(--blur-amount, blur(12px));
+  -webkit-backdrop-filter: var(--blur-amount, blur(12px));
+  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.1));
+  box-shadow: var(--shadow-glass, 0 8px 32px 0 rgba(0, 0, 0, 0.37));
+  border-radius: 16px;
+  padding: 2rem;
+  color: var(--text-primary, #e2e8f0);
+}
+
+.admin-form-header h2 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  color: var(--color-primary-400, #60a5fa);
+}
+
+.form-section {
+  margin-bottom: 2rem;
+}
+
+.form-section h3 {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--glass-border, rgba(255, 255, 255, 0.1));
+  padding-bottom: 0.5rem;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .form-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group.full-width {
+  grid-column: 1 / -1;
+}
+
+.form-group label {
+  font-size: 0.9rem;
+  color: var(--text-secondary, #94a3b8);
+}
+
+.glass-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: var(--glass-input-bg, rgba(0, 0, 0, 0.2));
+  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.1));
+  border-radius: 8px;
+  color: var(--text-primary, #e2e8f0);
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+
+.glass-input:focus {
+  border-color: var(--color-primary-400, #60a5fa);
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.15);
+  outline: none;
+}
+
+.glass-input::placeholder {
+  color: var(--text-secondary, #94a3b8);
+}
+
+.glass-select option {
+  background: var(--bg-dark, #0f1115);
+  color: var(--text-primary, #e2e8f0);
+}
+
+.media-upload-zone {
+  border: 2px dashed var(--glass-border, rgba(255, 255, 255, 0.1));
+  border-radius: 12px;
+  background: rgba(0,0,0,0.2);
+  transition: all 0.2s ease;
+  overflow: hidden;
+}
+
+.media-upload-zone:hover {
+  border-color: var(--color-primary-400, #60a5fa);
+  background: var(--glass-bg-hover, rgba(255, 255, 255, 0.08));
+}
+
+.upload-label {
+  display: block;
+  width: 100%;
+  cursor: pointer;
+  min-height: 200px;
+}
+
+.upload-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  color: var(--text-secondary, #94a3b8);
+  gap: 1rem;
+}
+
+.preview-container {
+  position: relative;
+  width: 100%;
+  height: 200px;
+}
+
+.media-preview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.preview-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s;
+  color: #fff;
+  font-weight: 600;
+}
+
+.preview-container:hover .preview-overlay {
+  opacity: 1;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.btn-primary {
+  background: var(--color-primary-400, #60a5fa);
+  color: #fff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.2s;
+  box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(96, 165, 250, 0.4);
+}
+
+.btn-primary:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text-primary, #e2e8f0);
+  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.1));
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
