@@ -1,0 +1,8 @@
+node_modules
+dist
+.scannerwork
+.git
+.cert
+*.log
+temp_logs.txt
+temp_logs_2.txt
