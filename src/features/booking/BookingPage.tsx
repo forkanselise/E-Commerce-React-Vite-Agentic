@@ -109,26 +109,24 @@ export function BookingPage() {
                 ))}
               </select>
             </div>
-            <FormField label="Passenger Name">
-              <input
-                type="text"
-                className="w-full border-gray-300 rounded-md shadow-sm p-2 border"
-                value={passengerName}
-                onChange={(e) => setPassengerName(e.target.value)}
-                required
-              />
-            </FormField>
-            <FormField label="Seat Number">
-              <input
-                type="number"
-                min="1"
-                max="40"
-                className="w-full border-gray-300 rounded-md shadow-sm p-2 border"
-                value={seatNumber}
-                onChange={(e) => setSeatNumber(e.target.value)}
-                required
-              />
-            </FormField>
+            <FormField
+              label="Passenger Name"
+              type="text"
+              className="w-full border-gray-300 rounded-md shadow-sm p-2 border"
+              value={passengerName}
+              onChange={(e) => setPassengerName(e.target.value)}
+              required
+            />
+            <FormField
+              label="Seat Number"
+              type="number"
+              min="1"
+              max="40"
+              className="w-full border-gray-300 rounded-md shadow-sm p-2 border"
+              value={seatNumber}
+              onChange={(e) => setSeatNumber(e.target.value)}
+              required
+            />
             <ActionButton type="submit" variant="primary">Book Ticket</ActionButton>
           </form>
         </div>
