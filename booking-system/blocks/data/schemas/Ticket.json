@@ -1,0 +1,11 @@
+{
+  "collectionName": "Tickets",
+  "schemaName": "Ticket",
+  "schemaType": 1,
+  "fields": [
+    { "name": "BusId", "type": "String", "isArray": false },
+    { "name": "PassengerName", "type": "String", "isArray": false },
+    { "name": "SeatNumber", "type": "Float", "isArray": false },
+    { "name": "Status", "type": "String", "isArray": false }
+  ]
+}
