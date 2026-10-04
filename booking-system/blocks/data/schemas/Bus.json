@@ -1,0 +1,11 @@
+{
+  "collectionName": "Buses",
+  "schemaName": "Bus",
+  "schemaType": 1,
+  "fields": [
+    { "name": "BusNumber", "type": "String", "isArray": false },
+    { "name": "Route", "type": "String", "isArray": false },
+    { "name": "DepartureTime", "type": "DateTime", "isArray": false },
+    { "name": "TotalSeats", "type": "Float", "isArray": false }
+  ]
+}
