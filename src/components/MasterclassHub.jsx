@@ -8,8 +8,19 @@ export function MasterclassHub() {
   const [selectedTutorial, setSelectedTutorial] = useState(null);
   const [selectedLevel, setSelectedLevel] = useState('All');
   const [activeChapterIndex, setActiveChapterIndex] = useState(0);
+  const [youtubeStartTime, setYoutubeStartTime] = useState(0);
   const videoRef = useRef(null);
   const { user } = useAuthStore();
+
+  const getYoutubeEmbedUrl = (url, start = 0) => {
+    if (!url) return null;
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+    const match = url.match(regExp);
+    if (match && match[2].length === 11) {
+      return `https://www.youtube.com/embed/${match[2]}?start=${start}`;
+    }
+    return null;
+  };
 
   useEffect(() => {
     async function loadAcademy() {
@@ -31,7 +42,10 @@ export function MasterclassHub() {
 
   const handleSeekChapter = (chapter, index) => {
     setActiveChapterIndex(index);
-    if (videoRef.current) {
+    const isYoutube = getYoutubeEmbedUrl(selectedTutorial.videoUrl) !== null;
+    if (isYoutube) {
+      setYoutubeStartTime(chapter.timestampSeconds || 0);
+    } else if (videoRef.current) {
       videoRef.current.currentTime = chapter.timestampSeconds;
       videoRef.current.play().catch(() => {});
     }
@@ -85,14 +99,31 @@ export function MasterclassHub() {
             
             {/* Left Video Player & Instructor Bio */}
             <div>
-              <div style={{ borderRadius: '20px', overflow: 'hidden', marginBottom: '20px', background: '#000', border: '1px solid rgba(61, 35, 20, 0.15)', boxShadow: '0 8px 25px rgba(61, 35, 20, 0.1)' }}>
-                <video
-                  ref={videoRef}
-                  src={selectedTutorial.videoUrl}
-                  poster={selectedTutorial.thumbnail}
-                  controls
-                  style={{ width: '100%', maxHeight: '420px', display: 'block' }}
-                />
+              <div style={{ borderRadius: '20px', overflow: 'hidden', marginBottom: '20px', background: '#000', border: '1px solid rgba(61, 35, 20, 0.15)', boxShadow: '0 8px 25px rgba(61, 35, 20, 0.1)', position: 'relative', paddingTop: '56.25%' }}>
+                {(() => {
+                  const embedUrl = getYoutubeEmbedUrl(selectedTutorial.videoUrl, youtubeStartTime);
+                  if (embedUrl) {
+                    return (
+                      <iframe
+                        src={embedUrl}
+                        title={selectedTutorial.title}
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                        style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+                      ></iframe>
+                    );
+                  }
+                  return (
+                    <video
+                      ref={videoRef}
+                      src={selectedTutorial.videoUrl}
+                      poster={selectedTutorial.thumbnail}
+                      controls
+                      style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', display: 'block', objectFit: 'cover' }}
+                    />
+                  );
+                })()}
               </div>
 
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px' }}>
@@ -215,7 +246,7 @@ export function MasterclassHub() {
             {filteredTutorials.map(t => (
               <div
                 key={t.id || t._id}
-                onClick={() => { setSelectedTutorial(t); setActiveChapterIndex(0); window.scrollTo({ top: 120, behavior: 'smooth' }); }}
+                onClick={() => { setSelectedTutorial(t); setActiveChapterIndex(0); setYoutubeStartTime(0); window.scrollTo({ top: 120, behavior: 'smooth' }); }}
                 style={{
                   background: '#ffffff',
                   borderRadius: '20px',

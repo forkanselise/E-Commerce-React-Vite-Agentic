@@ -688,15 +688,71 @@ export async function fetchCategories() {
   }
 }
 
+export function normalizeTutorial(t) {
+  if (!t) return t;
+  return {
+    ...t,
+    id: t.id || t._id,
+    price: Number(t.oneTimePurchasePrice || t.price || 0),
+    skillLevel: typeof t.skillLevel === 'number' ? (['Beginner', 'Intermediate', 'Advanced', 'Professional'][t.skillLevel] || 'Beginner') : (t.skillLevel || 'Beginner'),
+    instructor: {
+      name: t.instructor?.name || t.instructorName || 'Chef Instructor',
+      bio: t.instructor?.bio || t.instructorBio || 'Executive Pastry Chef',
+      avatarUrl: t.instructor?.avatarUrl || 'https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=150'
+    },
+    thumbnail: t.thumbnail || 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=800',
+    videoUrl: t.videoUrl || 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+  };
+}
+
 export async function fetchTutorials(params = {}) {
   try {
     const query = new URLSearchParams(params).toString();
     const data = await customFetch(`/Tutorials${query ? `?${query}` : ''}`);
-    if (data && data.length > 0) return data;
-    return INITIAL_TUTORIALS;
+    const items = Array.isArray(data) ? data : (data?.items || data?.data || []);
+    if (items && items.length > 0) return items.map(normalizeTutorial);
+    return INITIAL_TUTORIALS.map(normalizeTutorial);
   } catch (err) {
-    return INITIAL_TUTORIALS;
+    return INITIAL_TUTORIALS.map(normalizeTutorial);
   }
+}
+
+export async function createTutorial(tutorialData) {
+  return await customFetch('/Tutorials', {
+    method: 'POST',
+    body: JSON.stringify({
+      title: tutorialData.title,
+      category: tutorialData.category || 'Cakes & Pastry',
+      skillLevel: tutorialData.skillLevel || 'Beginner',
+      durationMinutes: Number(tutorialData.durationMinutes || 60),
+      price: Number(tutorialData.price || 0),
+      description: tutorialData.description || '',
+      instructorName: tutorialData.instructorName || 'Chef Instructor',
+      instructorBio: tutorialData.instructorBio || 'Executive Pastry Chef',
+      thumbnail: tutorialData.thumbnail || 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=800',
+      videoUrl: tutorialData.videoUrl || 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+      accessType: tutorialData.accessType || 'SubscriberOnly'
+    })
+  });
+}
+
+export async function updateTutorial(id, tutorialData) {
+  return await customFetch(`/Tutorials/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify({
+      title: tutorialData.title,
+      category: tutorialData.category || 'Cakes & Pastry',
+      skillLevel: tutorialData.skillLevel || 'Beginner',
+      durationMinutes: Number(tutorialData.durationMinutes || 60),
+      price: Number(tutorialData.price || 0),
+      description: tutorialData.description || '',
+      instructorName: tutorialData.instructorName || 'Chef Instructor',
+      instructorBio: tutorialData.instructorBio || 'Executive Pastry Chef',
+      thumbnail: tutorialData.thumbnail || 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=800',
+      videoUrl: tutorialData.videoUrl || 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+      accessType: tutorialData.accessType || 'SubscriberOnly'
+    })
+  });
 }
 
 export async function createOrder(orderPayload) {
