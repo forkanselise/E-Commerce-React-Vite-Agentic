@@ -56,16 +56,16 @@ export function BakeryCoffeeSection({ onSelectProduct, initialSubCategory = 'All
   };
 
   return (
-    <div style={{ background: '#faf6f0', padding: '40px 0 80px 0', minHeight: '80vh' }}>
+    <div style={{ background: '#faf6f0', padding: '24px 0 24px 0', minHeight: '80vh' }}>
       <div className="container">
         
         {/* Header Showcase Banner */}
         <div className="mobile-card-padding" style={{
           background: 'linear-gradient(135deg, #420404 0%, #260000 100%)',
           borderRadius: '24px',
-          padding: '40px 48px',
+          padding: '24px 24px',
           color: '#ffffff',
-          marginBottom: '40px',
+          marginBottom: '24px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
@@ -103,7 +103,7 @@ export function BakeryCoffeeSection({ onSelectProduct, initialSubCategory = 'All
         </div>
 
         {/* Subcategory Filter Tabs */}
-        <div className="horizontal-scroll-container" style={{ marginBottom: '32px' }}>
+        <div className="horizontal-scroll-container" style={{ marginBottom: '24px' }}>
           {subCategories.map(sub => (
             <button
               key={sub}

@@ -88,11 +88,11 @@ export function StoreCatalog({ onSelectProduct, initialCategory = 'All' }) {
   };
 
   return (
-    <div style={{ background: '#faf6f0', minHeight: '80vh', padding: '40px 0 80px 0' }}>
+    <div style={{ background: '#faf6f0', minHeight: '80vh', padding: '24px 0 24px 0' }}>
       <div className="container">
         
         {/* Header & Search Control Bar */}
-        <div style={{ marginBottom: '32px' }}>
+        <div style={{ marginBottom: '24px' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px', marginBottom: '24px' }}>
             <div>
               <div style={{ fontSize: '12px', fontWeight: 800, color: '#7B0505', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Buttercup Store</div>
@@ -113,7 +113,7 @@ export function StoreCatalog({ onSelectProduct, initialCategory = 'All' }) {
                   background: '#ffffff',
                   border: '1px solid rgba(61, 35, 20, 0.15)',
                   borderRadius: '12px',
-                  padding: '11px 14px 11px 40px',
+                  padding: '11px 14px 11px 24px',
                   fontSize: '14px',
                   color: '#3d2314',
                   outline: 'none',
@@ -182,13 +182,13 @@ export function StoreCatalog({ onSelectProduct, initialCategory = 'All' }) {
 
         {/* Loading Spinner */}
         {loading ? (
-          <div style={{ padding: '60px', textAlign: 'center', color: '#9e8c80' }}>
-            <div style={{ fontSize: '24px', marginBottom: '12px' }}>🧁</div>
+          <div style={{ padding: '24px', textAlign: 'center', color: '#9e8c80' }}>
+            <div style={{ fontSize: '24px', marginBottom: '12px' }}>ðŸ§</div>
             <div>Loading Buttercup Catalog...</div>
           </div>
         ) : filteredProducts.length === 0 ? (
-          <div style={{ padding: '60px', textAlign: 'center', background: '#ffffff', borderRadius: '18px', border: '1px solid rgba(61, 35, 20, 0.08)' }}>
-            <div style={{ fontSize: '32px', marginBottom: '12px' }}>🔍</div>
+          <div style={{ padding: '24px', textAlign: 'center', background: '#ffffff', borderRadius: '18px', border: '1px solid rgba(61, 35, 20, 0.08)' }}>
+            <div style={{ fontSize: '32px', marginBottom: '12px' }}>ðŸ”</div>
             <h3 style={{ fontSize: '18px', fontWeight: 700, color: '#3d2314' }}>No products match your search</h3>
             <p style={{ fontSize: '14px', color: '#6e5849' }}>Try resetting category filters or search terms.</p>
           </div>

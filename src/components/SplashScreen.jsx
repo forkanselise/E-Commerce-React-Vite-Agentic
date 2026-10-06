@@ -59,7 +59,7 @@ export function SplashScreen({ onFinish, duration = 2000 }) {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          padding: '40px 48px',
+          padding: '24px 24px',
           background: '#ffffff',
           borderRadius: '28px',
           boxShadow: '0 24px 60px rgba(123, 5, 5, 0.14), 0 4px 20px rgba(123, 5, 5, 0.08)',

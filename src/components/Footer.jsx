@@ -15,11 +15,11 @@ export function Footer() {
   };
 
   return (
-    <footer style={{ background: '#7B0505', color: '#fdfbf7', paddingTop: '60px', paddingBottom: '30px', borderTop: '1px solid rgba(255, 255, 255, 0.1)' }}>
+    <footer style={{ background: '#7B0505', color: '#fdfbf7', paddingTop: '24px', paddingBottom: '24px', borderTop: '1px solid rgba(255, 255, 255, 0.1)' }}>
       <div className="container">
         
         {/* Top 4 Columns (Matching Mockup Section 11 Footer) */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '32px', marginBottom: '40px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '24px', marginBottom: '24px' }}>
           
           {/* Col 1 Brand Info */}
           <div>

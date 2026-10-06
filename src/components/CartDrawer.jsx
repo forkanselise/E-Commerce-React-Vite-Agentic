@@ -127,7 +127,7 @@ export function CartDrawer() {
         {/* Cart Item List */}
         <div style={{ flex: 1, overflowY: 'auto', padding: '20px' }}>
           {orderPlaced ? (
-            <div style={{ textAlign: 'center', padding: '40px 10px' }}>
+            <div style={{ textAlign: 'center', padding: '24px 10px' }}>
               <div style={{
                 width: '64px',
                 height: '64px',
@@ -154,7 +154,7 @@ export function CartDrawer() {
               </button>
             </div>
           ) : items.length === 0 ? (
-            <div style={{ textAlign: 'center', padding: '60px 20px', color: '#9e8c80' }}>
+            <div style={{ textAlign: 'center', padding: '24px 20px', color: '#9e8c80' }}>
               <ShoppingBag size={48} style={{ opacity: 0.3, marginBottom: '16px' }} />
               <h4 style={{ fontSize: '16px', fontWeight: 800, color: '#3d2314', marginBottom: '6px' }}>Your cart is empty</h4>
               <p style={{ fontSize: '13px', color: '#6e5849' }}>Add Callebaut chocolates, Anchor butter, fresh donuts, or baking classes from the store catalog.</p>
@@ -266,7 +266,7 @@ export function CartDrawer() {
 
               <div style={{ display: 'flex', justifyContent: 'space-between', color: '#6e5849' }}>
                 <span>Delivery Charge</span>
-                <span style={{ fontWeight: 700 }}>{getShippingCost() === 0 ? 'FREE' : `৳ ${getShippingCost()}`}</span>
+                <span style={{ fontWeight: 700 }}>{getShippingCost() === 0 ? 'FREE' : `à§³ ${getShippingCost()}`}</span>
               </div>
 
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '16px', fontWeight: 800, color: '#3d2314', paddingTop: '8px', borderTop: '1px solid rgba(61, 35, 20, 0.1)' }}>

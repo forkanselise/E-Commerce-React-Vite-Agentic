@@ -77,10 +77,10 @@ export function MasterclassAdminHub() {
   };
 
   return (
-    <div className="container" style={{ padding: '40px 24px 80px 24px' }}>
+    <div className="container" style={{ padding: '24px 24px 24px 24px' }}>
       
       {/* Header */}
-      <div style={{ marginBottom: '32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px' }}>
+      <div style={{ marginBottom: '24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px' }}>
         <div>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '4px 12px', borderRadius: '9999px', background: 'rgba(59, 130, 246, 0.12)', border: '1px solid rgba(59, 130, 246, 0.3)', marginBottom: '10px' }}>
             <Video size={13} color="#3B82F6" />
@@ -98,7 +98,7 @@ export function MasterclassAdminHub() {
         )}
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '32px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
         
         {/* Left Side: Video List Table */}
         <div className="glass-panel" style={{ padding: '24px', overflowX: 'auto', alignSelf: 'start' }}>
@@ -172,7 +172,7 @@ export function MasterclassAdminHub() {
         </div>
 
         {/* Right Side: Add/Edit Video Form */}
-        <div className="glass-panel" style={{ padding: '32px', alignSelf: 'start' }}>
+        <div className="glass-panel" style={{ padding: '24px', alignSelf: 'start' }}>
           <h3 style={{ fontSize: '20px', fontWeight: 800, marginBottom: '24px', display: 'flex', alignItems: 'center', gap: '10px' }}>
             {selectedVideoId ? (
               <><Edit3 size={20} color="#3B82F6" /> Edit Video Details</>

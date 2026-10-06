@@ -104,7 +104,7 @@ export function UserProfileModal() {
         <div style={{
           background: 'linear-gradient(135deg, #7B0505 0%, #590303 100%)',
           color: '#ffffff',
-          padding: '28px 32px 22px 32px',
+          padding: '24px 24px 22px 24px',
           position: 'relative',
           display: 'flex',
           alignItems: 'center',
@@ -199,7 +199,7 @@ export function UserProfileModal() {
         </div>
 
         {/* Profile Content & Settings Form */}
-        <div style={{ padding: '24px 32px 28px 32px' }}>
+        <div style={{ padding: '24px 24px 24px 24px' }}>
           
           {saveSuccess && (
             <div style={{
@@ -302,7 +302,7 @@ export function UserProfileModal() {
                   placeholder="Your full name"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
-                  style={{ width: '100%', background: '#faf6f0', border: '1px solid rgba(61, 35, 20, 0.15)', borderRadius: '12px', padding: '11px 14px 11px 38px', fontSize: '14px', color: '#3d2314', outline: 'none' }}
+                  style={{ width: '100%', background: '#faf6f0', border: '1px solid rgba(61, 35, 20, 0.15)', borderRadius: '12px', padding: '11px 14px 11px 24px', fontSize: '14px', color: '#3d2314', outline: 'none' }}
                 />
               </div>
             </div>
@@ -317,7 +317,7 @@ export function UserProfileModal() {
                   placeholder="+880 1700-000000"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  style={{ width: '100%', background: '#faf6f0', border: '1px solid rgba(61, 35, 20, 0.15)', borderRadius: '12px', padding: '11px 14px 11px 38px', fontSize: '14px', color: '#3d2314', outline: 'none' }}
+                  style={{ width: '100%', background: '#faf6f0', border: '1px solid rgba(61, 35, 20, 0.15)', borderRadius: '12px', padding: '11px 14px 11px 24px', fontSize: '14px', color: '#3d2314', outline: 'none' }}
                 />
               </div>
             </div>

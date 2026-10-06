@@ -35,7 +35,7 @@ export function AboutModal({ isOpen, onClose, initialTab = 'about' }) {
         <div style={{
           background: 'linear-gradient(135deg, #7B0505 0%, #590303 100%)',
           color: '#ffffff',
-          padding: '24px 32px',
+          padding: '24px 24px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
@@ -136,7 +136,7 @@ export function AboutModal({ isOpen, onClose, initialTab = 'about' }) {
         </div>
 
         {/* Tab Contents */}
-        <div style={{ flex: 1, padding: '28px 32px', overflowY: 'auto', background: '#ffffff' }}>
+        <div style={{ flex: 1, padding: '24px 24px', overflowY: 'auto', background: '#ffffff' }}>
           
           {activeTab === 'about' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>

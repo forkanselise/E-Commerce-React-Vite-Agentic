@@ -182,7 +182,7 @@ export function Navbar({ activeTab, setActiveTab, onOpenAboutModal, onSelectCate
     <header ref={navRef} className="sticky top-0 z-40 w-full" style={{ background: '#7B0505', borderBottom: '1px solid rgba(255, 255, 255, 0.12)', boxShadow: '0 4px 20px rgba(0, 0, 0, 0.25)' }}>
       
       {/* Stage-01: Top Container (Matching PDF Page 1 Stage-01) */}
-      <div style={{ background: '#590303', color: '#fdfbf7', padding: '6px 24px', fontSize: '12px', fontWeight: 500, borderBottom: '1px solid rgba(255, 255, 255, 0.08)' }}>
+      {/* <div style={{ background: '#590303', color: '#fdfbf7', padding: '6px 24px', fontSize: '12px', fontWeight: 500, borderBottom: '1px solid rgba(255, 255, 255, 0.08)' }}>
         <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
             <Heart size={13} color="#ffffff" fill="#ffffff" />
@@ -204,7 +204,7 @@ export function Navbar({ activeTab, setActiveTab, onOpenAboutModal, onSelectCate
             </span>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Stage-02: Header Container */}
       <div className="container navbar-header-row" style={{ position: 'relative', paddingInline: '16px' }}>
@@ -216,9 +216,9 @@ export function Navbar({ activeTab, setActiveTab, onOpenAboutModal, onSelectCate
             alt="Buttercup Logo"
             className="navbar-logo-img"
             style={{
-              height: '75px',
+              height: '85px',
               width: 'auto',
-              maxHeight: '75px',
+              maxHeight: '85px',
               objectFit: 'contain',
               flexShrink: 0
             }}

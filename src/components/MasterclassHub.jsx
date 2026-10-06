@@ -52,11 +52,11 @@ export function MasterclassHub() {
   };
 
   return (
-    <div style={{ background: '#faf6f0', padding: '40px 0 80px 0', minHeight: '80vh' }}>
+    <div style={{ background: '#faf6f0', padding: '24px 0 24px 0', minHeight: '80vh' }}>
       <div className="container">
         
         {/* Title Header (Matching Mockup Section 05 Academy Page) */}
-        <div style={{ marginBottom: '32px' }}>
+        <div style={{ marginBottom: '24px' }}>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 16px', borderRadius: '9999px', background: '#fdf2f8', border: '1px solid #f472b6', marginBottom: '14px' }}>
             <GraduationCap size={14} color="#7B0505" />
             <span style={{ fontSize: '12px', fontWeight: 800, color: '#7B0505' }}>Smart Bakery Academy</span>
@@ -70,7 +70,7 @@ export function MasterclassHub() {
         </div>
 
         {/* Skill Level Filter Tabs */}
-        <div className="horizontal-scroll-container" style={{ marginBottom: '32px' }}>
+        <div className="horizontal-scroll-container" style={{ marginBottom: '24px' }}>
           {levels.map(lvl => (
             <button
               key={lvl}
@@ -95,7 +95,7 @@ export function MasterclassHub() {
 
         {/* Selected Course Player & Chapters Showcase (Matching Mockup Section 06) */}
         {selectedTutorial && (
-          <div className="responsive-grid-2" style={{ display: 'grid', gridTemplateColumns: '1.4fr 0.9fr', gap: '32px', marginBottom: '48px' }}>
+          <div className="responsive-grid-2" style={{ display: 'grid', gridTemplateColumns: '1.4fr 0.9fr', gap: '24px', marginBottom: '24px' }}>
             
             {/* Left Video Player & Instructor Bio */}
             <div>

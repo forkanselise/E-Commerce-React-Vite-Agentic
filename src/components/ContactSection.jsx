@@ -12,23 +12,23 @@ export function ContactSection() {
   };
 
   return (
-    <div style={{ background: '#faf6f0', padding: '40px 0 80px 0', minHeight: '80vh' }}>
+    <div style={{ background: '#faf6f0', padding: '24px 0 24px 0', minHeight: '80vh' }}>
       <div className="container">
         
         {/* Section 07 Classroom & Packing Showcase Banner */}
         <div className="mobile-card-padding" style={{
           background: 'linear-gradient(135deg, #420404 0%, #260000 100%)',
           borderRadius: '24px',
-          padding: '40px 48px',
+          padding: '24px 24px',
           color: '#ffffff',
-          marginBottom: '48px',
+          marginBottom: '24px',
           boxShadow: '0 12px 35px rgba(123, 5, 5, 0.12)'
         }}>
           <div style={{ fontSize: '12px', fontWeight: 800, color: '#fcd34d', textTransform: 'uppercase', marginBottom: '8px' }}>Classroom & Packing Center</div>
           <h1 style={{ fontSize: '32px', fontWeight: 800, fontFamily: 'var(--font-heading)', marginBottom: '12px', color: '#ffffff' }}>
             Learn, Create & Grow With Us
           </h1>
-          <p style={{ fontSize: '15px', color: '#f4ede4', maxWidth: '650px', marginBottom: '28px' }}>
+          <p style={{ fontSize: '15px', color: '#f4ede4', maxWidth: '650px', marginBottom: '24px' }}>
             Our classroom is designed for hands-on learning, equipped with professional deck ovens, stand mixers, temperature control dough proofer, and hygienic packaging facility.
           </p>
 
@@ -49,10 +49,10 @@ export function ContactSection() {
         </div>
 
         {/* Section 10 Contact Us Form & Info Grid */}
-        <div className="responsive-grid-2" style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: '36px', alignItems: 'start' }}>
+        <div className="responsive-grid-2" style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: '24px', alignItems: 'start' }}>
           
           {/* Contact Details Card */}
-          <div style={{ background: '#ffffff', padding: '32px', borderRadius: '24px', border: '1px solid rgba(61, 35, 20, 0.08)', boxShadow: '0 6px 20px rgba(61, 35, 20, 0.05)' }}>
+          <div style={{ background: '#ffffff', padding: '24px', borderRadius: '24px', border: '1px solid rgba(61, 35, 20, 0.08)', boxShadow: '0 6px 20px rgba(61, 35, 20, 0.05)' }}>
             <h2 style={{ fontSize: '24px', fontWeight: 800, color: '#3d2314', marginBottom: '20px' }}>Contact Us</h2>
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>

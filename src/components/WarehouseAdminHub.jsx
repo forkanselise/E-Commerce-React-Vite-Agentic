@@ -328,10 +328,10 @@ export function WarehouseAdminHub() {
   };
 
   return (
-    <div className="container" style={{ padding: '40px 24px 80px 24px' }}>
+    <div className="container" style={{ padding: '24px 24px 24px 24px' }}>
       
       {/* Header */}
-      <div style={{ marginBottom: '32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px' }}>
+      <div style={{ marginBottom: '24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px' }}>
         <div>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '4px 12px', borderRadius: '9999px', background: 'rgba(251, 113, 133, 0.12)', border: '1px solid rgba(251, 113, 133, 0.3)', marginBottom: '10px' }}>
             <ShieldCheck size={13} color="#FB7185" />
@@ -350,7 +350,7 @@ export function WarehouseAdminHub() {
       </div>
 
       {/* Main Feature Navigation Tabs */}
-      <div style={{ display: 'flex', gap: '12px', marginBottom: '28px', borderBottom: '1px solid var(--glass-border)', paddingBottom: '12px' }}>
+      <div style={{ display: 'flex', gap: '12px', marginBottom: '24px', borderBottom: '1px solid var(--glass-border)', paddingBottom: '12px' }}>
         <button
           onClick={() => setMainTab('products')}
           style={{
@@ -396,7 +396,7 @@ export function WarehouseAdminHub() {
 
       {/* PRODUCTS TAB CONTENT */}
       {mainTab === 'products' && (
-        <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: '32px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: '24px' }}>
           
           {/* Left Warehouse Inventory Table */}
           <div className="glass-panel" style={{ padding: '24px', overflowX: 'auto' }}>
@@ -679,7 +679,7 @@ export function WarehouseAdminHub() {
 
       {/* MASTERCLASS TUTORIALS TAB CONTENT */}
       {mainTab === 'tutorials' && (
-        <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: '32px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: '24px' }}>
           
           {/* Left Tutorials List Table */}
           <div className="glass-panel" style={{ padding: '24px', overflowX: 'auto' }}>

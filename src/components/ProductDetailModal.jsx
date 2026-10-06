@@ -47,7 +47,7 @@ export function ProductDetailModal({ product, onClose }) {
           maxWidth: '850px',
           maxHeight: '90vh',
           overflowY: 'auto',
-          padding: '36px',
+          padding: '24px',
           position: 'relative',
           background: '#ffffff',
           borderRadius: '24px',

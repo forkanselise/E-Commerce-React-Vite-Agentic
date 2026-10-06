@@ -70,7 +70,7 @@ export function HeroSection({ setActiveTab, onSelectCategoryFilter }) {
     <section style={{
       position: 'relative',
       overflow: 'hidden',
-      padding: '40px 0 60px 0',
+      padding: '24px 0 24px 0',
       background: 'radial-gradient(circle at 10% 20%, rgba(254, 243, 199, 0.4) 0%, rgba(253, 242, 248, 0.6) 50%, #faf6f0 100%)'
     }}>
       {/* Background Animated Blurry Bokeh Spheres */}
@@ -100,7 +100,7 @@ export function HeroSection({ setActiveTab, onSelectCategoryFilter }) {
       <div className="container" style={{ position: 'relative', zIndex: 1 }}>
         
         {/* Main Stage-03 Grid */}
-        <div className="responsive-grid-2" style={{ display: 'grid', gridTemplateColumns: '1.1fr 0.9fr', gap: '40px', alignItems: 'center', marginBottom: '60px' }}>
+        <div className="responsive-grid-2" style={{ display: 'grid', gridTemplateColumns: '1.1fr 0.9fr', gap: '24px', alignItems: 'center', marginBottom: '24px' }}>
           {/* Left Adjust: Stage-03 Hero Content */}
           <div>
             {/* Stage-03 Hero Pill Tags */}
