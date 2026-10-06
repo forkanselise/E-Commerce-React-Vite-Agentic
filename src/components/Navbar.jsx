@@ -12,6 +12,37 @@ export function Navbar({ activeTab, setActiveTab, onOpenAboutModal, onSelectCate
   const { toggleDrawer } = useAiDrawerStore();
   const { user, isAuthenticated, openAuthModal, openProfileModal, logout } = useAuthStore();
 
+  let isAdmin = false;
+  let userRole = user?.role || user?.Role;
+  if (!userRole && isAuthenticated) {
+    try {
+      const token = localStorage.getItem('nb_token');
+      if (token) {
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        userRole = payload['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] || payload.role || payload.Role;
+      }
+    } catch (e) {
+      console.error('Failed to decode JWT role', e);
+    }
+  }
+  
+  // Debugging output for the user
+  useEffect(() => {
+    if (isAuthenticated) {
+      console.log('--- DEBUG INFO ---');
+      console.log('User Object:', user);
+      console.log('Computed Role:', userRole);
+      console.log('Is Admin:', isAdmin);
+    }
+  }, [isAuthenticated, user, userRole]);
+
+  try {
+    const roles = Array.isArray(userRole) ? userRole : [userRole];
+    isAdmin = roles.some(r => typeof r === 'string' && ['admin', 'systemadmin'].includes(r.toLowerCase())) || user?.email === 'trforkan@gmail.com';
+  } catch (e) {
+    isAdmin = user?.email === 'trforkan@gmail.com';
+  }
+
   const [activeDropdown, setActiveDropdown] = useState(null); // 'bakes' | 'homeTools' | 'order' | 'contact' | 'about' | null
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [dropdownPos, setDropdownPos] = useState({ top: 0, left: 0, right: 'auto' });
@@ -670,7 +701,7 @@ export function Navbar({ activeTab, setActiveTab, onOpenAboutModal, onSelectCate
           </div>
 
           {/* Admin Warehouse Button (If user is Admin) */}
-          {(user?.role === 'Admin' || user?.role === 'SystemAdmin') && (
+          {isAdmin && (
             <button
               onClick={() => { setActiveTab('warehouse'); setActiveDropdown(null); }}
               style={{
@@ -896,6 +927,16 @@ export function Navbar({ activeTab, setActiveTab, onOpenAboutModal, onSelectCate
             >
               <BookOpen size={16} /> Academy (Masterclasses)
             </button>
+
+            {/* Mobile Warehouse Button */}
+            {isAdmin && (
+              <button
+                onClick={() => { setActiveTab('warehouse'); setMobileMenuOpen(false); }}
+                style={{ textAlign: 'left', padding: '10px 14px', background: activeTab === 'warehouse' ? 'rgba(239, 68, 68, 0.1)' : 'transparent', color: '#dc2626', borderRadius: '10px', border: 'none', fontWeight: 700, fontSize: '14px', display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', marginTop: '8px' }}
+              >
+                <ShieldAlert size={16} /> Warehouse Console
+              </button>
+            )}
 
             {/* Quick Action Grid */}
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>

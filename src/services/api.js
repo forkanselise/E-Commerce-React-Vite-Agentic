@@ -16,14 +16,18 @@ export async function uploadToCloudinary(file) {
     body: formData
   });
 
-  if (res.ok) {
-    const data = await res.json();
-    if (data.secure_url) {
-      return { success: true, url: data.secure_url, data };
-    }
+  const data = await res.json().catch(() => ({}));
+
+  if (res.ok && data.secure_url) {
+    return { success: true, url: data.secure_url, data };
   }
 
-  throw new Error('Cloudinary upload failed or returned invalid response');
+  const errorMsg = data.error?.message || data.message || 'Cloudinary upload failed';
+  if (errorMsg.toLowerCase().includes('unsigned uploads') || errorMsg.toLowerCase().includes('whitelisted')) {
+    throw new Error('Cloudinary Error: Your upload preset must be set to "Unsigned" in Cloudinary Settings > Upload.');
+  }
+
+  throw new Error(errorMsg);
 }
 
 export async function customFetch(endpoint, options = {}) {
@@ -57,10 +61,10 @@ export async function customFetch(endpoint, options = {}) {
             localStorage.setItem('nb_refresh_token', newAuthData.refreshToken);
           }
           headers['Authorization'] = `Bearer ${newAuthData.accessToken}`;
-          return await fetch(`${API_BASE_URL}${endpoint}`, {
+          response = await fetch(`${API_BASE_URL}${endpoint}`, {
             ...options,
             headers
-          }).then(r => r.json());
+          });
         }
       } catch (e) {
         localStorage.removeItem('nb_token');
@@ -70,12 +74,25 @@ export async function customFetch(endpoint, options = {}) {
     }
   }
 
-  if (!response.ok) {
-    const errorData = await response.json().catch(() => ({}));
-    throw new Error(errorData.message || `Request failed with status ${response.status}`);
+  if (response.status === 204) {
+    return { success: true };
   }
 
-  return response.json();
+  const text = await response.text();
+  let data = {};
+  if (text) {
+    try {
+      data = JSON.parse(text);
+    } catch (e) {
+      data = { rawText: text };
+    }
+  }
+
+  if (!response.ok) {
+    throw new Error(data.message || `Request failed with status ${response.status}`);
+  }
+
+  return data;
 }
 
 // Comprehensive Mockup Catalog Dataset (Matching Buttercup / Smart Bakery Hub UI Mockup)
@@ -581,24 +598,83 @@ export const INITIAL_RECIPES = [
 
 // --- API SERVICE METHODS CONNECTING TO ASP.NET CORE BACKEND ---
 
+export function normalizeProduct(p) {
+  if (!p) return p;
+  
+  let categoryLabel = p.category;
+  if (typeof p.category === 'number') {
+    const categoryEnumMap = {
+      0: 'Bakery & Coffee',
+      1: 'Tools',
+      2: 'Ingredients',
+      3: 'Packaging',
+      4: 'Decorations',
+      5: 'Moulds'
+    };
+    categoryLabel = categoryEnumMap[p.category] || 'Ingredients';
+  }
+
+  return {
+    ...p,
+    id: p.id || p._id,
+    category: categoryLabel || 'Ingredients',
+    subCategory: p.subCategory || categoryLabel || 'General',
+    price: Number(p.price || 0),
+    warehouseStock: Number(p.warehouseStock || 0),
+    images: p.images && p.images.length > 0 ? p.images : [{ url: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=800', alt: p.title || 'Product' }]
+  };
+}
+
 export async function fetchProducts(params = {}) {
   try {
     const query = new URLSearchParams(params).toString();
     const data = await customFetch(`/Products${query ? `?${query}` : ''}`);
-    if (data && data.length > 0) return data;
-    return INITIAL_PRODUCTS;
+    const items = Array.isArray(data) ? data : (data?.items || data?.data || []);
+    if (items && items.length > 0) {
+      return items.map(normalizeProduct);
+    }
+    return INITIAL_PRODUCTS.map(normalizeProduct);
   } catch (err) {
-    return INITIAL_PRODUCTS;
+    return INITIAL_PRODUCTS.map(normalizeProduct);
   }
+}
+
+export async function createProduct(productData) {
+  const payload = {
+    ...productData,
+    price: Number(productData.price || 0),
+    warehouseStock: Number(productData.warehouseStock || 0),
+    category: String(productData.category || 'Ingredients')
+  };
+  return await customFetch('/Products', {
+    method: 'POST',
+    body: JSON.stringify(payload)
+  });
+}
+
+export async function updateProduct(id, productData) {
+  const payload = {
+    ...productData,
+    id: id,
+    price: Number(productData.price || 0),
+    warehouseStock: Number(productData.warehouseStock || 0),
+    category: String(productData.category || 'Ingredients')
+  };
+  return await customFetch(`/Products/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify(payload)
+  });
 }
 
 export async function fetchFeaturedProducts() {
   try {
     const data = await customFetch('/Products/featured');
-    if (data && data.length > 0) return data;
-    return INITIAL_PRODUCTS.filter(p => p.isFeatured);
+    const items = Array.isArray(data) ? data : (data?.items || data?.data || []);
+    if (items && items.length > 0) return items.map(normalizeProduct);
+    const all = await fetchProducts();
+    return all.filter(p => p.isFeatured);
   } catch (err) {
-    return INITIAL_PRODUCTS.filter(p => p.isFeatured);
+    return INITIAL_PRODUCTS.filter(p => p.isFeatured).map(normalizeProduct);
   }
 }
 

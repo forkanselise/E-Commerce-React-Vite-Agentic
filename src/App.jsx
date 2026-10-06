@@ -19,11 +19,51 @@ import { useVisitorStore } from './stores/visitorStore';
 import { useAiDrawerStore } from './stores/aiDrawerStore';
 import { useAuthStore } from './stores/authStore';
 
+function getTabFromPath() {
+  const path = window.location.pathname.toLowerCase().replace(/\/$/, '') || '/';
+  if (path.includes('/warehouse') || window.location.hash.includes('warehouse')) return 'warehouse';
+  if (path.includes('/store') || path.includes('/catalog')) return 'store';
+  if (path.includes('/bakery') || path.includes('/coffee')) return 'bakery';
+  if (path.includes('/masterclass') || path.includes('/academy')) return 'masterclass';
+  if (path.includes('/blog') || path.includes('/recipes')) return 'blog';
+  if (path.includes('/contact')) return 'contact';
+  return 'home';
+}
+
 export function App() {
-  const [activeTab, setActiveTab] = useState('home'); // 'home' | 'store' | 'bakery' | 'masterclass' | 'blog' | 'contact' | 'warehouse'
+  const [activeTab, setActiveTabState] = useState(getTabFromPath);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [storeCategoryFilter, setStoreCategoryFilter] = useState('All');
   const [bakeryCategoryFilter, setBakeryCategoryFilter] = useState('All');
+  
+  // Custom navigation handler syncing state with URL path
+  const setActiveTab = (tab, updateHistory = true) => {
+    setActiveTabState(tab);
+    if (updateHistory) {
+      const pathMap = {
+        home: '/',
+        store: '/store',
+        bakery: '/bakery',
+        masterclass: '/masterclass',
+        blog: '/blog',
+        contact: '/contact',
+        warehouse: '/warehouse'
+      };
+      const targetPath = pathMap[tab] || '/';
+      if (window.location.pathname !== targetPath) {
+        window.history.pushState({ tab }, '', targetPath);
+      }
+    }
+  };
+
+  // Sync state on browser back/forward buttons
+  useEffect(() => {
+    const handlePopState = () => {
+      setActiveTabState(getTabFromPath());
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
   
   // About Modal state
   const [isAboutModalOpen, setIsAboutModalOpen] = useState(false);

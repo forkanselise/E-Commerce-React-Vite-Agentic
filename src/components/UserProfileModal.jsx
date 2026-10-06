@@ -52,17 +52,10 @@ export function UserProfileModal() {
         return;
       }
     } catch (err) {
-      console.warn('Cloudinary direct upload fallback engaged:', err);
-    }
-
-    // 2. Fallback: read file as high-res Data URL so photo upload never fails
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setAvatarUrl(reader.result);
-      setUploadStatus({ type: 'success', msg: 'Photo attached successfully!' });
+      console.error('Cloudinary upload failed:', err);
+      setUploadStatus({ type: 'error', msg: 'Cloudinary upload failed. Please check credentials or network.' });
       setIsUploading(false);
-    };
-    reader.readAsDataURL(file);
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -230,10 +223,10 @@ export function UserProfileModal() {
           {uploadStatus.msg && (
             <div style={{
               padding: '8px 12px',
-              background: uploadStatus.type === 'success' ? '#ecfdf5' : '#eff6ff',
-              border: `1px solid ${uploadStatus.type === 'success' ? '#a7f3d0' : '#bfdbfe'}`,
+              background: uploadStatus.type === 'success' ? '#ecfdf5' : uploadStatus.type === 'error' ? '#fef2f2' : '#eff6ff',
+              border: `1px solid ${uploadStatus.type === 'success' ? '#a7f3d0' : uploadStatus.type === 'error' ? '#fecaca' : '#bfdbfe'}`,
               borderRadius: '10px',
-              color: uploadStatus.type === 'success' ? '#059669' : '#1d4ed8',
+              color: uploadStatus.type === 'success' ? '#059669' : uploadStatus.type === 'error' ? '#dc2626' : '#1d4ed8',
               fontSize: '12px',
               fontWeight: 700,
               marginBottom: '14px',
@@ -241,7 +234,7 @@ export function UserProfileModal() {
               alignItems: 'center',
               gap: '6px'
             }}>
-              {isUploading ? <Loader2 size={14} className="animate-spin" /> : <Check size={14} />}
+              {isUploading ? <Loader2 size={14} className="animate-spin" /> : uploadStatus.type === 'error' ? <X size={14} /> : <Check size={14} />}
               <span>{uploadStatus.msg}</span>
             </div>
           )}
