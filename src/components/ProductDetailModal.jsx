@@ -145,7 +145,7 @@ export function ProductDetailModal({ product, onClose }) {
             </p>
 
             {/* Quantity Stepper & Add to Cart & Buy Now */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px', flexWrap: 'wrap' }}>
               <div style={{ display: 'flex', alignItems: 'center', border: '1px solid rgba(61, 35, 20, 0.15)', borderRadius: '12px', background: '#faf6f0' }}>
                 <button
                   onClick={() => setQuantity(Math.max(1, quantity - 1))}
@@ -182,7 +182,7 @@ export function ProductDetailModal({ product, onClose }) {
             </div>
 
             {/* Guarantees */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', paddingTop: '16px', borderTop: '1px solid rgba(61, 35, 20, 0.08)' }}>
+            <div className="responsive-grid-2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', paddingTop: '16px', borderTop: '1px solid rgba(61, 35, 20, 0.08)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12px', color: '#6e5849', fontWeight: 600 }}>
                 <Truck size={16} color="#7B0505" />
                 <span>Fast Express Delivery</span>

@@ -396,7 +396,7 @@ export function WarehouseAdminHub() {
 
       {/* PRODUCTS TAB CONTENT */}
       {mainTab === 'products' && (
-        <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: '24px' }}>
+        <div className="responsive-grid-2" style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: '24px' }}>
           
           {/* Left Warehouse Inventory Table */}
           <div className="glass-panel" style={{ padding: '24px', overflowX: 'auto' }}>
@@ -530,7 +530,7 @@ export function WarehouseAdminHub() {
                   />
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                <div className="responsive-grid-2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                   <button onClick={() => handleAdjustStock(false)} className="btn btn-secondary" style={{ borderColor: 'rgba(251, 113, 133, 0.4)', color: '#FB7185' }}>
                     <Minus size={14} /> Deduct {adjustAmount}
                   </button>
@@ -554,7 +554,7 @@ export function WarehouseAdminHub() {
                     <input type="text" required value={formData.title} onChange={e => setFormData({...formData, title: e.target.value})} style={{ width: '100%', background: 'var(--bg-surface-elevated)', border: '1px solid var(--glass-border)', borderRadius: '8px', padding: '8px', fontSize: '13px', color: 'var(--text-primary)', outline: 'none' }} />
                   </div>
                   
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                  <div className="responsive-grid-2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                     <div>
                       <label style={{ display: 'block', fontSize: '12px', color: 'var(--text-secondary)', marginBottom: '4px' }}>SKU</label>
                       <input type="text" required value={formData.sku} onChange={e => setFormData({...formData, sku: e.target.value})} style={{ width: '100%', background: 'var(--bg-surface-elevated)', border: '1px solid var(--glass-border)', borderRadius: '8px', padding: '8px', fontSize: '13px', color: 'var(--text-primary)', outline: 'none' }} />
@@ -571,7 +571,7 @@ export function WarehouseAdminHub() {
                     </div>
                   </div>
 
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                  <div className="responsive-grid-2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                     <div>
                       <label style={{ display: 'block', fontSize: '12px', color: 'var(--text-secondary)', marginBottom: '4px' }}>Price (৳)</label>
                       <input type="number" required min="0" value={formData.price} onChange={e => setFormData({...formData, price: e.target.value})} style={{ width: '100%', background: 'var(--bg-surface-elevated)', border: '1px solid var(--glass-border)', borderRadius: '8px', padding: '8px', fontSize: '13px', color: 'var(--text-primary)', outline: 'none' }} />
@@ -679,7 +679,7 @@ export function WarehouseAdminHub() {
 
       {/* MASTERCLASS TUTORIALS TAB CONTENT */}
       {mainTab === 'tutorials' && (
-        <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: '24px' }}>
+        <div className="responsive-grid-2" style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: '24px' }}>
           
           {/* Left Tutorials List Table */}
           <div className="glass-panel" style={{ padding: '24px', overflowX: 'auto' }}>
@@ -759,7 +759,7 @@ export function WarehouseAdminHub() {
                   <input type="text" required placeholder="e.g. Sourdough & Croissant Masterclass" value={tutorialFormData.title} onChange={e => setTutorialFormData({...tutorialFormData, title: e.target.value})} style={{ width: '100%', background: 'var(--bg-surface-elevated)', border: '1px solid var(--glass-border)', borderRadius: '8px', padding: '9px', fontSize: '13px', color: 'var(--text-primary)', outline: 'none' }} />
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                <div className="responsive-grid-2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                   <div>
                     <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, marginBottom: '4px' }}>Category</label>
                     <input type="text" required placeholder="Cakes & Pastry" value={tutorialFormData.category} onChange={e => setTutorialFormData({...tutorialFormData, category: e.target.value})} style={{ width: '100%', background: 'var(--bg-surface-elevated)', border: '1px solid var(--glass-border)', borderRadius: '8px', padding: '9px', fontSize: '13px', color: 'var(--text-primary)', outline: 'none' }} />
@@ -776,7 +776,7 @@ export function WarehouseAdminHub() {
                   </div>
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                <div className="responsive-grid-2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                   <div>
                     <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, marginBottom: '4px' }}>Price (৳)</label>
                     <input type="number" required min="0" value={tutorialFormData.price} onChange={e => setTutorialFormData({...tutorialFormData, price: e.target.value})} style={{ width: '100%', background: 'var(--bg-surface-elevated)', border: '1px solid var(--glass-border)', borderRadius: '8px', padding: '9px', fontSize: '13px', color: 'var(--text-primary)', outline: 'none' }} />
@@ -787,7 +787,7 @@ export function WarehouseAdminHub() {
                   </div>
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                <div className="responsive-grid-2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                   <div>
                     <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, marginBottom: '4px' }}>Instructor Name</label>
                     <input type="text" required value={tutorialFormData.instructorName} onChange={e => setTutorialFormData({...tutorialFormData, instructorName: e.target.value})} style={{ width: '100%', background: 'var(--bg-surface-elevated)', border: '1px solid var(--glass-border)', borderRadius: '8px', padding: '9px', fontSize: '13px', color: 'var(--text-primary)', outline: 'none' }} />

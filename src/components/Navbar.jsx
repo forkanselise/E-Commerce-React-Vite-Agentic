@@ -179,7 +179,7 @@ export function Navbar({ activeTab, setActiveTab, onOpenAboutModal, onSelectCate
   };
 
   return (
-    <header ref={navRef} className="sticky top-0 z-40 w-full" style={{ background: '#7B0505', borderBottom: '1px solid rgba(255, 255, 255, 0.12)', boxShadow: '0 4px 20px rgba(0, 0, 0, 0.25)' }}>
+    <header ref={navRef} className="sticky top-0 z-40 w-full" style={{ position: 'sticky', top: 0, zIndex: 40, width: '100%', background: '#7B0505', borderBottom: '1px solid rgba(255, 255, 255, 0.12)', boxShadow: '0 4px 20px rgba(0, 0, 0, 0.25)' }}>
       
       {/* Stage-01: Top Container (Matching PDF Page 1 Stage-01) */}
       {/* <div style={{ background: '#590303', color: '#fdfbf7', padding: '6px 24px', fontSize: '12px', fontWeight: 500, borderBottom: '1px solid rgba(255, 255, 255, 0.08)' }}>
