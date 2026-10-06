@@ -705,8 +705,8 @@ export function Navbar({ activeTab, setActiveTab, onOpenAboutModal, onSelectCate
             <button
               onClick={() => { setActiveTab('warehouse'); setActiveDropdown(null); }}
               style={{
-                background: activeTab === 'warehouse' ? 'rgba(239, 68, 68, 0.1)' : 'transparent',
-                color: activeTab === 'warehouse' ? '#dc2626' : '#6e5849',
+                background: activeTab === 'warehouse' ? '#ffffffff' : 'transparent',
+                color: activeTab === 'warehouse' ? '#7B0505' : '#ffffff',
                 borderRadius: '9px',
                 padding: '8px 14px',
                 fontSize: '13px',
