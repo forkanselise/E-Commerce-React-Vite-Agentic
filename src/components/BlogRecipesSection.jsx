@@ -32,7 +32,7 @@ export function BlogRecipesSection() {
         </div>
 
         {/* Category Pills */}
-        <div className="horizontal-scroll-container" style={{ marginBottom: '24px' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '8px', marginBottom: '24px' }}>
           {categories.map(cat => (
             <button
               key={cat}
@@ -56,7 +56,7 @@ export function BlogRecipesSection() {
         </div>
 
         {/* Recipe Cards Grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '24px' }}>
           {filteredRecipes.map(recipe => (
             <div
               key={recipe.id}
@@ -80,29 +80,29 @@ export function BlogRecipesSection() {
                 e.currentTarget.style.borderColor = 'rgba(61, 35, 20, 0.08)';
               }}
             >
-              <div style={{ position: 'relative', height: '220px', overflow: 'hidden' }}>
+              <div style={{ position: 'relative', height: '180px', overflow: 'hidden' }}>
                 <img src={recipe.image} alt={recipe.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 <div style={{ position: 'absolute', top: '12px', left: '12px', background: '#3d2314', color: '#ffffff', fontSize: '11px', fontWeight: 800, padding: '4px 12px', borderRadius: '9999px' }}>
                   {recipe.category}
                 </div>
               </div>
 
-              <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', flex: 1 }}>
+              <div style={{ padding: '18px', display: 'flex', flexDirection: 'column', flex: 1 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: '#9e8c80', marginBottom: '8px' }}>
                   <Clock size={14} /> <span>{recipe.readTime}</span>
                 </div>
 
-                <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#3d2314', marginBottom: '10px', lineHeight: 1.35 }}>
+                <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#3d2314', marginBottom: '8px', lineHeight: 1.35 }}>
                   {recipe.title}
                 </h3>
 
-                <p style={{ fontSize: '14px', color: '#6e5849', lineHeight: 1.6, marginBottom: '20px', flex: 1 }}>
+                <p style={{ fontSize: '13px', color: '#6e5849', lineHeight: 1.5, marginBottom: '16px', flex: 1 }}>
                   {recipe.summary}
                 </p>
 
-                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#7B0505', fontWeight: 800, fontSize: '14px', paddingTop: '14px', borderTop: '1px solid rgba(61, 35, 20, 0.08)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#7B0505', fontWeight: 800, fontSize: '13px', paddingTop: '12px', borderTop: '1px solid rgba(61, 35, 20, 0.08)' }}>
                   <span>Read Full Article</span>
-                  <ArrowRight size={16} />
+                  <ArrowRight size={15} />
                 </div>
               </div>
             </div>

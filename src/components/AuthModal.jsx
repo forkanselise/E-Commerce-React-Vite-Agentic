@@ -131,7 +131,7 @@ export function AuthModal() {
                   placeholder="e.g. Chef Sarah Rahman"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
-                  style={{ width: '100%', background: '#faf6f0', border: '1px solid rgba(61, 35, 20, 0.15)', borderRadius: '12px', padding: '11px 14px 11px 24px', fontSize: '14px', color: '#3d2314', outline: 'none' }}
+                  style={{ width: '100%', background: '#faf6f0', border: '1px solid rgba(61, 35, 20, 0.15)', borderRadius: '12px', padding: '11px 14px 11px 36px', fontSize: '14px', color: '#3d2314', outline: 'none' }}
                   required
                 />
               </div>
@@ -147,7 +147,7 @@ export function AuthModal() {
                 placeholder="baker@smartbakery.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                style={{ width: '100%', background: '#faf6f0', border: '1px solid rgba(61, 35, 20, 0.15)', borderRadius: '12px', padding: '11px 14px 11px 24px', fontSize: '14px', color: '#3d2314', outline: 'none' }}
+                style={{ width: '100%', background: '#faf6f0', border: '1px solid rgba(61, 35, 20, 0.15)', borderRadius: '12px', padding: '11px 14px 11px 36px', fontSize: '14px', color: '#3d2314', outline: 'none' }}
                 required
               />
             </div>
@@ -162,7 +162,7 @@ export function AuthModal() {
                 placeholder="••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                style={{ width: '100%', background: '#faf6f0', border: '1px solid rgba(61, 35, 20, 0.15)', borderRadius: '12px', padding: '11px 14px 11px 24px', fontSize: '14px', color: '#3d2314', outline: 'none' }}
+                style={{ width: '100%', background: '#faf6f0', border: '1px solid rgba(61, 35, 20, 0.15)', borderRadius: '12px', padding: '11px 14px 11px 36px', fontSize: '14px', color: '#3d2314', outline: 'none' }}
                 required
               />
             </div>

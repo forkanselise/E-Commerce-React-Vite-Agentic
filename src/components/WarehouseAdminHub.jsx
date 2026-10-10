@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ShieldCheck, AlertTriangle, RefreshCw, Plus, Minus, History, Check, Edit3, Save, PackagePlus, GraduationCap, Video, BookOpen, CloudUpload, Loader2, Image as ImageIcon } from 'lucide-react';
+import { ShieldCheck, AlertTriangle, RefreshCw, Plus, Minus, History, Check, Edit3, Save, PackagePlus, GraduationCap, Video, BookOpen, CloudUpload, Loader2, Image as ImageIcon, Trash2 } from 'lucide-react';
 import { INITIAL_PRODUCTS, createProduct, updateProduct, fetchProducts, fetchTutorials, createTutorial, updateTutorial, uploadToCloudinary } from '../services/api';
 import { useAuthStore } from '../stores/authStore';
 
@@ -237,7 +237,7 @@ export function WarehouseAdminHub() {
         warehouseStock: Number(formData.warehouseStock),
         shortDescription: formData.shortDescription,
         description: formData.shortDescription,
-        images: [{ url: formData.imageUrl || 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=800', alt: formData.title }],
+        images: formData.imageUrl?.trim() ? [{ url: formData.imageUrl.trim(), alt: formData.title }] : [],
         isAvailable: true,
         averageRating: 0,
         reviewCount: 0
@@ -267,7 +267,7 @@ export function WarehouseAdminHub() {
           price: Number(formData.price),
           warehouseStock: Number(formData.warehouseStock),
           shortDescription: formData.shortDescription,
-          images: [{ url: formData.imageUrl || 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=800', alt: formData.title }]
+          images: formData.imageUrl?.trim() ? [{ url: formData.imageUrl.trim(), alt: formData.title }] : []
         });
       } catch (err) {
         alert("❌ Backend API Error on Update: " + err.message);
@@ -285,7 +285,7 @@ export function WarehouseAdminHub() {
             price: Number(formData.price),
             warehouseStock: Number(formData.warehouseStock),
             shortDescription: formData.shortDescription,
-            images: [{ url: formData.imageUrl || 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=800', alt: formData.title }]
+            images: formData.imageUrl?.trim() ? [{ url: formData.imageUrl.trim(), alt: formData.title }] : []
           };
         }
         return p;
@@ -622,9 +622,28 @@ export function WarehouseAdminHub() {
                     />
 
                     {formData.imageUrl && (
-                      <div style={{ marginTop: '8px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                        <img src={formData.imageUrl} alt="Preview" style={{ width: '48px', height: '48px', borderRadius: '8px', objectFit: 'cover', border: '1px solid rgba(123, 5, 5, 0.2)' }} />
-                        <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Image Preview Active</span>
+                      <div style={{ marginTop: '8px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '6px 10px', background: 'var(--bg-surface-elevated)', borderRadius: '10px', border: '1px solid var(--glass-border)' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                          <img src={formData.imageUrl} alt="Preview" style={{ width: '44px', height: '44px', borderRadius: '8px', objectFit: 'cover', border: '1px solid rgba(123, 5, 5, 0.3)' }} />
+                          <div>
+                            <div style={{ fontSize: '12px', fontWeight: 700, color: 'var(--text-primary)' }}>Image Active</div>
+                            <div style={{ fontSize: '10px', color: 'var(--text-muted)' }}>Ready for product save</div>
+                          </div>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setFormData(prev => ({ ...prev, imageUrl: '' }));
+                            const input = document.getElementById('product-img-upload-input');
+                            if (input) input.value = '';
+                          }}
+                          className="btn btn-secondary btn-sm"
+                          style={{ color: '#ef4444', borderColor: 'rgba(239, 68, 68, 0.3)', padding: '5px 10px', fontSize: '11px', display: 'flex', alignItems: 'center', gap: '4px', cursor: 'pointer' }}
+                          title="Remove selected image"
+                        >
+                          <Trash2 size={13} />
+                          <span>Remove</span>
+                        </button>
                       </div>
                     )}
                   </div>
@@ -836,9 +855,28 @@ export function WarehouseAdminHub() {
                   />
 
                   {tutorialFormData.thumbnail && (
-                    <div style={{ marginTop: '8px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                      <img src={tutorialFormData.thumbnail} alt="Thumbnail Preview" style={{ width: '60px', height: '40px', borderRadius: '6px', objectFit: 'cover', border: '1px solid rgba(123, 5, 5, 0.2)' }} />
-                      <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Thumbnail Preview Active</span>
+                    <div style={{ marginTop: '8px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '6px 10px', background: 'var(--bg-surface-elevated)', borderRadius: '10px', border: '1px solid var(--glass-border)' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                        <img src={tutorialFormData.thumbnail} alt="Thumbnail Preview" style={{ width: '56px', height: '38px', borderRadius: '6px', objectFit: 'cover', border: '1px solid rgba(123, 5, 5, 0.3)' }} />
+                        <div>
+                          <div style={{ fontSize: '12px', fontWeight: 700, color: 'var(--text-primary)' }}>Thumbnail Active</div>
+                          <div style={{ fontSize: '10px', color: 'var(--text-muted)' }}>Ready for course save</div>
+                        </div>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setTutorialFormData(prev => ({ ...prev, thumbnail: '' }));
+                          const input = document.getElementById('tutorial-img-upload-input');
+                          if (input) input.value = '';
+                        }}
+                        className="btn btn-secondary btn-sm"
+                        style={{ color: '#ef4444', borderColor: 'rgba(239, 68, 68, 0.3)', padding: '5px 10px', fontSize: '11px', display: 'flex', alignItems: 'center', gap: '4px', cursor: 'pointer' }}
+                        title="Remove selected thumbnail"
+                      >
+                        <Trash2 size={13} />
+                        <span>Remove</span>
+                      </button>
                     </div>
                   )}
                 </div>

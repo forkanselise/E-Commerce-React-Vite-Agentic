@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Trash2, ShoppingBag, ArrowRight, Check, CreditCard } from 'lucide-react';
+import { X, Trash2, ShoppingBag, ArrowRight, Check, CreditCard, Package } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { useCartStore } from '../stores/cartStore';
 import { useAuthStore } from '../stores/authStore';
@@ -174,11 +174,34 @@ export function CartDrawer() {
                     border: '1px solid rgba(61, 35, 20, 0.08)'
                   }}
                 >
-                  <img
-                    src={item.thumbnail}
-                    alt={item.title}
-                    style={{ width: '60px', height: '60px', borderRadius: '10px', objectFit: 'cover' }}
-                  />
+                  {item.thumbnail ? (
+                    <img
+                      src={item.thumbnail}
+                      alt={item.title}
+                      style={{ width: '60px', height: '60px', borderRadius: '10px', objectFit: 'cover' }}
+                      onError={(e) => {
+                        e.target.style.display = 'none';
+                        const fallback = e.target.parentElement.querySelector('.cart-empty-thumb');
+                        if (fallback) fallback.style.display = 'flex';
+                      }}
+                    />
+                  ) : null}
+                  <div
+                    className="cart-empty-thumb"
+                    style={{
+                      display: item.thumbnail ? 'none' : 'flex',
+                      width: '60px',
+                      height: '60px',
+                      borderRadius: '10px',
+                      background: 'rgba(61, 35, 20, 0.06)',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: '#8c7662',
+                      flexShrink: 0
+                    }}
+                  >
+                    <Package size={22} strokeWidth={1.5} />
+                  </div>
 
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <h4 style={{ fontSize: '13px', fontWeight: 800, color: '#3d2314', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>

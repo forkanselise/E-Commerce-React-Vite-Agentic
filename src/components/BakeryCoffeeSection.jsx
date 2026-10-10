@@ -103,7 +103,7 @@ export function BakeryCoffeeSection({ onSelectProduct, initialSubCategory = 'All
         </div>
 
         {/* Subcategory Filter Tabs */}
-        <div className="horizontal-scroll-container" style={{ marginBottom: '24px' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '8px', marginBottom: '24px' }}>
           {subCategories.map(sub => (
             <button
               key={sub}

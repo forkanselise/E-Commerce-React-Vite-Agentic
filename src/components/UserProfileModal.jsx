@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { X, User, Phone, Mail, Camera, ShieldCheck, Award, Save, Loader2, Sparkles, Check, LogOut, Upload, CloudUpload, Image as ImageIcon, RefreshCw } from 'lucide-react';
+import { X, User, Phone, Mail, Camera, ShieldCheck, Award, Save, Loader2, Sparkles, Check, LogOut, Upload, CloudUpload, Image as ImageIcon, RefreshCw, Trash2 } from 'lucide-react';
 import { useAuthStore } from '../stores/authStore';
 import { uploadToCloudinary, CLOUDINARY_CLOUD_NAME } from '../services/api';
 
@@ -291,6 +291,31 @@ export function UserProfileModal() {
               </div>
             </div>
 
+            {/* Active Selected Photo Preview with Remove Button */}
+            {avatarUrl && (
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', background: '#fdf2f8', border: '1px solid rgba(123, 5, 5, 0.15)', borderRadius: '12px', marginTop: '-4px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <img src={avatarUrl} alt="Preview" style={{ width: '36px', height: '36px', borderRadius: '50%', objectFit: 'cover', border: '2px solid #7B0505' }} />
+                  <div>
+                    <div style={{ fontSize: '12px', fontWeight: 700, color: '#3d2314' }}>Photo Selected</div>
+                    <div style={{ fontSize: '10px', color: '#8e796c' }}>Ready to save profile</div>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setAvatarUrl('');
+                    if (fileInputRef.current) fileInputRef.current.value = '';
+                  }}
+                  style={{ background: '#ffffff', color: '#dc2626', border: '1px solid #fca5a5', borderRadius: '8px', padding: '5px 10px', fontSize: '11px', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }}
+                  title="Remove selected photo"
+                >
+                  <Trash2 size={12} />
+                  <span>Remove Photo</span>
+                </button>
+              </div>
+            )}
+
             {/* Full Name */}
             <div>
               <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: '#3d2314', marginBottom: '6px' }}>Full Name</label>
@@ -302,7 +327,7 @@ export function UserProfileModal() {
                   placeholder="Your full name"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
-                  style={{ width: '100%', background: '#faf6f0', border: '1px solid rgba(61, 35, 20, 0.15)', borderRadius: '12px', padding: '11px 14px 11px 24px', fontSize: '14px', color: '#3d2314', outline: 'none' }}
+                  style={{ width: '100%', background: '#faf6f0', border: '1px solid rgba(61, 35, 20, 0.15)', borderRadius: '12px', padding: '11px 14px 11px 36px', fontSize: '14px', color: '#3d2314', outline: 'none' }}
                 />
               </div>
             </div>
@@ -317,7 +342,7 @@ export function UserProfileModal() {
                   placeholder="+880 1700-000000"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  style={{ width: '100%', background: '#faf6f0', border: '1px solid rgba(61, 35, 20, 0.15)', borderRadius: '12px', padding: '11px 14px 11px 24px', fontSize: '14px', color: '#3d2314', outline: 'none' }}
+                  style={{ width: '100%', background: '#faf6f0', border: '1px solid rgba(61, 35, 20, 0.15)', borderRadius: '12px', padding: '11px 14px 11px 36px', fontSize: '14px', color: '#3d2314', outline: 'none' }}
                 />
               </div>
             </div>

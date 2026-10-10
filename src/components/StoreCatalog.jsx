@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { Search, ShoppingBag, Star, Eye, Check, SlidersHorizontal, ArrowRight } from 'lucide-react';
+import { Search, ShoppingBag, Star, Eye, Check, SlidersHorizontal, ArrowRight, Image as ImageIcon } from 'lucide-react';
 import { useCartStore } from '../stores/cartStore';
 import { fetchProducts } from '../services/api';
 
@@ -113,7 +113,7 @@ export function StoreCatalog({ onSelectProduct, initialCategory = 'All' }) {
                   background: '#ffffff',
                   border: '1px solid rgba(61, 35, 20, 0.15)',
                   borderRadius: '12px',
-                  padding: '11px 14px 11px 24px',
+                  padding: '11px 16px 11px 40px',
                   fontSize: '14px',
                   color: '#3d2314',
                   outline: 'none',
@@ -127,7 +127,7 @@ export function StoreCatalog({ onSelectProduct, initialCategory = 'All' }) {
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px', background: '#ffffff', padding: '12px 18px', borderRadius: '16px', border: '1px solid rgba(61, 35, 20, 0.08)', boxShadow: '0 4px 14px rgba(61, 35, 20, 0.04)' }}>
             
             {/* Category Filter Pills */}
-            <div className="horizontal-scroll-container">
+            <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '8px' }}>
               {categories.map(c => (
                 <button
                   key={c.id}
@@ -151,7 +151,7 @@ export function StoreCatalog({ onSelectProduct, initialCategory = 'All' }) {
             </div>
 
             {/* Price Range Slider & Stock Filter */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '20px', background: '#faf6f0', padding: '6px 14px', borderRadius: '12px', border: '1px solid rgba(61, 35, 20, 0.08)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '20px', background: '#faf6f0', padding: '6px 14px', borderRadius: '12px', border: '1px solid rgba(61, 35, 20, 0.08)', flexShrink: 0 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <SlidersHorizontal size={14} color="#6e5849" />
                 <span style={{ fontSize: '12px', fontWeight: 600, color: '#6e5849' }}>Max: ৳{maxPrice.toLocaleString()}</span>
@@ -199,7 +199,7 @@ export function StoreCatalog({ onSelectProduct, initialCategory = 'All' }) {
               const productId = product.id || product._id;
               const isLowStock = product.warehouseStock > 0 && product.warehouseStock <= 10;
               const isJustAdded = addedProductId === productId;
-              const imageUrl = product.images?.[0]?.url || 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=800';
+              const imageUrl = product.images?.[0]?.url || '';
 
               return (
                 <div
@@ -229,12 +229,37 @@ export function StoreCatalog({ onSelectProduct, initialCategory = 'All' }) {
                   }}
                 >
                   {/* Image Box */}
-                  <div style={{ position: 'relative', height: '210px', background: '#fdfaf6', overflow: 'hidden' }}>
-                    <img
-                      src={imageUrl}
-                      alt={product.title}
-                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                    />
+                  <div style={{ position: 'relative', height: '210px', background: '#fdfaf6', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    {imageUrl ? (
+                      <img
+                        src={imageUrl}
+                        alt={product.title}
+                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                        onError={(e) => {
+                          e.target.style.display = 'none';
+                          const fallback = e.target.parentElement.querySelector('.cat-empty-placeholder');
+                          if (fallback) fallback.style.display = 'flex';
+                        }}
+                      />
+                    ) : null}
+                    
+                    <div
+                      className="cat-empty-placeholder"
+                      style={{
+                        display: imageUrl ? 'none' : 'flex',
+                        width: '100%',
+                        height: '100%',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '6px',
+                        background: '#f8f4ee',
+                        color: '#9e8976'
+                      }}
+                    >
+                      <ImageIcon size={32} strokeWidth={1.5} />
+                      <span style={{ fontSize: '11px', fontWeight: 600 }}>No Image Available</span>
+                    </div>
 
                     {/* Stock Status Badge */}
                     <div style={{ position: 'absolute', top: '12px', right: '12px' }}>

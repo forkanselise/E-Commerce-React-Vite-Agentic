@@ -179,7 +179,8 @@ export function Navbar({ activeTab, setActiveTab, onOpenAboutModal, onSelectCate
   };
 
   return (
-    <header ref={navRef} className="sticky top-0 z-40 w-full" style={{ position: 'sticky', top: 0, zIndex: 40, width: '100%', background: '#7B0505', borderBottom: '1px solid rgba(255, 255, 255, 0.12)', boxShadow: '0 4px 20px rgba(0, 0, 0, 0.25)' }}>
+    <>
+      <header ref={navRef} className="sticky top-0 z-40 w-full" style={{ position: 'sticky', top: 0, zIndex: 40, width: '100%', background: '#7B0505', borderBottom: '1px solid rgba(255, 255, 255, 0.12)', boxShadow: '0 4px 20px rgba(0, 0, 0, 0.25)' }}>
       
       {/* Stage-01: Top Container (Matching PDF Page 1 Stage-01) */}
       {/* <div style={{ background: '#590303', color: '#fdfbf7', padding: '6px 24px', fontSize: '12px', fontWeight: 500, borderBottom: '1px solid rgba(255, 255, 255, 0.08)' }}>
@@ -225,9 +226,9 @@ export function Navbar({ activeTab, setActiveTab, onOpenAboutModal, onSelectCate
           />
         </div>
 
-        {/* Center Navigation Menu Bar with Hover Dropdowns (Desktop Only - Max Width 70% with Horizontal Scroll) */}
-        <div className="navbar-nav-wrapper desktop-nav-only">
-          <nav style={{ display: 'flex', flexWrap: 'nowrap', alignItems: 'center', gap: '4px', background: 'rgba(255, 255, 255, 0.15)', padding: '5px', borderRadius: '14px', border: '1px solid rgba(255, 255, 255, 0.2)', position: 'relative', overflow: 'visible', zIndex: 60, whiteSpace: 'nowrap', flexShrink: 0 }}>
+        {/* Center Navigation Menu Bar with Hover Dropdowns (Rounded Parent Container + Inner Scrolling Nav) */}
+        <div className="navbar-nav-wrapper desktop-nav-only" style={{ background: 'rgba(255, 255, 255, 0.15)', border: '1px solid rgba(255, 255, 255, 0.22)', borderRadius: '16px', padding: '4px 6px', overflow: 'hidden', position: 'relative', zIndex: 60 }}>
+          <nav className="nav-horizontal-scroll" style={{ display: 'flex', flexWrap: 'nowrap', alignItems: 'center', gap: '4px', background: 'transparent', border: 'none', padding: 0, position: 'relative', overflowX: 'auto', whiteSpace: 'nowrap', scrollbarWidth: 'none', width: '100%' }}>
           
           {/* 1. Home Button */}
           <button
@@ -728,12 +729,7 @@ export function Navbar({ activeTab, setActiveTab, onOpenAboutModal, onSelectCate
         {/* Right Action Icons (Live Visitors, Profile Avatar, Cart, Sign Out) */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexShrink: 0 }}>
           
-          {/* Live Visitor Counter */}
-          <div className="badge hide-on-mobile" style={{ background: '#ecfdf5', border: '1px solid #a7f3d0', color: '#047857', fontSize: '12px' }} title="Connected Live via ASP.NET Core SignalR">
-            <span className="pulse-dot"></span>
-            <Users size={12} />
-            <span>{liveVisitors} Online</span>
-          </div>
+
 
           {/* Cart Button */}
           <button
@@ -839,124 +835,209 @@ export function Navbar({ activeTab, setActiveTab, onOpenAboutModal, onSelectCate
         </div>
       </div>
 
-      {/* Mobile Expanded Navigation Panel */}
+      {/* Mobile & Floating Expanded Navigation Panel */}
       {mobileMenuOpen && (
-        <div className="container" style={{ position: 'relative', zIndex: 99999 }}>
-          <div style={{
-            background: '#ffffff',
-            borderRadius: '16px',
-            boxShadow: '0 16px 40px rgba(0, 0, 0, 0.35)',
-            border: '1px solid rgba(123, 5, 5, 0.2)',
-            margin: '8px 0 16px 0',
-            padding: '16px',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '12px',
-            animation: 'fadeIn 0.2s ease'
-          }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid #f0e6e6', paddingBottom: '8px' }}>
-              <span style={{ fontWeight: 800, color: '#7B0505', fontSize: '15px' }}>Buttercup Bakery Navigation</span>
-              <button onClick={() => setMobileMenuOpen(false)} style={{ background: 'transparent', border: 'none', color: '#666', cursor: 'pointer' }}>
-                <X size={18} />
-              </button>
-            </div>
+        <>
+          {/* Click-outside backdrop */}
+          <div
+            onClick={() => setMobileMenuOpen(false)}
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              background: 'rgba(0, 0, 0, 0.45)',
+              backdropFilter: 'blur(3px)',
+              zIndex: 99990
+            }}
+          />
 
-            {/* Home Link */}
-            <button
-              onClick={() => { setActiveTab('home'); setMobileMenuOpen(false); }}
-              style={{ textAlign: 'left', padding: '10px 14px', background: activeTab === 'home' ? '#fdf2f8' : 'transparent', color: '#7B0505', borderRadius: '10px', border: 'none', fontWeight: 700, fontSize: '14px', display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}
-            >
-              <Sparkles size={16} /> Home
-            </button>
-
-            {/* Our Bakes Category Grid */}
-            <div style={{ background: '#fdfaf8', padding: '12px', borderRadius: '12px', border: '1px solid #f0e6e6' }}>
-              <div style={{ fontWeight: 800, color: '#7B0505', fontSize: '13px', display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '8px' }}>
-                <Coffee size={15} /> Our Bakes
+          <div className="container" style={{ position: 'relative', zIndex: 99999 }}>
+            <div style={{
+              background: '#ffffff',
+              borderRadius: '20px',
+              boxShadow: '0 16px 45px rgba(0, 0, 0, 0.35)',
+              border: '1px solid rgba(123, 5, 5, 0.2)',
+              margin: '8px 0 16px 0',
+              padding: '18px',
+              maxHeight: 'calc(100vh - 120px)',
+              overflowY: 'auto',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '12px',
+              animation: 'fadeIn 0.2s ease'
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid #f0e6e6', paddingBottom: '8px' }}>
+                <span style={{ fontWeight: 800, color: '#7B0505', fontSize: '15px' }}>Buttercup Bakery Navigation</span>
+                <button onClick={() => setMobileMenuOpen(false)} style={{ background: 'transparent', border: 'none', color: '#666', cursor: 'pointer', padding: '4px' }}>
+                  <X size={18} />
+                </button>
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(110px, 1fr))', gap: '6px' }}>
-                {[
-                  { label: '🎂 Cakes', val: 'Cakes' },
-                  { label: '🍩 Donuts', val: 'Donuts' },
-                  { label: '🍪 Cookies', val: 'Cookies' },
-                  { label: '🍫 Brownies', val: 'Brownies' },
-                  { label: '☕ Coffee', val: 'Coffee' },
-                  { label: '🍫 Chocolate', val: 'Chocolate' },
-                  { label: '🥤 Drinks', val: 'Drinks' }
-                ].map((item) => (
+
+              {/* Home Link */}
+              <button
+                onClick={() => { setActiveTab('home'); setMobileMenuOpen(false); }}
+                style={{ textAlign: 'left', padding: '10px 14px', background: activeTab === 'home' ? '#fdf2f8' : 'transparent', color: '#7B0505', borderRadius: '10px', border: 'none', fontWeight: 700, fontSize: '14px', display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}
+              >
+                <Sparkles size={16} /> Home
+              </button>
+
+              {/* Our Bakes Category Grid */}
+              <div style={{ background: '#fdfaf8', padding: '12px', borderRadius: '12px', border: '1px solid #f0e6e6' }}>
+                <div style={{ fontWeight: 800, color: '#7B0505', fontSize: '13px', display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '8px' }}>
+                  <Coffee size={15} /> Our Bakes
+                </div>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(110px, 1fr))', gap: '6px' }}>
+                  {[
+                    { label: '🎂 Cakes', val: 'Cakes' },
+                    { label: '🍩 Donuts', val: 'Donuts' },
+                    { label: '🍪 Cookies', val: 'Cookies' },
+                    { label: '🍫 Brownies', val: 'Brownies' },
+                    { label: '☕ Coffee', val: 'Coffee' },
+                    { label: '🍫 Chocolate', val: 'Chocolate' },
+                    { label: '🥤 Drinks', val: 'Drinks' }
+                  ].map((item) => (
+                    <button
+                      key={item.val}
+                      onClick={() => { handleBakesSelect(item.val); setMobileMenuOpen(false); }}
+                      style={{ textAlign: 'left', padding: '8px 10px', fontSize: '12px', fontWeight: 600, color: '#3d2314', background: '#ffffff', border: '1px solid #eee', borderRadius: '8px', cursor: 'pointer' }}
+                    >
+                      {item.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Try Your Home Tools Category Grid */}
+              <div style={{ background: '#fdfaf8', padding: '12px', borderRadius: '12px', border: '1px solid #f0e6e6' }}>
+                <div style={{ fontWeight: 800, color: '#7B0505', fontSize: '13px', display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '8px' }}>
+                  <Layers size={15} /> Try Your Home (Tools & Supplies)
+                </div>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(130px, 1fr))', gap: '6px' }}>
+                  {[
+                    { label: '🥣 Tools & Equipment', val: 'Tools' },
+                    { label: '🧁 Moulds & Forms', val: 'Moulds' },
+                    { label: '✨ Decorating Tools', val: 'Decorations' },
+                    { label: '📦 Packaging & Boxes', val: 'Packaging' },
+                    { label: '🥛 Ingredients', val: 'Ingredients' },
+                    { label: '🍓 Flavours & Powders', val: 'Flavours' }
+                  ].map((item) => (
+                    <button
+                      key={item.val}
+                      onClick={() => { handleToolsSelect(item.val); setMobileMenuOpen(false); }}
+                      style={{ textAlign: 'left', padding: '8px 10px', fontSize: '12px', fontWeight: 600, color: '#3d2314', background: '#ffffff', border: '1px solid #eee', borderRadius: '8px', cursor: 'pointer' }}
+                    >
+                      {item.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Academy / Masterclasses */}
+              <button
+                onClick={() => { setActiveTab('masterclass'); setMobileMenuOpen(false); }}
+                style={{ textAlign: 'left', padding: '10px 14px', background: activeTab === 'masterclass' ? '#fdf2f8' : 'transparent', color: '#7B0505', borderRadius: '10px', border: 'none', fontWeight: 700, fontSize: '14px', display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}
+              >
+                <BookOpen size={16} /> Academy (Masterclasses)
+              </button>
+
+              {/* Order Now Options */}
+              <div style={{ background: '#fdfaf8', padding: '12px', borderRadius: '12px', border: '1px solid #f0e6e6' }}>
+                <div style={{ fontWeight: 800, color: '#7B0505', fontSize: '13px', display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '8px' }}>
+                  <ShoppingBag size={15} /> Order Options
+                </div>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))', gap: '6px' }}>
                   <button
-                    key={item.val}
-                    onClick={() => { handleBakesSelect(item.val); setMobileMenuOpen(false); }}
+                    onClick={() => { handleOrderSelect('individual'); setMobileMenuOpen(false); }}
                     style={{ textAlign: 'left', padding: '8px 10px', fontSize: '12px', fontWeight: 600, color: '#3d2314', background: '#ffffff', border: '1px solid #eee', borderRadius: '8px', cursor: 'pointer' }}
                   >
-                    {item.label}
+                    👤 My Profile
                   </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Try Your Home Tools Category Grid */}
-            <div style={{ background: '#fdfaf8', padding: '12px', borderRadius: '12px', border: '1px solid #f0e6e6' }}>
-              <div style={{ fontWeight: 800, color: '#7B0505', fontSize: '13px', display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '8px' }}>
-                <Layers size={15} /> Try Your Home (Tools & Supplies)
-              </div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(130px, 1fr))', gap: '6px' }}>
-                {[
-                  { label: '🥣 Tools & Equipment', val: 'Tools' },
-                  { label: '🧁 Moulds & Forms', val: 'Moulds' },
-                  { label: '✨ Decorating Tools', val: 'Decorations' },
-                  { label: '📦 Packaging & Boxes', val: 'Packaging' },
-                  { label: '🥛 Ingredients', val: 'Ingredients' },
-                  { label: '🍓 Flavours & Powders', val: 'Flavours' }
-                ].map((item) => (
                   <button
-                    key={item.val}
-                    onClick={() => { handleToolsSelect(item.val); setMobileMenuOpen(false); }}
+                    onClick={() => { handleOrderSelect('preorder'); setMobileMenuOpen(false); }}
                     style={{ textAlign: 'left', padding: '8px 10px', fontSize: '12px', fontWeight: 600, color: '#3d2314', background: '#ffffff', border: '1px solid #eee', borderRadius: '8px', cursor: 'pointer' }}
                   >
-                    {item.label}
+                    ✨ Special Pre-Order
                   </button>
-                ))}
+                  <button
+                    onClick={() => { handleOrderSelect('corporate'); setMobileMenuOpen(false); }}
+                    style={{ textAlign: 'left', padding: '8px 10px', fontSize: '12px', fontWeight: 600, color: '#3d2314', background: '#ffffff', border: '1px solid #eee', borderRadius: '8px', cursor: 'pointer' }}
+                  >
+                    🏢 Corporate Order
+                  </button>
+                </div>
               </div>
-            </div>
 
-            {/* Academy / Masterclasses */}
-            <button
-              onClick={() => { setActiveTab('masterclass'); setMobileMenuOpen(false); }}
-              style={{ textAlign: 'left', padding: '10px 14px', background: activeTab === 'masterclass' ? '#fdf2f8' : 'transparent', color: '#7B0505', borderRadius: '10px', border: 'none', fontWeight: 700, fontSize: '14px', display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}
-            >
-              <BookOpen size={16} /> Academy (Masterclasses)
-            </button>
+              {/* Mobile Warehouse Button */}
+              {isAdmin && (
+                <button
+                  onClick={() => { setActiveTab('warehouse'); setMobileMenuOpen(false); }}
+                  style={{ textAlign: 'left', padding: '10px 14px', background: activeTab === 'warehouse' ? 'rgba(239, 68, 68, 0.1)' : 'transparent', color: '#dc2626', borderRadius: '10px', border: 'none', fontWeight: 700, fontSize: '14px', display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}
+                >
+                  <ShieldAlert size={16} /> Warehouse Console
+                </button>
+              )}
 
-            {/* Mobile Warehouse Button */}
-            {isAdmin && (
-              <button
-                onClick={() => { setActiveTab('warehouse'); setMobileMenuOpen(false); }}
-                style={{ textAlign: 'left', padding: '10px 14px', background: activeTab === 'warehouse' ? 'rgba(239, 68, 68, 0.1)' : 'transparent', color: '#dc2626', borderRadius: '10px', border: 'none', fontWeight: 700, fontSize: '14px', display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', marginTop: '8px' }}
-              >
-                <ShieldAlert size={16} /> Warehouse Console
-              </button>
-            )}
-
-            {/* Quick Action Grid */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
-              <button
-                onClick={() => { setActiveTab('contact'); setMobileMenuOpen(false); }}
-                style={{ padding: '10px 14px', background: '#7B0505', color: '#ffffff', borderRadius: '10px', border: 'none', fontWeight: 700, fontSize: '13px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', cursor: 'pointer' }}
-              >
-                <PhoneCall size={14} /> Contact Us
-              </button>
-              <button
-                onClick={() => { if (onOpenAboutModal) onOpenAboutModal('about'); setMobileMenuOpen(false); }}
-                style={{ padding: '10px 14px', background: '#fdf2f8', color: '#7B0505', borderRadius: '10px', border: '1px solid #7B0505', fontWeight: 700, fontSize: '13px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', cursor: 'pointer' }}
-              >
-                <Info size={14} /> About Us
-              </button>
+              {/* Quick Action Grid */}
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+                <button
+                  onClick={() => { setActiveTab('contact'); setMobileMenuOpen(false); }}
+                  style={{ padding: '10px 14px', background: '#7B0505', color: '#ffffff', borderRadius: '10px', border: 'none', fontWeight: 700, fontSize: '13px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', cursor: 'pointer' }}
+                >
+                  <PhoneCall size={14} /> Contact Us
+                </button>
+                <button
+                  onClick={() => { if (onOpenAboutModal) onOpenAboutModal('about'); setMobileMenuOpen(false); }}
+                  style={{ padding: '10px 14px', background: '#fdf2f8', color: '#7B0505', borderRadius: '10px', border: '1px solid #7B0505', fontWeight: 700, fontSize: '13px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', cursor: 'pointer' }}
+                >
+                  <Info size={14} /> About Us
+                </button>
+              </div>
             </div>
           </div>
-        </div>
+        </>
       )}
     </header>
+
+    {/* Floating Menu Button (Circular FAB with Icon Only) */}
+    <button
+      type="button"
+      onClick={() => setMobileMenuOpen(prev => !prev)}
+      style={{
+        position: 'fixed',
+        bottom: '24px',
+        right: '24px',
+        width: '50px',
+        height: '50px',
+        zIndex: 99997,
+        background: '#7B0505',
+        color: '#ffffff',
+        border: '2px solid rgba(255, 255, 255, 0.45)',
+        borderRadius: '50%',
+        padding: 0,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        boxShadow: '0 8px 25px rgba(123, 5, 5, 0.45)',
+        cursor: 'pointer',
+        transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
+        backdropFilter: 'blur(4px)'
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.transform = 'translateY(-2px) scale(1.08)';
+        e.currentTarget.style.boxShadow = '0 12px 30px rgba(123, 5, 5, 0.6)';
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.transform = 'translateY(0) scale(1)';
+        e.currentTarget.style.boxShadow = '0 8px 25px rgba(123, 5, 5, 0.45)';
+      }}
+      aria-label="Toggle Navigation Menu"
+      title={mobileMenuOpen ? 'Close Navigation Menu' : 'Open Navigation Menu'}
+    >
+      {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+    </button>
+  </>
   );
 }
 

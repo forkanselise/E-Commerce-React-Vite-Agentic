@@ -593,6 +593,22 @@ export const INITIAL_RECIPES = [
     readTime: '5 min read',
     image: 'https://images.unsplash.com/photo-1548907040-4baa42d10919?w=800',
     summary: 'Master the 1:1, 2:1, and 1:2 chocolate to heavy cream ratios for drips, whipping, and truffle filling with Callebaut chocolate.'
+  },
+  {
+    id: 'rec_2',
+    title: 'Stabilizing Whipping Cream in Tropical Humidity',
+    category: 'Whipping & Dairy',
+    readTime: '4 min read',
+    image: 'https://images.unsplash.com/photo-1579954115545-a95591f28bfc?w=800',
+    summary: 'Simple gelatin and mascarpone techniques to keep artisan cakes holding sharp piped edges even in warm weather.'
+  },
+  {
+    id: 'rec_3',
+    title: 'Wild Sourdough Starter & 72-Hour Cold Fermentation',
+    category: 'Bread & Fermentation',
+    readTime: '7 min read',
+    image: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800',
+    summary: 'Develop deep lactic flavors, open honeycomb crumb structures, and blistered crusts with natural wild levain.'
   }
 ];
 
@@ -621,7 +637,7 @@ export function normalizeProduct(p) {
     subCategory: p.subCategory || categoryLabel || 'General',
     price: Number(p.price || 0),
     warehouseStock: Number(p.warehouseStock || 0),
-    images: p.images && p.images.length > 0 ? p.images : [{ url: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=800', alt: p.title || 'Product' }]
+    images: Array.isArray(p.images) ? p.images : []
   };
 }
 
@@ -700,7 +716,7 @@ export function normalizeTutorial(t) {
       bio: t.instructor?.bio || t.instructorBio || 'Executive Pastry Chef',
       avatarUrl: t.instructor?.avatarUrl || 'https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=150'
     },
-    thumbnail: t.thumbnail || 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=800',
+    thumbnail: t.thumbnail || '',
     videoUrl: t.videoUrl || 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
   };
 }
@@ -729,7 +745,7 @@ export async function createTutorial(tutorialData) {
       description: tutorialData.description || '',
       instructorName: tutorialData.instructorName || 'Chef Instructor',
       instructorBio: tutorialData.instructorBio || 'Executive Pastry Chef',
-      thumbnail: tutorialData.thumbnail || 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=800',
+      thumbnail: tutorialData.thumbnail || '',
       videoUrl: tutorialData.videoUrl || 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
       accessType: tutorialData.accessType || 'SubscriberOnly'
     })
@@ -748,7 +764,7 @@ export async function updateTutorial(id, tutorialData) {
       description: tutorialData.description || '',
       instructorName: tutorialData.instructorName || 'Chef Instructor',
       instructorBio: tutorialData.instructorBio || 'Executive Pastry Chef',
-      thumbnail: tutorialData.thumbnail || 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=800',
+      thumbnail: tutorialData.thumbnail || '',
       videoUrl: tutorialData.videoUrl || 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
       accessType: tutorialData.accessType || 'SubscriberOnly'
     })

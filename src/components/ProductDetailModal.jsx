@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, ShoppingBag, Star, ShieldCheck, Truck, Check, Bot, Heart, CreditCard } from 'lucide-react';
+import { X, ShoppingBag, Star, ShieldCheck, Truck, Check, Bot, Heart, CreditCard, Image as ImageIcon } from 'lucide-react';
 import { useCartStore } from '../stores/cartStore';
 import { useAiDrawerStore } from '../stores/aiDrawerStore';
 
@@ -22,7 +22,7 @@ export function ProductDetailModal({ product, onClose }) {
     sendMessage(`Tell me more about ${product.title} and how to use it in baking.`);
   };
 
-  const imageUrl = product.images?.[0]?.url || 'https://images.unsplash.com/photo-1548907040-4baa42d10919?w=800';
+  const imageUrl = product.images?.[0]?.url || '';
 
   return (
     <div style={{
@@ -81,12 +81,36 @@ export function ProductDetailModal({ product, onClose }) {
           
           {/* Left Image & AI Assistant button */}
           <div>
-            <div style={{ borderRadius: '18px', overflow: 'hidden', height: '350px', background: '#faf6f0', border: '1px solid rgba(61, 35, 20, 0.08)' }}>
-              <img
-                src={imageUrl}
-                alt={product.title}
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-              />
+            <div style={{ borderRadius: '18px', overflow: 'hidden', height: '350px', background: '#faf6f0', border: '1px solid rgba(61, 35, 20, 0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
+              {imageUrl ? (
+                <img
+                  src={imageUrl}
+                  alt={product.title}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  onError={(e) => {
+                    e.target.style.display = 'none';
+                    const fallback = e.target.parentElement.querySelector('.detail-empty-placeholder');
+                    if (fallback) fallback.style.display = 'flex';
+                  }}
+                />
+              ) : null}
+              <div
+                className="detail-empty-placeholder"
+                style={{
+                  display: imageUrl ? 'none' : 'flex',
+                  width: '100%',
+                  height: '100%',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '8px',
+                  background: '#f8f4ee',
+                  color: '#9e8976'
+                }}
+              >
+                <ImageIcon size={44} strokeWidth={1.5} />
+                <span style={{ fontSize: '13px', fontWeight: 600 }}>No Product Image Available</span>
+              </div>
             </div>
             
             <button

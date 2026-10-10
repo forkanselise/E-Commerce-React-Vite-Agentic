@@ -70,7 +70,7 @@ export function MasterclassHub() {
         </div>
 
         {/* Skill Level Filter Tabs */}
-        <div className="horizontal-scroll-container" style={{ marginBottom: '24px' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '8px', marginBottom: '24px' }}>
           {levels.map(lvl => (
             <button
               key={lvl}
@@ -258,7 +258,15 @@ export function MasterclassHub() {
                 }}
               >
                 <div style={{ position: 'relative', height: '180px' }}>
-                  <img src={t.thumbnail} alt={t.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <img
+                    src={t.thumbnail}
+                    alt={t.title}
+                    onError={(e) => {
+                      e.currentTarget.onerror = null;
+                      e.currentTarget.src = 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=800';
+                    }}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  />
                   <div style={{ position: 'absolute', top: '12px', right: '12px', background: '#3d2314', color: '#ffffff', padding: '4px 10px', borderRadius: '9999px', fontSize: '11px', fontWeight: 800 }}>
                     {t.durationMinutes} mins
                   </div>
