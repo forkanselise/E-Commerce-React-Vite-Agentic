@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { X, Lock, Mail, User, AlertCircle, Loader2 } from 'lucide-react';
 import { useAuthStore } from '../stores/authStore';
 import logoImg from '../assets/Picture2.png';
+import { useBodyScrollLock } from '../hooks/useBodyScrollLock';
 
 export function AuthModal() {
   const [activeTab, setActiveTab] = useState('login'); // 'login' | 'register'
@@ -10,6 +11,8 @@ export function AuthModal() {
   const [fullName, setFullName] = useState('');
 
   const { isAuthModalOpen, closeAuthModal, login, register, isLoading, error } = useAuthStore();
+
+  useBodyScrollLock(isAuthModalOpen);
 
   if (!isAuthModalOpen) return null;
 
@@ -50,7 +53,7 @@ export function AuthModal() {
     }} onClick={closeAuthModal}>
       
       <div
-        className="animate-fade-in mobile-modal-content"
+        className="animate-fade-in mobile-modal-content modal-scrollable"
         style={{
           width: '100%',
           maxWidth: '440px',
@@ -144,7 +147,7 @@ export function AuthModal() {
               <Mail size={16} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#9e8c80' }} />
               <input
                 type="email"
-                placeholder="baker@smartbakery.com"
+                placeholder="baker@buttercupbakery.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 style={{ width: '100%', background: '#faf6f0', border: '1px solid rgba(61, 35, 20, 0.15)', borderRadius: '12px', padding: '11px 14px 11px 36px', fontSize: '14px', color: '#3d2314', outline: 'none' }}

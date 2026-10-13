@@ -78,7 +78,7 @@ export function BakeryCoffeeSection({ onSelectProduct, initialSubCategory = 'All
               <Coffee size={14} /> Freshly Baked & Brewed Daily
             </div>
             <h1 style={{ fontSize: '36px', fontWeight: 800, fontFamily: 'var(--font-heading)', marginBottom: '8px', color: '#ffffff' }}>
-              Smart Bakery & Coffee
+              Buttercup Bakery & Coffee
             </h1>
             <p style={{ fontSize: '15px', color: '#f4ede4', maxWidth: '500px' }}>
               Handcrafted brioche donuts, Belgian chocolate cakes, butter cookies, and freshly ground Arabica espresso.

@@ -5,6 +5,7 @@ import { useVisitorStore } from '../stores/visitorStore';
 import { useAiDrawerStore } from '../stores/aiDrawerStore';
 import { useAuthStore } from '../stores/authStore';
 import logoImg from '../assets/Picture2.png';
+import { useBodyScrollLock } from '../hooks/useBodyScrollLock';
 
 export function Navbar({ activeTab, setActiveTab, onOpenAboutModal, onSelectCategoryFilter }) {
   const { getTotalItemCount, openCart } = useCartStore();
@@ -45,6 +46,7 @@ export function Navbar({ activeTab, setActiveTab, onOpenAboutModal, onSelectCate
 
   const [activeDropdown, setActiveDropdown] = useState(null); // 'bakes' | 'homeTools' | 'order' | 'contact' | 'about' | null
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  useBodyScrollLock(mobileMenuOpen);
   const [dropdownPos, setDropdownPos] = useState({ top: 0, left: 0, right: 'auto' });
   const navRef = useRef(null);
   const timeoutRef = useRef(null);
@@ -208,7 +210,7 @@ export function Navbar({ activeTab, setActiveTab, onOpenAboutModal, onSelectCate
       </div> */}
 
       {/* Stage-02: Header Container */}
-      <div className="container navbar-header-row" style={{ position: 'relative', paddingInline: '16px' }}>
+      <div className="container navbar-header-row" style={{ position: 'relative', paddingInline: '16px', maxWidth: '1330px' }}>
         
         {/* Left Adjust : Name Logo (Home Page Link) */}
         <div style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', flexShrink: 0 }} onClick={() => setActiveTab('home')}>
@@ -579,7 +581,7 @@ export function Navbar({ activeTab, setActiveTab, onOpenAboutModal, onSelectCate
                     onClick={() => handleContactSelect('mrbutter')}
                     style={{ width: '100%', textAlign: 'left', padding: '9px 12px', fontSize: '13px', fontWeight: 700, color: '#7B0505', background: '#fdf2f8', border: 'none', borderRadius: '8px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px', whiteSpace: 'nowrap' }}
                   >
-                    🤖 Mr. Butter (//chatbot//)
+                    🤖 Mr. Butter
                   </button>
                   <button
                     type="button"
@@ -834,171 +836,181 @@ export function Navbar({ activeTab, setActiveTab, onOpenAboutModal, onSelectCate
 
         </div>
       </div>
+    </header>
 
-      {/* Mobile & Floating Expanded Navigation Panel */}
-      {mobileMenuOpen && (
-        <>
-          {/* Click-outside backdrop */}
-          <div
-            onClick={() => setMobileMenuOpen(false)}
-            style={{
-              position: 'fixed',
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              background: 'rgba(0, 0, 0, 0.45)',
-              backdropFilter: 'blur(3px)',
-              zIndex: 99990
-            }}
-          />
+    {/* Mobile & Floating Expanded Navigation Modal Overlay */}
+    {mobileMenuOpen && (
+      <div
+        className="menu-modal-overlay"
+        onClick={() => setMobileMenuOpen(false)}
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          zIndex: 99998,
+          background: 'rgba(0, 0, 0, 0.55)',
+          backdropFilter: 'blur(4px)',
+          display: 'flex',
+          alignItems: 'flex-start',
+          justifyContent: 'center',
+          padding: '75px 16px 24px 16px',
+          overflow: 'hidden',
+          touchAction: 'none'
+        }}
+      >
+        <div
+          className="container modal-scrollable"
+          onClick={(e) => e.stopPropagation()}
+          style={{
+            width: '100%',
+            maxWidth: '680px',
+            background: '#ffffff',
+            borderRadius: '20px',
+            boxShadow: '0 20px 50px rgba(0, 0, 0, 0.4)',
+            border: '1px solid rgba(123, 5, 5, 0.2)',
+            padding: '18px',
+            maxHeight: 'calc(100vh - 100px)',
+            overflowY: 'auto',
+            overscrollBehavior: 'contain',
+            WebkitOverflowScrolling: 'touch',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '12px',
+            animation: 'fadeIn 0.2s ease',
+            position: 'relative'
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid #f0e6e6', paddingBottom: '8px' }}>
+            <span style={{ fontWeight: 800, color: '#7B0505', fontSize: '15px' }}>Buttercup Bakery Navigation</span>
+            <button onClick={() => setMobileMenuOpen(false)} style={{ background: 'transparent', border: 'none', color: '#666', cursor: 'pointer', padding: '4px' }}>
+              <X size={18} />
+            </button>
+          </div>
 
-          <div className="container" style={{ position: 'relative', zIndex: 99999 }}>
-            <div style={{
-              background: '#ffffff',
-              borderRadius: '20px',
-              boxShadow: '0 16px 45px rgba(0, 0, 0, 0.35)',
-              border: '1px solid rgba(123, 5, 5, 0.2)',
-              margin: '8px 0 16px 0',
-              padding: '18px',
-              maxHeight: 'calc(100vh - 120px)',
-              overflowY: 'auto',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '12px',
-              animation: 'fadeIn 0.2s ease'
-            }}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid #f0e6e6', paddingBottom: '8px' }}>
-                <span style={{ fontWeight: 800, color: '#7B0505', fontSize: '15px' }}>Buttercup Bakery Navigation</span>
-                <button onClick={() => setMobileMenuOpen(false)} style={{ background: 'transparent', border: 'none', color: '#666', cursor: 'pointer', padding: '4px' }}>
-                  <X size={18} />
-                </button>
-              </div>
+          {/* Home Link */}
+          <button
+            onClick={() => { setActiveTab('home'); setMobileMenuOpen(false); }}
+            style={{ textAlign: 'left', padding: '10px 14px', background: activeTab === 'home' ? '#fdf2f8' : 'transparent', color: '#7B0505', borderRadius: '10px', border: 'none', fontWeight: 700, fontSize: '14px', display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}
+          >
+            <Sparkles size={16} /> Home
+          </button>
 
-              {/* Home Link */}
-              <button
-                onClick={() => { setActiveTab('home'); setMobileMenuOpen(false); }}
-                style={{ textAlign: 'left', padding: '10px 14px', background: activeTab === 'home' ? '#fdf2f8' : 'transparent', color: '#7B0505', borderRadius: '10px', border: 'none', fontWeight: 700, fontSize: '14px', display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}
-              >
-                <Sparkles size={16} /> Home
-              </button>
-
-              {/* Our Bakes Category Grid */}
-              <div style={{ background: '#fdfaf8', padding: '12px', borderRadius: '12px', border: '1px solid #f0e6e6' }}>
-                <div style={{ fontWeight: 800, color: '#7B0505', fontSize: '13px', display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '8px' }}>
-                  <Coffee size={15} /> Our Bakes
-                </div>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(110px, 1fr))', gap: '6px' }}>
-                  {[
-                    { label: '🎂 Cakes', val: 'Cakes' },
-                    { label: '🍩 Donuts', val: 'Donuts' },
-                    { label: '🍪 Cookies', val: 'Cookies' },
-                    { label: '🍫 Brownies', val: 'Brownies' },
-                    { label: '☕ Coffee', val: 'Coffee' },
-                    { label: '🍫 Chocolate', val: 'Chocolate' },
-                    { label: '🥤 Drinks', val: 'Drinks' }
-                  ].map((item) => (
-                    <button
-                      key={item.val}
-                      onClick={() => { handleBakesSelect(item.val); setMobileMenuOpen(false); }}
-                      style={{ textAlign: 'left', padding: '8px 10px', fontSize: '12px', fontWeight: 600, color: '#3d2314', background: '#ffffff', border: '1px solid #eee', borderRadius: '8px', cursor: 'pointer' }}
-                    >
-                      {item.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Try Your Home Tools Category Grid */}
-              <div style={{ background: '#fdfaf8', padding: '12px', borderRadius: '12px', border: '1px solid #f0e6e6' }}>
-                <div style={{ fontWeight: 800, color: '#7B0505', fontSize: '13px', display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '8px' }}>
-                  <Layers size={15} /> Try Your Home (Tools & Supplies)
-                </div>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(130px, 1fr))', gap: '6px' }}>
-                  {[
-                    { label: '🥣 Tools & Equipment', val: 'Tools' },
-                    { label: '🧁 Moulds & Forms', val: 'Moulds' },
-                    { label: '✨ Decorating Tools', val: 'Decorations' },
-                    { label: '📦 Packaging & Boxes', val: 'Packaging' },
-                    { label: '🥛 Ingredients', val: 'Ingredients' },
-                    { label: '🍓 Flavours & Powders', val: 'Flavours' }
-                  ].map((item) => (
-                    <button
-                      key={item.val}
-                      onClick={() => { handleToolsSelect(item.val); setMobileMenuOpen(false); }}
-                      style={{ textAlign: 'left', padding: '8px 10px', fontSize: '12px', fontWeight: 600, color: '#3d2314', background: '#ffffff', border: '1px solid #eee', borderRadius: '8px', cursor: 'pointer' }}
-                    >
-                      {item.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Academy / Masterclasses */}
-              <button
-                onClick={() => { setActiveTab('masterclass'); setMobileMenuOpen(false); }}
-                style={{ textAlign: 'left', padding: '10px 14px', background: activeTab === 'masterclass' ? '#fdf2f8' : 'transparent', color: '#7B0505', borderRadius: '10px', border: 'none', fontWeight: 700, fontSize: '14px', display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}
-              >
-                <BookOpen size={16} /> Academy (Masterclasses)
-              </button>
-
-              {/* Order Now Options */}
-              <div style={{ background: '#fdfaf8', padding: '12px', borderRadius: '12px', border: '1px solid #f0e6e6' }}>
-                <div style={{ fontWeight: 800, color: '#7B0505', fontSize: '13px', display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '8px' }}>
-                  <ShoppingBag size={15} /> Order Options
-                </div>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))', gap: '6px' }}>
-                  <button
-                    onClick={() => { handleOrderSelect('individual'); setMobileMenuOpen(false); }}
-                    style={{ textAlign: 'left', padding: '8px 10px', fontSize: '12px', fontWeight: 600, color: '#3d2314', background: '#ffffff', border: '1px solid #eee', borderRadius: '8px', cursor: 'pointer' }}
-                  >
-                    👤 My Profile
-                  </button>
-                  <button
-                    onClick={() => { handleOrderSelect('preorder'); setMobileMenuOpen(false); }}
-                    style={{ textAlign: 'left', padding: '8px 10px', fontSize: '12px', fontWeight: 600, color: '#3d2314', background: '#ffffff', border: '1px solid #eee', borderRadius: '8px', cursor: 'pointer' }}
-                  >
-                    ✨ Special Pre-Order
-                  </button>
-                  <button
-                    onClick={() => { handleOrderSelect('corporate'); setMobileMenuOpen(false); }}
-                    style={{ textAlign: 'left', padding: '8px 10px', fontSize: '12px', fontWeight: 600, color: '#3d2314', background: '#ffffff', border: '1px solid #eee', borderRadius: '8px', cursor: 'pointer' }}
-                  >
-                    🏢 Corporate Order
-                  </button>
-                </div>
-              </div>
-
-              {/* Mobile Warehouse Button */}
-              {isAdmin && (
+          {/* Our Bakes Category Grid */}
+          <div style={{ background: '#fdfaf8', padding: '12px', borderRadius: '12px', border: '1px solid #f0e6e6' }}>
+            <div style={{ fontWeight: 800, color: '#7B0505', fontSize: '13px', display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '8px' }}>
+              <Coffee size={15} /> Our Bakes
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(110px, 1fr))', gap: '6px' }}>
+              {[
+                { label: '🎂 Cakes', val: 'Cakes' },
+                { label: '🍩 Donuts', val: 'Donuts' },
+                { label: '🍪 Cookies', val: 'Cookies' },
+                { label: '🍫 Brownies', val: 'Brownies' },
+                { label: '☕ Coffee', val: 'Coffee' },
+                { label: '🍫 Chocolate', val: 'Chocolate' },
+                { label: '🥤 Drinks', val: 'Drinks' }
+              ].map((item) => (
                 <button
-                  onClick={() => { setActiveTab('warehouse'); setMobileMenuOpen(false); }}
-                  style={{ textAlign: 'left', padding: '10px 14px', background: activeTab === 'warehouse' ? 'rgba(239, 68, 68, 0.1)' : 'transparent', color: '#dc2626', borderRadius: '10px', border: 'none', fontWeight: 700, fontSize: '14px', display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}
+                  key={item.val}
+                  onClick={() => { handleBakesSelect(item.val); setMobileMenuOpen(false); }}
+                  style={{ textAlign: 'left', padding: '8px 10px', fontSize: '12px', fontWeight: 600, color: '#3d2314', background: '#ffffff', border: '1px solid #eee', borderRadius: '8px', cursor: 'pointer' }}
                 >
-                  <ShieldAlert size={16} /> Warehouse Console
+                  {item.label}
                 </button>
-              )}
-
-              {/* Quick Action Grid */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
-                <button
-                  onClick={() => { setActiveTab('contact'); setMobileMenuOpen(false); }}
-                  style={{ padding: '10px 14px', background: '#7B0505', color: '#ffffff', borderRadius: '10px', border: 'none', fontWeight: 700, fontSize: '13px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', cursor: 'pointer' }}
-                >
-                  <PhoneCall size={14} /> Contact Us
-                </button>
-                <button
-                  onClick={() => { if (onOpenAboutModal) onOpenAboutModal('about'); setMobileMenuOpen(false); }}
-                  style={{ padding: '10px 14px', background: '#fdf2f8', color: '#7B0505', borderRadius: '10px', border: '1px solid #7B0505', fontWeight: 700, fontSize: '13px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', cursor: 'pointer' }}
-                >
-                  <Info size={14} /> About Us
-                </button>
-              </div>
+              ))}
             </div>
           </div>
-        </>
-      )}
-    </header>
+
+          {/* Try Your Home Tools Category Grid */}
+          <div style={{ background: '#fdfaf8', padding: '12px', borderRadius: '12px', border: '1px solid #f0e6e6' }}>
+            <div style={{ fontWeight: 800, color: '#7B0505', fontSize: '13px', display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '8px' }}>
+              <Layers size={15} /> Try Your Home (Tools & Supplies)
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(130px, 1fr))', gap: '6px' }}>
+              {[
+                { label: '🥣 Tools & Equipment', val: 'Tools' },
+                { label: '🧁 Moulds & Forms', val: 'Moulds' },
+                { label: '✨ Decorating Tools', val: 'Decorations' },
+                { label: '📦 Packaging & Boxes', val: 'Packaging' },
+                { label: '🥛 Ingredients', val: 'Ingredients' },
+                { label: '🍓 Flavours & Powders', val: 'Flavours' }
+              ].map((item) => (
+                <button
+                  key={item.val}
+                  onClick={() => { handleToolsSelect(item.val); setMobileMenuOpen(false); }}
+                  style={{ textAlign: 'left', padding: '8px 10px', fontSize: '12px', fontWeight: 600, color: '#3d2314', background: '#ffffff', border: '1px solid #eee', borderRadius: '8px', cursor: 'pointer' }}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Academy / Masterclasses */}
+          <button
+            onClick={() => { setActiveTab('masterclass'); setMobileMenuOpen(false); }}
+            style={{ textAlign: 'left', padding: '10px 14px', background: activeTab === 'masterclass' ? '#fdf2f8' : 'transparent', color: '#7B0505', borderRadius: '10px', border: 'none', fontWeight: 700, fontSize: '14px', display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}
+          >
+            <BookOpen size={16} /> Academy (Masterclasses)
+          </button>
+
+          {/* Order Now Options */}
+          <div style={{ background: '#fdfaf8', padding: '12px', borderRadius: '12px', border: '1px solid #f0e6e6' }}>
+            <div style={{ fontWeight: 800, color: '#7B0505', fontSize: '13px', display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '8px' }}>
+              <ShoppingBag size={15} /> Order Options
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))', gap: '6px' }}>
+              <button
+                onClick={() => { handleOrderSelect('individual'); setMobileMenuOpen(false); }}
+                style={{ textAlign: 'left', padding: '8px 10px', fontSize: '12px', fontWeight: 600, color: '#3d2314', background: '#ffffff', border: '1px solid #eee', borderRadius: '8px', cursor: 'pointer' }}
+              >
+                👤 My Profile
+              </button>
+              <button
+                onClick={() => { handleOrderSelect('preorder'); setMobileMenuOpen(false); }}
+                style={{ textAlign: 'left', padding: '8px 10px', fontSize: '12px', fontWeight: 600, color: '#3d2314', background: '#ffffff', border: '1px solid #eee', borderRadius: '8px', cursor: 'pointer' }}
+              >
+                ✨ Special Pre-Order
+              </button>
+              <button
+                onClick={() => { handleOrderSelect('corporate'); setMobileMenuOpen(false); }}
+                style={{ textAlign: 'left', padding: '8px 10px', fontSize: '12px', fontWeight: 600, color: '#3d2314', background: '#ffffff', border: '1px solid #eee', borderRadius: '8px', cursor: 'pointer' }}
+              >
+                🏢 Corporate Order
+              </button>
+            </div>
+          </div>
+
+          {/* Mobile Warehouse Button */}
+          {isAdmin && (
+            <button
+              onClick={() => { setActiveTab('warehouse'); setMobileMenuOpen(false); }}
+              style={{ textAlign: 'left', padding: '10px 14px', background: activeTab === 'warehouse' ? 'rgba(239, 68, 68, 0.1)' : 'transparent', color: '#dc2626', borderRadius: '10px', border: 'none', fontWeight: 700, fontSize: '14px', display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}
+            >
+              <ShieldAlert size={16} /> Warehouse Console
+            </button>
+          )}
+
+          {/* Quick Action Grid */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+            <button
+              onClick={() => { setActiveTab('contact'); setMobileMenuOpen(false); }}
+              style={{ padding: '10px 14px', background: '#7B0505', color: '#ffffff', borderRadius: '10px', border: 'none', fontWeight: 700, fontSize: '13px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', cursor: 'pointer' }}
+            >
+              <PhoneCall size={14} /> Contact Us
+            </button>
+            <button
+              onClick={() => { if (onOpenAboutModal) onOpenAboutModal('about'); setMobileMenuOpen(false); }}
+              style={{ padding: '10px 14px', background: '#fdf2f8', color: '#7B0505', borderRadius: '10px', border: '1px solid #7B0505', fontWeight: 700, fontSize: '13px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', cursor: 'pointer' }}
+            >
+              <Info size={14} /> About Us
+            </button>
+          </div>
+        </div>
+      </div>
+    )}
 
     {/* Floating Menu Button (Circular FAB with Icon Only) */}
     <button

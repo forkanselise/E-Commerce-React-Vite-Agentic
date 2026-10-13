@@ -2,12 +2,15 @@ import React, { useState } from 'react';
 import { X, ShoppingBag, Star, ShieldCheck, Truck, Check, Bot, Heart, CreditCard, Image as ImageIcon } from 'lucide-react';
 import { useCartStore } from '../stores/cartStore';
 import { useAiDrawerStore } from '../stores/aiDrawerStore';
+import { useBodyScrollLock } from '../hooks/useBodyScrollLock';
 
 export function ProductDetailModal({ product, onClose }) {
   const [quantity, setQuantity] = useState(1);
   const [justAdded, setJustAdded] = useState(false);
   const { addItem } = useCartStore();
   const { openDrawer, sendMessage } = useAiDrawerStore();
+
+  useBodyScrollLock(Boolean(product));
 
   if (!product) return null;
 
@@ -41,12 +44,14 @@ export function ProductDetailModal({ product, onClose }) {
     }} onClick={onClose}>
       
       <div
-        className="animate-fade-in mobile-modal-content"
+        className="animate-fade-in mobile-modal-content modal-scrollable"
         style={{
           width: '100%',
           maxWidth: '850px',
           maxHeight: '90vh',
           overflowY: 'auto',
+          overscrollBehavior: 'contain',
+          WebkitOverflowScrolling: 'touch',
           padding: '24px',
           position: 'relative',
           background: '#ffffff',

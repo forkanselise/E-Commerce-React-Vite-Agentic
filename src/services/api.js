@@ -95,7 +95,7 @@ export async function customFetch(endpoint, options = {}) {
   return data;
 }
 
-// Comprehensive Mockup Catalog Dataset (Matching Buttercup / Smart Bakery Hub UI Mockup)
+// Comprehensive Mockup Catalog Dataset (Matching Buttercup Bakery Hub UI Mockup)
 export const INITIAL_PRODUCTS = [
   // --- INGREDIENTS & CHOCOLATES ---
   {
@@ -782,7 +782,7 @@ export async function createOrder(orderPayload) {
     return {
       success: true,
       data: {
-        orderNumber: `SMART-${Math.floor(100000 + Math.random() * 900000)}`,
+        orderNumber: `BC-${Math.floor(100000 + Math.random() * 900000)}`,
         status: 'Placed',
         createdAt: new Date().toISOString()
       }

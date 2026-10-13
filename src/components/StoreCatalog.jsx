@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { Search, ShoppingBag, Star, Eye, Check, SlidersHorizontal, ArrowRight, Image as ImageIcon } from 'lucide-react';
+import { Search, ShoppingBag, Star, Eye, Check, SlidersHorizontal, ArrowRight, Image as ImageIcon, SearchX, Loader2 } from 'lucide-react';
 import { useCartStore } from '../stores/cartStore';
 import { fetchProducts } from '../services/api';
 
@@ -182,15 +182,48 @@ export function StoreCatalog({ onSelectProduct, initialCategory = 'All' }) {
 
         {/* Loading Spinner */}
         {loading ? (
-          <div style={{ padding: '24px', textAlign: 'center', color: '#9e8c80' }}>
-            <div style={{ fontSize: '24px', marginBottom: '12px' }}>ðŸ§</div>
-            <div>Loading Buttercup Catalog...</div>
+          <div style={{ padding: '48px 24px', textAlign: 'center', color: '#9e8c80' }}>
+            <div style={{
+              width: '56px',
+              height: '56px',
+              borderRadius: '50%',
+              background: 'rgba(123, 5, 5, 0.05)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              margin: '0 auto 14px auto',
+              color: '#7B0505'
+            }}>
+              <Loader2 size={28} className="animate-spin" />
+            </div>
+            <div style={{ fontWeight: 600, color: '#6e5849', fontSize: '15px' }}>Loading Buttercup Catalog...</div>
           </div>
         ) : filteredProducts.length === 0 ? (
-          <div style={{ padding: '24px', textAlign: 'center', background: '#ffffff', borderRadius: '18px', border: '1px solid rgba(61, 35, 20, 0.08)' }}>
-            <div style={{ fontSize: '32px', marginBottom: '12px' }}>ðŸ”</div>
-            <h3 style={{ fontSize: '18px', fontWeight: 700, color: '#3d2314' }}>No products match your search</h3>
-            <p style={{ fontSize: '14px', color: '#6e5849' }}>Try resetting category filters or search terms.</p>
+          <div style={{
+            padding: '48px 24px',
+            textAlign: 'center',
+            background: '#ffffff',
+            borderRadius: '24px',
+            border: '1px solid rgba(123, 5, 5, 0.1)',
+            boxShadow: '0 8px 25px rgba(61, 35, 20, 0.04)'
+          }}>
+            <div style={{
+              width: '64px',
+              height: '64px',
+              borderRadius: '50%',
+              background: 'rgba(123, 5, 5, 0.06)',
+              border: '1px solid rgba(123, 5, 5, 0.15)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              margin: '0 auto 16px auto',
+              color: '#7B0505',
+              boxShadow: '0 4px 12px rgba(123, 5, 5, 0.04)'
+            }}>
+              <SearchX size={30} strokeWidth={1.75} />
+            </div>
+            <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#3d2314', marginBottom: '6px' }}>No products match your search</h3>
+            <p style={{ fontSize: '14px', color: '#6e5849', maxWidth: '380px', margin: '0 auto' }}>Try resetting category filters or search terms.</p>
           </div>
         ) : (
           /* Products Grid */

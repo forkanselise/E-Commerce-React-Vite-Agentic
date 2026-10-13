@@ -59,7 +59,7 @@ export function MasterclassHub() {
         <div style={{ marginBottom: '24px' }}>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 16px', borderRadius: '9999px', background: '#fdf2f8', border: '1px solid #f472b6', marginBottom: '14px' }}>
             <GraduationCap size={14} color="#7B0505" />
-            <span style={{ fontSize: '12px', fontWeight: 800, color: '#7B0505' }}>Smart Bakery Academy</span>
+            <span style={{ fontSize: '12px', fontWeight: 800, color: '#7B0505' }}>Buttercup Academy</span>
           </div>
           <h1 style={{ fontSize: '32px', fontWeight: 800, color: '#3d2314', fontFamily: 'var(--font-heading)' }}>
             Baking Classes For All Skill Levels

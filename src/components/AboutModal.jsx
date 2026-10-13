@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { X, Award, ShieldCheck, Heart, Camera, Video, Sparkles, CheckCircle2, FileText, Coffee, Package, Users } from 'lucide-react';
 import logoImg from '../assets/Picture2.png';
+import { useBodyScrollLock } from '../hooks/useBodyScrollLock';
 
 export function AboutModal({ isOpen, onClose, initialTab = 'about' }) {
   const [activeTab, setActiveTab] = useState(initialTab); // 'about' | 'services' | 'gallery' | 'license'
+
+  useBodyScrollLock(isOpen);
 
   if (!isOpen) return null;
 
@@ -19,7 +22,7 @@ export function AboutModal({ isOpen, onClose, initialTab = 'about' }) {
       backdropFilter: 'blur(8px)',
       padding: '20px'
     }}>
-      <div className="mobile-modal-content" style={{
+      <div className="mobile-modal-content modal-scrollable" style={{
         background: '#ffffff',
         width: '100%',
         maxWidth: '850px',

@@ -2,9 +2,12 @@ import React, { useState, useEffect, useRef } from 'react';
 import { X, User, Phone, Mail, Camera, ShieldCheck, Award, Save, Loader2, Sparkles, Check, LogOut, Upload, CloudUpload, Image as ImageIcon, RefreshCw, Trash2 } from 'lucide-react';
 import { useAuthStore } from '../stores/authStore';
 import { uploadToCloudinary, CLOUDINARY_CLOUD_NAME } from '../services/api';
+import { useBodyScrollLock } from '../hooks/useBodyScrollLock';
 
 export function UserProfileModal() {
   const { user, isProfileModalOpen, closeProfileModal, updateProfile, logout, isLoading, error } = useAuthStore();
+
+  useBodyScrollLock(isProfileModalOpen && Boolean(user));
 
   const [fullName, setFullName] = useState('');
   const [phone, setPhone] = useState('');
@@ -88,7 +91,7 @@ export function UserProfileModal() {
     }} onClick={closeProfileModal}>
       
       <div
-        className="animate-fade-in mobile-modal-content"
+        className="animate-fade-in mobile-modal-content modal-scrollable"
         style={{
           width: '100%',
           maxWidth: '540px',

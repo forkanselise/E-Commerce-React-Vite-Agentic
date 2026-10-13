@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { X, Send, Bot, Sparkles, ShieldAlert, BookOpen, Layers, Cpu } from 'lucide-react';
 import { useAiDrawerStore } from '../stores/aiDrawerStore';
 import { useCartStore } from '../stores/cartStore';
+import { useBodyScrollLock } from '../hooks/useBodyScrollLock';
 
 export function AiConciergeDrawer() {
   const [inputText, setInputText] = useState('');
@@ -17,6 +18,8 @@ export function AiConciergeDrawer() {
     activeToolName,
     sendMessage
   } = useAiDrawerStore();
+
+  useBodyScrollLock(isOpen);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -64,7 +67,7 @@ export function AiConciergeDrawer() {
     }} onClick={closeDrawer}>
       
       <div
-        className="animate-fade-in mobile-drawer-full"
+        className="animate-fade-in mobile-drawer-full modal-scrollable"
         style={{
           width: '100%',
           maxWidth: '460px',
@@ -101,7 +104,7 @@ export function AiConciergeDrawer() {
             </div>
 
             <div>
-              <div style={{ fontSize: '15px', fontWeight: 800, color: '#3d2314' }}>Smart Bakery AI Concierge</div>
+              <div style={{ fontSize: '15px', fontWeight: 800, color: '#3d2314' }}>Buttercup AI Concierge</div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11px', color: '#6e5849' }}>
                 <span className="pulse-dot"></span>
                 <span>Active: <strong>{activeAgent}</strong></span>

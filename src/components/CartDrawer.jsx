@@ -4,6 +4,7 @@ import confetti from 'canvas-confetti';
 import { useCartStore } from '../stores/cartStore';
 import { useAuthStore } from '../stores/authStore';
 import { createOrder } from '../services/api';
+import { useBodyScrollLock } from '../hooks/useBodyScrollLock';
 
 export function CartDrawer() {
   const [couponInput, setCouponInput] = useState('');
@@ -29,6 +30,8 @@ export function CartDrawer() {
 
   const { user } = useAuthStore();
 
+  useBodyScrollLock(isCartDrawerOpen);
+
   if (!isCartDrawerOpen) return null;
 
   const handleApplyCoupon = (e) => {
@@ -47,7 +50,7 @@ export function CartDrawer() {
     };
 
     const res = await createOrder(orderPayload);
-    const orderNumber = res.data?.orderNumber || `SMART-${Date.now().toString().slice(-6)}`;
+    const orderNumber = res.data?.orderNumber || `BC-${Date.now().toString().slice(-6)}`;
 
     setOrderPlaced({
       orderNumber,
@@ -82,7 +85,7 @@ export function CartDrawer() {
     }} onClick={closeCart}>
       
       <div
-        className="animate-fade-in mobile-drawer-full"
+        className="animate-fade-in mobile-drawer-full modal-scrollable"
         style={{
           width: '100%',
           maxWidth: '440px',
@@ -99,7 +102,7 @@ export function CartDrawer() {
         <div style={{ padding: '20px', borderBottom: '1px solid rgba(61, 35, 20, 0.08)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: '#faf6f0' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <ShoppingBag size={20} color="#7B0505" />
-            <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#3d2314' }}>Smart Bakery Cart</h3>
+            <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#3d2314' }}>Buttercup Cart</h3>
             <span style={{ fontSize: '11px', fontWeight: 800, padding: '2px 8px', background: '#7B0505', color: '#ffffff', borderRadius: '9999px' }}>
               {items.length} items
             </span>
@@ -143,7 +146,7 @@ export function CartDrawer() {
               </div>
               <h3 style={{ fontSize: '20px', fontWeight: 800, color: '#3d2314', marginBottom: '8px' }}>Order Confirmed!</h3>
               <p style={{ fontSize: '13px', color: '#6e5849', marginBottom: '16px' }}>
-                Thank you for ordering with Smart Bakery. Your order tracking number is <strong>#{orderPlaced.orderNumber}</strong>.
+                Thank you for ordering with Buttercup. Your order tracking number is <strong>#{orderPlaced.orderNumber}</strong>.
               </p>
               <button
                 onClick={() => { setOrderPlaced(null); closeCart(); }}

@@ -82,7 +82,7 @@ export function ContactSection() {
                 </div>
                 <div>
                   <div style={{ fontSize: '14px', fontWeight: 800, color: '#3d2314' }}>Email Us</div>
-                  <div style={{ fontSize: '13px', color: '#6e5849' }}>info@smartbakery.com</div>
+                  <div style={{ fontSize: '13px', color: '#6e5849' }}>info@buttercupbakery.com</div>
                 </div>
               </div>
 

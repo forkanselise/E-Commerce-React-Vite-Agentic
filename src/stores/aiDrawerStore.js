@@ -7,14 +7,14 @@ const backendOrigin = API_BASE_URL.replace(/\/api\/?$/, '');
 
 export const useAiDrawerStore = create((set, get) => ({
   isOpen: false,
-  activeModelId: 'smart-bakery-agent',
-  activeModelName: 'Smart Bakery AI Multi-Agent Concierge',
+  activeModelId: 'buttercup-agent',
+  activeModelName: 'Buttercup AI Multi-Agent Concierge',
   messages: [
     {
       id: 'welcome_msg',
       sender: 'RouterConcierge',
       role: 'assistant',
-      text: "Hello! 🧁 Welcome to Smart Bakery Hub. I am your AI Concierge. Ask me about Callebaut chocolates, Anchor dairy, baking tools, video masterclasses, or adding items directly to your shopping cart.",
+      text: "Hello! 🧁 Welcome to Buttercup Hub. I am your AI Concierge. Ask me about Callebaut chocolates, Anchor dairy, baking tools, video masterclasses, or adding items directly to your shopping cart.",
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     }
   ],
@@ -79,7 +79,7 @@ export const useAiDrawerStore = create((set, get) => ({
     set({
       messages: [...get().messages, userMessage],
       isThinking: true,
-      currentThought: 'Analyzing query intent and searching Smart Bakery catalog...'
+      currentThought: 'Analyzing query intent and searching Buttercup catalog...'
     });
 
     // Try backend endpoint first
@@ -108,7 +108,7 @@ export const useAiDrawerStore = create((set, get) => ({
             );
             const displayProducts = matches.length > 0 ? matches.slice(0, 3) : INITIAL_PRODUCTS.slice(0, 3);
 
-            responseText = `📦 **Smart Bakery Catalog Matches:**\n\n` +
+            responseText = `📦 **Buttercup Catalog Matches:**\n\n` +
               displayProducts.map(p => 
                 `• **${p.title}**\n` +
                 `  🏷️ Price: ৳${p.price.toLocaleString()} BDT | 📦 In Stock: ${p.warehouseStock} units\n` +
@@ -152,12 +152,12 @@ export const useAiDrawerStore = create((set, get) => ({
       "crypto", "bitcoin", "solve math", "calculate", "who won"
     ];
     if (outOfDomainKeywords.some(k => lower.includes(k))) {
-      replyText = "I can only answer questions related to Smart Bakery products, tools, baking tutorials, and your shopping cart. I can't assist with queries outside my domain.";
+      replyText = "I can only answer questions related to Buttercup products, tools, baking tutorials, and your shopping cart. I can't assist with queries outside my domain.";
       agent = 'RouterConcierge';
     } 
     // 2. Greetings Intent
     else if (lower === 'hi' || lower === 'hello' || lower === 'hey' || lower === 'good morning') {
-      replyText = "Hello! 🧁 Welcome to Smart Bakery Hub. I can help you find artisan chocolates, dairy ingredients, baking tools, fresh cakes, or enroll in masterclasses. What are you baking today?";
+      replyText = "Hello! 🧁 Welcome to Buttercup Hub. I can help you find artisan chocolates, dairy ingredients, baking tools, fresh cakes, or enroll in masterclasses. What are you baking today?";
       agent = 'RouterConcierge';
     }
     // 3. Add to Cart Intent
@@ -194,7 +194,7 @@ export const useAiDrawerStore = create((set, get) => ({
 
       const coursesToList = matchedCourses.length > 0 ? matchedCourses : INITIAL_TUTORIALS.slice(0, 2);
 
-      replyText = `🎓 **Smart Bakery Academy Masterclasses Found:**\n\n` + 
+      replyText = `🎓 **Buttercup Academy Masterclasses Found:**\n\n` + 
         coursesToList.map(c => 
           `• **${c.title}** (${c.skillLevel})\n` +
           `  👨‍🍳 Instructor: ${c.instructor.name} | ⏱️ Duration: ${c.durationMinutes} mins | ৳${c.price.toLocaleString()} BDT\n` +
@@ -215,7 +215,7 @@ export const useAiDrawerStore = create((set, get) => ({
 
       const displayProducts = matches.length > 0 ? matches.slice(0, 3) : INITIAL_PRODUCTS.slice(0, 3);
 
-      replyText = `📦 **Smart Bakery Inventory Matches:**\n\n` +
+      replyText = `📦 **Buttercup Inventory Matches:**\n\n` +
         displayProducts.map(p => 
           `• **${p.title}**\n` +
           `  🏷️ Price: ৳${p.price.toLocaleString()} BDT | 📦 In Stock: ${p.warehouseStock} units | SKU: ${p.sku}\n` +

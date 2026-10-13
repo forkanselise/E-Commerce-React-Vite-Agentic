@@ -21,7 +21,7 @@ export function BlogRecipesSection() {
         <div style={{ marginBottom: '24px' }}>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 16px', borderRadius: '9999px', background: '#fdf2f8', border: '1px solid #f472b6', marginBottom: '14px' }}>
             <Sparkles size={14} color="#7B0505" />
-            <span style={{ fontSize: '12px', fontWeight: 800, color: '#7B0505' }}>Smart Bakery Journal</span>
+            <span style={{ fontSize: '12px', fontWeight: 800, color: '#7B0505' }}>Buttercup Bakery Journal</span>
           </div>
           <h1 style={{ fontSize: '32px', fontWeight: 800, color: '#3d2314', fontFamily: 'var(--font-heading)' }}>
             Baking Tips & Professional Recipes

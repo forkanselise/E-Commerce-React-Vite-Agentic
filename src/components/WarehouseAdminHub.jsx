@@ -252,7 +252,10 @@ export function WarehouseAdminHub() {
         return;
       }
 
-      const newProduct = { ...newProductPayload, id: createdProduct.id };
+      const newProduct = { 
+        ...newProductPayload, 
+        id: createdProduct?.id || createdProduct?.Id || createdProduct?._id || ('prod_' + Date.now()) 
+      };
       setProducts([newProduct, ...products]);
       setSuccessToast(`Product '${newProduct.title}' added successfully to the database!`);
       setSelectedProductId(newProduct.id);
