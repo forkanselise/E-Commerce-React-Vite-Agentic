@@ -422,14 +422,15 @@ export function WarehouseAdminHub() {
                   <th style={{ padding: '10px 8px' }}>Product</th>
                   <th style={{ padding: '10px 8px' }}>SKU</th>
                   <th style={{ padding: '10px 8px' }}>Category</th>
-                  <th style={{ padding: '10px 8px' }}>Stock</th>
-                  <th style={{ padding: '10px 8px' }}>Status</th>
+                  <th style={{ padding: '10px 8px', whiteSpace: 'nowrap' }}>Stock</th>
+                  <th style={{ padding: '10px 8px', whiteSpace: 'nowrap', minWidth: '105px' }}>Status</th>
                 </tr>
               </thead>
               <tbody>
                 {products.map(p => {
                   const isSelected = selectedProductId === p.id;
-                  const isLow = p.warehouseStock <= 15;
+                  const isOutOfStock = p.warehouseStock <= 0;
+                  const isLow = p.warehouseStock > 0 && p.warehouseStock <= 15;
 
                   return (
                     <tr
@@ -451,14 +452,25 @@ export function WarehouseAdminHub() {
                       <td style={{ padding: '12px 8px' }}>
                         <span className="badge badge-amber" style={{ fontSize: '11px' }}>{p.category}</span>
                       </td>
-                      <td style={{ padding: '12px 8px', fontWeight: 700, fontSize: '14px' }}>
+                      <td style={{ padding: '12px 8px', fontWeight: 700, fontSize: '14px', whiteSpace: 'nowrap' }}>
                         {p.warehouseStock} units
                       </td>
-                      <td style={{ padding: '12px 8px' }}>
-                        {isLow ? (
-                          <span className="badge badge-rose" style={{ fontSize: '11px' }}>Low Stock</span>
+                      <td style={{ padding: '12px 8px', whiteSpace: 'nowrap' }}>
+                        {isOutOfStock ? (
+                          <span className="badge badge-rose" style={{ fontSize: '11px' }}>
+                            <span className="badge-dot badge-dot-rose" />
+                            Out of Stock
+                          </span>
+                        ) : isLow ? (
+                          <span className="badge badge-rose" style={{ fontSize: '11px' }}>
+                            <span className="badge-dot badge-dot-rose" />
+                            Low Stock
+                          </span>
                         ) : (
-                          <span className="badge badge-emerald" style={{ fontSize: '11px' }}>Optimal</span>
+                          <span className="badge badge-emerald" style={{ fontSize: '11px' }}>
+                            <span className="badge-dot badge-dot-emerald" />
+                            Optimal
+                          </span>
                         )}
                       </td>
                     </tr>
